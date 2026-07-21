@@ -1,0 +1,218 @@
+/* ============================================================================
+   Global base styles — element defaults, shared primitives, motion rules.
+   Component-specific styling lives in each .astro component's scoped <style>.
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Header spacer height must equal the real (unscrolled) header height, which is
+   driven by the logo: 14px + logo + 14px + 1px border. The logo caps smaller on
+   phones (SiteHeader §mobile), so --header-h tracks it — otherwise a white gap
+   appears beneath the fixed nav. Defined here (not tokens.css) to keep that file
+   selector-free. */
+@media (max-width: 560px) { :root { --header-h: 69px; } }  /* logo 40px */
+@media (max-width: 380px) { :root { --header-h: 63px; } }  /* logo 34px */
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 16.5px;
+  line-height: var(--leading-body);
+  color: var(--text-body);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a { color: var(--sas-purple); }
+a:hover { color: var(--sas-purple-70); }
+
+img, svg, video { display: block; max-width: 100%; }
+
+h1, h2, h3, h4 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+::selection { background: var(--sas-purple-15); }
+
+/* Visible focus on everything interactive (playbook §2 a11y). */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+  border-radius: var(--radius-sm);
+}
+
+/* Screen-reader-only utility (prefer over invented ARIA — playbook §2). */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip link — visually hidden until focused. */
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: -60px;
+  z-index: calc(var(--z-consent) + 1);
+  background: var(--sas-purple-deep);
+  color: var(--sas-white);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top var(--duration-med) var(--ease-out);
+}
+.skip-link:focus { top: var(--space-4); color: var(--sas-white); }
+
+/* ============================================================================
+   Shared primitives — used across pages and slotted hero content.
+   ========================================================================== */
+
+/* Layout container */
+.container { max-width: var(--container-max); margin: 0 auto; padding-inline: var(--section-x); }
+.container--narrow { max-width: var(--container-narrow); }
+
+/* Section vertical rhythm */
+.section { padding-block: var(--space-9); }
+.section--subtle { background: var(--surface-subtle); }
+.section--lilac { background: var(--sas-purple-05); }
+.section--brand { background: var(--surface-brand-gradient); color: var(--text-on-dark); }
+
+/* Eyebrow label */
+.eyebrow {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-size: 12.5px;
+  color: var(--sas-purple);
+  margin: 0 0 16px;
+}
+.eyebrow--on-dark { color: var(--sas-gold); }
+
+/* Section headings */
+.h2 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--heading-tracking);
+  color: var(--sas-purple-deep);
+  line-height: 1.16;
+  font-size: clamp(24px, 3vw, 40px);
+  margin: 0;
+}
+.h2--on-dark { color: var(--sas-white); }
+
+/* Gold divider rule */
+.gold-divider { width: 48px; height: 3px; background: var(--sas-gold); border: 0; margin: 24px 0; }
+
+/* Bespoke reveal: the gold rule wipes in from the left when its section reveals.
+   Gated by html.anim (JS + motion-allowed only) so it defaults to fully drawn. */
+:root.anim .gold-divider { transform: scaleX(0); transform-origin: left; transition: transform .6s var(--ease-out) .15s; }
+:root.anim .is-revealed .gold-divider { transform: scaleX(1); }
+
+/* Body lead */
+.lead { font-size: 16.5px; line-height: 1.6; color: var(--sas-ink); max-width: 62ch; }
+
+/* Circular portrait — for images that are a circle on a transparent square canvas
+   (e.g. Craig's headshot placeholder). Displayed whole, never cover-cropped. */
+.img-circle {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: contain;
+  display: block;
+  margin-inline: auto;
+}
+
+/* Hero text (slotted into Hero.astro) */
+.hero-h1 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--heading-tracking);
+  line-height: 1.08;
+  color: var(--sas-white);
+  margin: 0;
+  font-size: clamp(36px, 5vw, 64px);
+}
+/* Floor tuned so this 43-char headline stays within 3 lines even on a 375px phone
+   (measured: needs ~23px at 327px content width). Desktop uses the 72px ceiling. */
+.hero-h1--home { font-size: clamp(23px, 6vw, 72px); }
+.hero-lead {
+  font-size: clamp(16.5px, 1.4vw, 19px);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, .92);
+  max-width: 58ch;
+  margin: 28px 0 0;
+}
+.hero-actions { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 32px; }
+
+/* --- Buttons (pills) --- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-button);
+  font-size: 14px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-pill);
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease,
+    transform var(--duration-med) var(--ease-out), box-shadow var(--duration-med) ease;
+}
+.btn--gold {
+  /* Subtle metallic sheen (top-lit) — a material treatment, not decoration. */
+  background: linear-gradient(180deg, #e0c257 0%, var(--sas-gold) 52%, #c6a231 100%);
+  color: var(--sas-purple-deep);
+  padding: 17px 32px;
+}
+.btn--gold:hover {
+  background: linear-gradient(180deg, #cba533 0%, var(--sas-gold-70) 100%);
+  color: var(--sas-purple-deep);
+  transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 30px rgba(54, 24, 79, .38);
+}
+.btn--gold:focus-visible { box-shadow: var(--focus-ring-gold); }
+.btn--outline {
+  background: transparent; color: var(--sas-white);
+  border: 1.5px solid rgba(255, 255, 255, .55); padding: 15.5px 30px;
+}
+.btn--outline:hover {
+  background: var(--sas-white); color: var(--sas-purple-deep);
+  transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 30px rgba(54, 24, 79, .38);
+}
+.btn--purple { background: var(--sas-purple); color: var(--sas-white); padding: 17px 32px; }
+.btn--purple:hover {
+  background: var(--sas-purple-70); color: var(--sas-white);
+  transform: translateY(-3px) scale(1.02); box-shadow: 0 14px 30px rgba(54, 24, 79, .38);
+}
+.btn:active { transform: translateY(1px) scale(.99); box-shadow: 0 3px 8px rgba(54, 24, 79, .25); }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+}
+
+/* Reduced motion kills all animation + smooth scroll (playbook §5). */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,211 @@
+---
+/* ============================================================================
+   Base layout — the SEO/head engine + page skeleton every page runs through.
+   Playbook §4: title ≤60, desc ≤155, one H1 (in the page), canonical slashed,
+   OG + twitter on every page (incl. thank-you), lang=en-GB, og:locale en_GB.
+   ========================================================================== */
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/500.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/400-italic.css';
+import '../styles/gotham.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+
+import { siteUrl, site } from '../data/site';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Active nav key: 'home' | 'about' | 'services' | 'contact' | undefined */
+  active?: string;
+  /** Absolute or root-relative OG image path (1200×630). Omit until bespoke images exist. */
+  ogImage?: string;
+  /** Exclude from index (funnels, thank-you). Also excluded from sitemap in astro.config. */
+  noindex?: boolean;
+  /** JSON-LD objects for this page (Service, FAQPage, BreadcrumbList, etc.). */
+  schema?: Record<string, unknown>[];
+}
+
+const {
+  title,
+  description,
+  active,
+  ogImage,
+  noindex = false,
+  schema = [],
+} = Astro.props;
+
+// Trailing-slash canon: canonical == sitemap URL == the 200 URL (playbook §1).
+const canonical = new URL(Astro.url.pathname, siteUrl).href;
+
+// Preview builds are not indexable. Until PUBLIC_INDEXABLE === 'true' (set at launch),
+// every page carries noindex,follow — belt-and-braces behind the Basic-Auth gate.
+const indexable = import.meta.env.PUBLIC_INDEXABLE === 'true';
+const robotsNoindex = noindex || !indexable;
+const ogImageAbs = ogImage ? new URL(ogImage, siteUrl).href : undefined;
+
+// Site-wide schema (playbook §4 standard stack: Organization + WebSite).
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AccountingService',
+  '@id': `${siteUrl}/#organization`,
+  name: site.legalName,
+  alternateName: site.name,
+  url: `${siteUrl}/`,
+  telephone: site.phoneOffice,
+  email: site.emailPrimary,
+  founder: { '@type': 'Person', name: site.founder },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.locality,
+    addressRegion: site.address.region,
+    postalCode: site.address.postcode,
+    addressCountry: site.address.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: site.geo.latitude,
+    longitude: site.geo.longitude,
+  },
+  areaServed: 'Yorkshire',
+};
+
+const webSiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${siteUrl}/#website`,
+  url: `${siteUrl}/`,
+  name: site.name,
+  publisher: { '@id': `${siteUrl}/#organization` },
+  inLanguage: 'en-GB',
+};
+
+const allSchema = [orgSchema, webSiteSchema, ...schema];
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {robotsNoindex && <meta name="robots" content="noindex,follow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_GB" />
+    {ogImageAbs && <meta property="og:image" content={ogImageAbs} />}
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content={ogImageAbs ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageAbs && <meta name="twitter:image" content={ogImageAbs} />}
+
+    <meta name="theme-color" content="#36184f" />
+
+    {allSchema.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <SiteHeader active={active} />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <script>
+      // Attribution capture (playbook §6): store ad-click + campaign params on first
+      // landing so every lead payload can be attributed. No cookies, no third parties —
+      // localStorage only. Persists the first-touch values across the visit.
+      (() => {
+        try {
+          const KEY = 'sas_attribution';
+          const params = new URLSearchParams(window.location.search);
+          const keys = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+          const existing = JSON.parse(localStorage.getItem(KEY) || '{}');
+          let changed = false;
+          for (const k of keys) {
+            const v = params.get(k);
+            if (v && !existing[k]) { existing[k] = v; changed = true; }
+          }
+          if (changed || !localStorage.getItem(KEY)) {
+            if (!existing.landing_page) existing.landing_page = window.location.pathname;
+            localStorage.setItem(KEY, JSON.stringify(existing));
+          }
+        } catch { /* localStorage unavailable — attribution simply absent */ }
+      })();
+    </script>
+
+    <script>
+      // Scroll reveals (handoff spec): reveal direct children of each section's inner
+      // container, staggered 120ms. Skip aria-hidden wrappers (curve seams) and any
+      // section already in the top half of the viewport on load. Disabled under
+      // reduced-motion.
+      // Content is visible by default (no JS = no hidden state). We only opt IN to the
+      // hidden-then-reveal behaviour by adding `anim` to <html> when motion is allowed
+      // and IntersectionObserver exists — so a headless/no-JS render never ships blank.
+      // `is-revealed` on each section additionally drives bespoke motions (gold-rule
+      // wipe, timeline draw) defined in CSS.
+      const setupReveals = () => {
+        if (!('IntersectionObserver' in window) ||
+            window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        document.documentElement.classList.add('anim');
+        const wraps = document.querySelectorAll('main > section > div, main > section > .container');
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((en) => {
+            if (!en.isIntersecting) return;
+            io.unobserve(en.target);
+            const el = en.target as HTMLElement & { __kids?: HTMLElement[] };
+            el.closest('section')?.classList.add('is-revealed');
+            (el.__kids || []).forEach((k, i) =>
+              setTimeout(() => { k.style.opacity = '1'; k.style.transform = 'none'; }, i * 110));
+          });
+        }, { rootMargin: '0px 0px -12% 0px' });
+        wraps.forEach((w) => {
+          const el = w as HTMLElement & { __kids?: HTMLElement[] };
+          if (el.hasAttribute('aria-hidden')) return;
+          if (el.getBoundingClientRect().top < window.innerHeight * 0.5) {
+            el.closest('section')?.classList.add('is-revealed');
+            return;
+          }
+          let kids = Array.from(el.children).filter(
+            (k) => k.tagName !== 'SCRIPT' && k.tagName !== 'STYLE'
+          ) as HTMLElement[];
+          if (!kids.length) kids = [el];
+          kids.forEach((k) => {
+            k.style.opacity = '0';
+            k.style.transform = 'translateY(32px)';
+            k.style.transition = 'opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1)';
+          });
+          el.__kids = kids;
+          io.observe(el);
+        });
+        // Failsafe: if anything is still hidden 2.5s after load (e.g. observer never
+        // fired in an odd environment), force it visible so nothing ships blank.
+        setTimeout(() => {
+          document.querySelectorAll<HTMLElement>('main > section > div, main > section > .container')
+            .forEach((w) => Array.from(w.children).forEach((k) => {
+              const el = k as HTMLElement;
+              if (el.style.opacity === '0') { el.style.opacity = '1'; el.style.transform = 'none'; }
+            }));
+        }, 2500);
+      };
+      setTimeout(setupReveals, 80);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+# Netlify configuration — Smart Accounting Solutions
+# Static Astro build + a preview password gate (netlify/edge-functions/preview-gate.ts,
+# auto-discovered via its in-file `config.path`). Push to `main` auto-deploys.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+  # Indexing is OFF by default (preview). Set PUBLIC_INDEXABLE = "true" in the Netlify
+  # UI at launch to allow indexing (flips robots.txt + removes the site-wide noindex).
+  # SITE_URL is set in the UI to the real domain at launch (drives canonicals/sitemap).
+
+# Baseline security headers (playbook §11 pre-launch).
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=(), interest-cohort=()"

@@ -1,0 +1,53 @@
+---
+/* Shared hero shell — deep-purple gradient over the backdrop photo. The backdrop is
+   the LCP element: rendered as a sized WebP and set as the section background.
+   Optional `band` slot renders a full-width strip below the hero content (home). */
+import { getImage } from 'astro:assets';
+import backdrop from '../assets/images/hero-backdrop.png';
+
+interface Props {
+  size?: 'home' | 'inner';
+}
+const { size = 'inner' } = Astro.props;
+const hasBand = Astro.slots.has('band');
+
+const bg = await getImage({ src: backdrop, format: 'webp', width: 1920, quality: 70 });
+---
+
+<section class={`hero hero--${size}`} aria-label="Introduction" style={`--hero-bg: url('${bg.src}')`}>
+  <div class="hero-inner">
+    <slot />
+  </div>
+  {hasBand && (
+    <div class="hero-band">
+      <div class="container"><slot name="band" /></div>
+    </div>
+  )}
+</section>
+
+<style>
+  .hero {
+    background-color: var(--sas-purple-deep);
+    background-image:
+      linear-gradient(100deg, #36184f 0%, rgba(54, 24, 79, .95) 48%, rgba(54, 24, 79, .55) 100%),
+      var(--hero-bg);
+    background-size: cover;
+    background-position: center 65%;
+  }
+  .hero-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 96px var(--section-x) 88px;
+    animation: heroRise .7s var(--ease-out) both;
+  }
+  .hero--home .hero-inner { padding: 120px var(--section-x) 96px; }
+
+  .hero-band { border-top: 1px solid rgba(255, 255, 255, .2); }
+  .hero-band .container { padding-block: 18px; }
+
+  @keyframes heroRise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) { .hero-inner { animation: none; } }
+</style>

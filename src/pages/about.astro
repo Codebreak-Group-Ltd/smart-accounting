@@ -1,0 +1,188 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import CurveSeam from '../components/CurveSeam.astro';
+import BrandMark from '../components/BrandMark.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import type { FaqItem } from '../components/Faq.astro';
+import { Image } from 'astro:assets';
+import { site, siteUrl } from '../data/site';
+
+import craig from '../assets/images/craig-normington.webp';
+import precisionStillLife from '../assets/images/precision-still-life.png';
+import theAdvisoryMoment from '../assets/images/the-advisory-moment.png';
+
+// SEO metadata to playbook §4 (design meta was not client-approved).
+const title = 'Craig Normington | Small Business Accountant, Penistone';
+const description = 'Meet Craig Normington: 25+ years helping small businesses across Yorkshire. The accountant who shows up all year, not just at year end. Say hello.';
+
+const faqs: FaqItem[] = [
+  { q: 'What is Smart Accounting Solutions?', a: 'Smart Accounting Solutions is a bookkeeping bureau and accountancy service based in Sheffield, run by Craig Normington. The business specialises in bookkeeping, VAT, management accounts, year-end accounts, and tax returns for small and medium-sized businesses, sole traders, and landlords. It operates in association with Buckle Barton Bookkeeping and Accountancy Services Ltd to provide a full range of year-end and compliance services.' },
+  { q: 'Who is Craig Normington?', a: 'Craig Normington is the Director of Smart Accounting Solutions and has over 25 years of experience in bookkeeping and accountancy, working directly with small businesses across a wide range of sectors. He built Smart Accounting Solutions specifically to serve the sole traders, small limited companies, and landlords that he felt were being underserved by conventional accountancy practices.' },
+  { q: 'What makes Smart Accounting Solutions different from other accountants?', a: 'The primary difference is personal involvement and continuity. You will always deal with the same bookkeeper who knows your business, and Craig is always directly accessible - not a call centre, not a form, not a three-day wait. Smart Accounting Solutions also places a strong emphasis on regular face-to-face meetings, management accounts, and business understanding - not just compliance-led year-end work.' },
+  { q: 'How often should I expect to hear from my accountant?', a: 'At minimum, quarterly - particularly for VAT and management accounts. For businesses that are growing, changing, or planning significant decisions, monthly contact is appropriate. A good accountant initiates contact when something matters, not only when you reach out to them.' },
+  { q: "I've had a bad experience with an accountant before. How is this different?", a: 'The most common complaints about accountants are: not being proactive, being hard to reach, only engaging at year end, and sending bills for every small query. Smart Accounting Solutions is designed to address all of these. You deal directly with Craig, he is always accessible, meetings are regular, and fees are agreed upfront with no surprise charges. The initial conversation is free - you can assess the fit before committing to anything.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${siteUrl}/about/#faq`,
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'About', item: `${siteUrl}/about/` },
+  ],
+};
+---
+
+<Base title={title} description={description} active="about" schema={[faqSchema, breadcrumb]}>
+  <Hero>
+    <h1 class="hero-h1 about-h1">Built for the businesses everyone else is too busy to look after</h1>
+    <p class="hero-lead">
+      Smart Accounting Solutions exists because small business owners deserve an accountant
+      who actually shows up. Not just once a year, but throughout the year, when the decisions
+      that matter are being made.
+    </p>
+    <div class="hero-actions">
+      <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
+    </div>
+  </Hero>
+
+  <!-- Craig's story -->
+  <section aria-label="Craig's story">
+    <CurveSeam fill="#ffffff" variant="up" />
+    <div class="container two-col two-col--start pad-lg">
+      <div>
+        <p class="eyebrow">Craig's story</p>
+        <h2 class="h2 h2--story">My name is Craig Normington. I have been doing this for over 25 years.</h2>
+        <p class="body mt-28">I started in accountancy straight out of sixth form, joining a small firm at exactly the moment computerised accounts were arriving. I grew up with the industry. I have seen how it works, what it does well, and where it falls short.</p>
+        <p class="story-callout">What it falls short on is the small stuff.</p>
+        <p class="body mt-28">The sole trader who gets a confusing letter from HMRC and has nobody to call. The business turning over half a million pounds with a bookkeeper who can process invoices but cannot tell the owner whether they are profitable. The limited company director who sees their accountant once a year, signs the accounts without really understanding them, and carries on hoping for the best.</p>
+        <p class="body mt-18">I have spent my career working with exactly these people. And I wanted to build something specifically for them.</p>
+        <p class="body mt-18">Smart Accounting Solutions is that thing. A bookkeeping bureau that does not just handle your compliance. It helps you understand your business, make better decisions, and stop losing sleep over the numbers.</p>
+      </div>
+      <Image src={craig} alt="Craig Normington, Director of Smart Accounting Solutions, bookkeeper and accountant serving small businesses across West and North Yorkshire" widths={[400, 600, 760]} sizes="(max-width: 900px) 100vw, 460px" class="img-circle craig-sticky" />
+    </div>
+  </section>
+
+  <!-- What drives this -->
+  <section aria-label="What drives this" class="band-subtle">
+    <CurveSeam fill="#ffffff" />
+    <div class="container two-col two-col--center pad-lg">
+      <Image src={precisionStillLife} alt="A purple notebook, fountain pen, reading glasses and a cup of coffee on a desk in morning light" widths={[400, 600, 760]} sizes="(max-width: 900px) 100vw, 560px" class="photo photo--drives order-first" />
+      <div>
+        <h2 class="h2 h2--md2">What drives this?</h2>
+        <p class="body mt-28">This idea has been in the back of my mind for years. Not because there was a gap in the market, though there is, but because of the clients I have worked with and what I have seen them go through.</p>
+        <p class="body mt-18">Too many small business owners are carrying stress they should not have to carry. They are doing their best to run a business while trying to figure out HMRC letters, rising costs eating into their margins, quarterly submissions, year-end deadlines and software they were never properly shown how to use.</p>
+        <p class="body mt-18">The large businesses have finance directors, management accountants and advisors on tap. The small business owner usually has none of that. Smart Accounting Solutions exists to change that, at a level that is actually accessible and affordable.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The job (quote band) -->
+  <section aria-label="The job" class="band-brand">
+    <CurveSeam fill="#f7f5f9" />
+    <BrandMark size="min(60vw, 600px)" color="#ffffff" opacity={0.05} bottom="-20%" right="-6%" rotate="-6deg" />
+    <div class="container container--880 pad-lg">
+      <p class="job-quote">For every client who has sat across a table from me and said "I just want someone to take all this stress away," or "I just don't know where I am" this is the answer.</p>
+      <hr class="gold-divider gold-divider--wide" />
+      <p class="job-punch">That is the job. That has always been the job.</p>
+    </div>
+  </section>
+
+  <!-- How Craig works -->
+  <section aria-label="How Craig works">
+    <CurveSeam fill="#ffffff" variant="up" />
+    <div class="container two-col two-col--center pad-lg">
+      <div>
+        <h2 class="h2 h2--md2">How Craig works</h2>
+        <p class="body mt-28">I am not interested in being one more name on a list of suppliers you rarely hear from. Every client I take on, I get to know. Their business, their industry, their margins, their habits, and yes, sometimes their personal situations too, because money and life have a habit of getting tangled together.</p>
+        <p class="body mt-18">I have dealt with property portfolios, inheritance, pension decisions, mortgage applications, and more than a few things that were technically outside the job description. If a client has a problem and I can help, I help. That is just how it works.</p>
+        <p class="body mt-18">What sets us apart is this: you will always deal with the same bookkeeper, and you will always be able to get hold of me. Not a call centre, not a form, not a three-day wait. Just someone who knows your name, knows your business, and picks up the phone. We are part of the team, and we are here to help. We do everything we can to support you in your business and anything else that you need us to do.</p>
+        <p class="body mt-18">I also believe in honesty. If your numbers are not looking good, I will tell you. If there is a smarter way to do something, I will say so. My meetings are not just a walk-through of what has happened. They are about what you can do with that information.</p>
+        <a href={site.bookingUrl} class="btn btn--gold mt-36">Book a free chat</a>
+      </div>
+      <Image src={theAdvisoryMoment} alt="Craig talking a client through a set of figures at a desk" widths={[400, 600, 760]} sizes="(max-width: 900px) 100vw, 560px" class="photo photo--cover-tall" />
+    </div>
+  </section>
+
+  <!-- Meet the team -->
+  <section aria-label="Meet the team" class="band-lilac">
+    <CurveSeam fill="#ffffff" />
+    <div class="container container--880 pad-md center">
+      <h2 class="h2 h2--team">Meet the team</h2>
+      <p class="team-lead">Smart Accounting Solutions is built around a team of well-trained bookkeepers who understand why accuracy matters, not just how to enter data. Every team member is taken through the full process, from bookkeeping to management accounts, so they understand the bigger picture of what they are doing and why it matters to the client.</p>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Come and have a conversation."
+    lead="No hard sell. No fixed agenda. Just Craig, you, and an honest chat about where your business is and what it needs."
+    leadWidth="52ch"
+    seamFill="#f4eff9"
+  />
+
+  <Faq items={faqs} seamFill="#ffffff" seamVariant="up" />
+</Base>
+
+<style>
+  .about-h1 { max-width: 22ch; font-size: clamp(30px, 4.2vw, 54px); }
+
+  .band-subtle { background: var(--sas-gray-05); }
+  .band-lilac { background: var(--sas-purple-05); }
+  .band-brand { position: relative; overflow: hidden; background: var(--surface-brand-gradient); color: var(--text-on-dark); }
+  .band-brand::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(60% 70% at 50% 12%, rgba(212, 175, 55, .12), transparent 70%);
+  }
+  .band-brand > .container { position: relative; z-index: 1; }
+
+  .pad-lg { padding-block: var(--space-9); }
+  .pad-md { padding-block: 96px; }
+  .mt-18 { margin-top: 18px; }
+  .mt-28 { margin-top: 28px; }
+  .mt-36 { margin-top: 36px; }
+  .center { text-align: center; }
+
+  .container--880 { max-width: calc(880px + 2 * var(--section-x)); }
+
+  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 64px; }
+  .two-col--center { align-items: center; }
+  .two-col--start { align-items: start; }
+
+  .body { font-size: 16.5px; line-height: 1.6; color: var(--sas-ink); max-width: 62ch; }
+
+  .h2--md2 { font-size: clamp(26px, 3vw, 38px); line-height: 1.14; }
+  .h2--story { font-size: clamp(23px, 2.6vw, 32px); line-height: 1.2; }
+  .h2--team { font-size: clamp(26px, 3vw, 36px); line-height: 1.14; }
+
+  .story-callout {
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; font-size: 21px; line-height: 1.35; color: var(--sas-purple); margin: 28px 0 0;
+  }
+
+  .photo { width: 100%; border-radius: var(--radius-lg); display: block; }
+  .craig-sticky { position: sticky; top: calc(var(--header-h) + 27px); }
+  .photo--drives { height: 100%; max-height: 520px; object-fit: cover; }
+  .photo--cover-tall { height: 100%; max-height: 620px; object-fit: cover; }
+
+  /* Job quote band */
+  .job-quote { font-size: clamp(19px, 2.2vw, 24px); line-height: 1.55; color: rgba(255, 255, 255, .94); margin: 0; }
+  .gold-divider--wide { width: 48px; margin: 44px 0; }
+  .job-punch {
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; font-size: clamp(22px, 2.6vw, 32px); line-height: 1.2; color: var(--sas-gold); margin: 0;
+  }
+
+  /* Meet the team */
+  .team-lead { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.65; color: var(--sas-ink); margin: 28px auto 0; max-width: 62ch; }
+
+  @media (min-width: 901px) { .order-first { order: -1; } }
+</style>

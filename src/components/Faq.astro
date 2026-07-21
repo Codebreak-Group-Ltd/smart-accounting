@@ -1,0 +1,71 @@
+---
+/* FAQ accordion — native <details>/<summary>, gradient hairline, plus icon that
+   rotates to a cross when open. Reused on every page. Pass `items` [{q, a}].
+   FAQPage schema is built by the page from the same array (see helper below). */
+import CurveSeam from './CurveSeam.astro';
+export interface FaqItem {
+  q: string;
+  a: string;
+}
+interface Props {
+  items: FaqItem[];
+  heading?: string;
+  eyebrow?: string;
+  seamFill?: string;
+  seamVariant?: 'down' | 'up';
+}
+const { items, heading = 'Frequently asked questions', eyebrow, seamFill, seamVariant = 'down' } = Astro.props;
+---
+<section aria-label="Frequently asked questions" class="faq-section">
+  {seamFill && <CurveSeam fill={seamFill} variant={seamVariant} />}
+  <div class="container container--narrow">
+    {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+    <h2 class="h2 faq-heading">{heading}</h2>
+    {items.map((item) => (
+      <details class="faq-item">
+        <summary class="faq-summary">
+          <span class="faq-q">{item.q}</span>
+          <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M8 1V15M1 8H15" stroke="var(--sas-purple)" stroke-width="1.75" stroke-linecap="round"></path>
+          </svg>
+        </summary>
+        <p class="faq-a">{item.a}</p>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .faq-section { padding-block: var(--space-9); }
+  .faq-heading { margin-bottom: 24px; font-size: clamp(26px, 3vw, 36px); }
+  .faq-item {
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, var(--sas-purple-15), rgba(201, 180, 224, .12)) 1;
+  }
+  .faq-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    cursor: pointer;
+    padding: 24px 0;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--sas-purple-deep);
+    list-style: none;
+  }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-summary:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: 6px; }
+  .faq-icon { flex-shrink: 0; transition: transform 160ms ease; }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); }
+  .faq-item[open] .faq-q { color: var(--sas-purple); }
+  .faq-a {
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--sas-ink);
+    margin: 0;
+    padding: 0 40px 28px 0;
+    max-width: 70ch;
+  }
+  @media (prefers-reduced-motion: reduce) { .faq-icon { transition: none; } }
+</style>

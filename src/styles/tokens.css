@@ -1,0 +1,115 @@
+/* ============================================================================
+   Smart Accounting Solutions — design tokens
+   Pure :root custom properties only. ZERO selectors (playbook §1) so this file
+   can be imported into standalone funnel/embed pages without side-effects.
+   Source of truth: design handoff _ds/.../tokens/*.css
+   ========================================================================== */
+:root {
+  /* --- Brand core --- */
+  --sas-purple-deep: #36184f; /* primary dark — logo A, headings on light */
+  --sas-purple: #5a3089;      /* primary mid — logo S letterforms */
+  --sas-gold: #d4af37;        /* accent — SMART wordmark, CTAs, highlights */
+  --sas-white: #ffffff;
+
+  /* --- Derived tints / shades (oklch-harmonised with brand) --- */
+  --sas-purple-90: #2a123e;
+  --sas-purple-70: #472468;   /* purple button hover */
+  --sas-purple-30: #8a63b5;
+  --sas-purple-15: #c9b4e0;
+  --sas-purple-05: #f4eff9;
+  --sas-gold-70: #b3922c;     /* gold button hover */
+  --sas-gold-30: #e6cf7e;
+  --sas-gold-10: #faf3dc;
+
+  /* --- Neutrals (purple-cast) --- */
+  --sas-ink: #241432;
+  --sas-gray-70: #5c5266;
+  --sas-gray-40: #a89fb0;
+  --sas-gray-15: #e6e2ea;
+  --sas-gray-05: #f7f5f9;
+
+  /* --- Feedback --- */
+  --sas-error: #9b1c2e; /* form validation — passes AA on white */
+
+  /* --- Semantic aliases --- */
+  --text-heading: var(--sas-purple-deep);
+  --text-body: var(--sas-ink);
+  --text-muted: var(--sas-gray-70);
+  --text-on-dark: var(--sas-white);
+  --text-accent: var(--sas-gold);
+  --surface-page: var(--sas-white);
+  --surface-card: var(--sas-white);
+  --surface-subtle: var(--sas-gray-05);
+  --surface-brand: var(--sas-purple-deep);
+  --surface-brand-gradient: linear-gradient(135deg, #5a3089 0%, #36184f 100%);
+  --border-default: var(--sas-gray-15);
+  --border-strong: var(--sas-purple-15);
+  --action-primary: var(--sas-purple);
+  --action-primary-hover: var(--sas-purple-70);
+  --action-accent: var(--sas-gold);
+  --action-accent-hover: var(--sas-gold-70);
+  --focus-ring: 0 0 0 3px rgba(90, 48, 137, .35);
+  --focus-ring-gold: 0 0 0 3px rgba(212, 175, 55, .45);
+
+  /* --- Typography --- */
+  --font-heading: 'Gotham', 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --heading-weight: 700;
+  --heading-transform: uppercase;
+  --heading-tracking: .04em;
+  --tracking-wide: .14em;   /* small-caps eyebrow labels */
+  --tracking-button: .06em; /* pill CTAs */
+
+  /* Type scale */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-md: 16px;
+  --text-lg: 18px;
+  --text-xl: 22px;
+  --text-2xl: 28px;
+  --text-3xl: 36px;
+  --text-4xl: 48px;
+  --text-5xl: 64px;
+  --leading-tight: 1.1;
+  --leading-snug: 1.3;
+  --leading-body: 1.6;
+
+  /* --- Spacing (4px base) --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* --- Layout --- */
+  --container-max: 1200px;   /* content container */
+  --container-narrow: 840px; /* FAQ / quote / CTA */
+  --section-x: 24px;         /* page gutter — folded into max-widths on mobile */
+  --header-h: 77px;          /* fixed header height + scroll-margin offset */
+
+  /* --- Radii --- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* --- Shadows (soft, purple-cast) --- */
+  --shadow-sm: 0 1px 3px rgba(54, 24, 79, .10);
+  --shadow-md: 0 4px 14px rgba(54, 24, 79, .14);
+  --shadow-lg: 0 12px 32px rgba(54, 24, 79, .20);
+
+  /* --- Motion --- */
+  --ease-brand: cubic-bezier(.4, 0, .2, 1);
+  --ease-out: cubic-bezier(.22, 1, .36, 1);
+  --duration-fast: 120ms;
+  --duration-med: 220ms;
+
+  /* --- Z-index --- */
+  --z-header: 100;
+  --z-dropdown: 200;
+  --z-consent: 300;
+}

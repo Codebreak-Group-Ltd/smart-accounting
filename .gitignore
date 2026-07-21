@@ -1,0 +1,18 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# design handoff (reference only, not shipped)
+redesign_unpacked/
+Smart Accounting Solutions redesign.zip
+
+# env & local
+.env
+.env.*
+!.env.example
+.DS_Store
+*.log
+npm-debug.log*

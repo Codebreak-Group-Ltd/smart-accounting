@@ -1,0 +1,52 @@
+---
+/* Trust strip — "the software you already use". Shared by Home + Services.
+   Logos self-hosted (playbook §5), sized to 2× their display slot, greyscaled
+   and dimmed with a hover lift. QuickBooks is intentionally larger. */
+import CurveSeam from './CurveSeam.astro';
+interface Props {
+  seamFill?: string;
+  seamVariant?: 'down' | 'up';
+}
+const { seamFill, seamVariant = 'down' } = Astro.props;
+
+const logos = [
+  { src: '/software/xero-logo.webp', alt: 'Xero', h: 30, w: 30, op: 0.55 },
+  { src: '/software/FreeAgent_Logo.webp', alt: 'FreeAgent', h: 24, w: 100, op: 0.55 },
+  { src: '/software/qb-logo.webp', alt: 'QuickBooks', h: 56, w: 217, op: 0.75 },
+  { src: '/software/sage-green-logo.webp', alt: 'Sage', h: 30, w: 49, op: 0.55 },
+  { src: '/software/iris-kashflow-logo.webp', alt: 'IRIS KashFlow', h: 26, w: 126, op: 0.55 },
+];
+---
+<section aria-label="Software we work in" class="software-strip">
+  {seamFill && <CurveSeam fill={seamFill} variant={seamVariant} />}
+  <div class="container ss-inner">
+    <p class="ss-caption">We work in the software you already use</p>
+    <div class="ss-logos">
+      {logos.map((l) => (
+        <img
+          src={l.src}
+          alt={l.alt}
+          width={l.w}
+          height={l.h}
+          loading="lazy"
+          decoding="async"
+          style={`height:${l.h}px;width:auto;--op:${l.op}`}
+        />
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .software-strip { background: var(--sas-white); }
+  .ss-inner { display: flex; flex-direction: column; align-items: center; gap: 26px; padding-block: 44px; }
+  .ss-caption { font-size: 14px; color: var(--sas-gray-70); margin: 0; letter-spacing: .02em; }
+  .ss-logos { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 48px; row-gap: 28px; }
+  .ss-logos img {
+    filter: grayscale(1);
+    opacity: var(--op);
+    transition: opacity var(--duration-fast) ease;
+  }
+  .ss-logos img:hover { opacity: calc(var(--op) + .30); }
+  @media (prefers-reduced-motion: reduce) { .ss-logos img { transition: none; } }
+</style>

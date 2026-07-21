@@ -1,0 +1,10 @@
+/* Gotham Bold — licensed webfont, self-hosted (playbook §5: never a Google Fonts
+   link; never a raw TTF). Only the Bold weight exists and it is all the ALL-CAPS
+   headings need. Inter (body) is self-hosted via @fontsource, imported in the layout. */
+@font-face {
+  font-family: 'Gotham';
+  src: url('../fonts/Gotham-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,302 @@
+---
+import { services } from '../data/nav';
+import { site } from '../data/site';
+
+interface Props {
+  active?: string;
+}
+const { active } = Astro.props;
+const isActive = (key: string) => (active === key ? 'is-active' : '');
+---
+
+<header class="site-header" id="site-header">
+  <div class="header-bar">
+    <a href="/" class="logo-link" aria-label={`${site.name} home`}>
+      <img
+        src="/logos/logo-colour-landscape.svg"
+        alt={site.name}
+        class="logo-img"
+        width="298"
+        height="48"
+        fetchpriority="high"
+      />
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="/about/" class={`nav-link ${isActive('about')}`}>About Us</a>
+
+      <div class="services-wrap" id="services-wrap">
+        <a href="/services/" class={`nav-link ${isActive('services')}`}>Services</a>
+        <button
+          class="caret-btn"
+          id="caret-btn"
+          aria-expanded="false"
+          aria-haspopup="true"
+          aria-label="Open services menu"
+        >
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" aria-hidden="true" class="caret">
+            <path d="M1 1.5L6 6.5L11 1.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <div class="services-menu" id="services-menu" role="menu" hidden>
+          {services.map((s) => (
+            <a role="menuitem" href={`/services/#${s.anchor}`} class="menu-item">{s.label}</a>
+          ))}
+        </div>
+      </div>
+
+      <a href="/contact/" class={`nav-link ${isActive('contact')}`}>Contact Us</a>
+      <a href={site.bookingUrl} class="btn-gold btn-gold--sm">Book a free chat</a>
+    </nav>
+
+    <!-- Mobile toggle -->
+    <button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="mobile-panel" aria-label="Open menu">
+      <svg width="20" height="14" viewBox="0 0 20 14" fill="none" aria-hidden="true">
+        <path d="M1 1H19M1 7H19M1 13H19" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"></path>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile panel -->
+  <nav class="mobile-panel" id="mobile-panel" aria-label="Mobile navigation" hidden>
+    <a href="/about/" class="m-link">About Us</a>
+    <a href="/services/" class="m-link">Services</a>
+    {services.map((s) => (
+      <a href={`/services/#${s.anchor}`} class="m-sublink">{s.label}</a>
+    ))}
+    <a href="/contact/" class="m-link">Contact Us</a>
+    <a href={site.bookingUrl} class="btn-gold m-cta">Book a free chat</a>
+  </nav>
+</header>
+<div aria-hidden="true" style="height:var(--header-h)"></div>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: var(--z-header);
+    background: rgba(255, 255, 255, .96);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--sas-gray-15);
+  }
+  .header-bar {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 var(--section-x);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .logo-link {
+    display: flex;
+    align-items: center;
+    padding: 14px 0;
+    flex-shrink: 0;
+    transition: padding var(--duration-med) var(--ease-brand);
+  }
+  .logo-img {
+    height: 48px;
+    width: auto;
+    min-width: 140px;
+    transition: height var(--duration-med) var(--ease-brand);
+  }
+  /* On scroll the whole bar becomes shallower: logo shrinks AND vertical padding
+     on the logo + nav links reduces, so the header height drops. */
+  .site-header.scrolled .logo-img { height: 38px; }
+  .site-header.scrolled .logo-link { padding: 9px 0; }
+
+  .nav-desktop { display: flex; align-items: center; gap: 32px; }
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--sas-purple-deep);
+    text-decoration: none;
+    padding: 26px 0 24px;
+    border-bottom: 2px solid transparent;
+    transition: color var(--duration-fast) ease, padding var(--duration-med) var(--ease-brand);
+  }
+  .site-header.scrolled .nav-link { padding: 16px 0 14px; }
+  .nav-link:hover { color: var(--sas-purple); }
+  .nav-link.is-active { border-bottom-color: var(--sas-gold); }
+
+  .services-wrap { position: relative; display: flex; align-items: center; }
+  .caret-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 4px;
+    display: flex;
+    align-items: center;
+    color: var(--sas-purple-deep);
+  }
+  .caret { transition: transform 160ms ease; }
+  .services-wrap.open .caret { transform: rotate(180deg); }
+
+  .services-menu {
+    position: absolute;
+    top: 100%;
+    left: -16px;
+    background: var(--sas-white);
+    border: 1px solid var(--sas-gray-15);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 8px;
+    min-width: 288px;
+    display: flex;
+    flex-direction: column;
+  }
+  .services-menu[hidden] { display: none; }
+  .menu-item {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--sas-ink);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: var(--radius-md);
+  }
+  .menu-item:hover { background: var(--sas-purple-05); color: var(--sas-purple-deep); }
+
+  .hamburger {
+    display: none;
+    background: none;
+    border: 1px solid var(--sas-gray-15);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    padding: 10px;
+    align-items: center;
+    color: var(--sas-purple-deep);
+  }
+
+  .mobile-panel {
+    background: var(--sas-white);
+    border-bottom: 1px solid var(--sas-gray-15);
+    padding: 8px var(--section-x) 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    box-shadow: var(--shadow-md);
+  }
+  .mobile-panel[hidden] { display: none; }
+  .m-link {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--sas-purple-deep);
+    text-decoration: none;
+    padding: 12px 4px;
+  }
+  .m-sublink {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    font-weight: 500;
+    color: var(--sas-gray-70);
+    text-decoration: none;
+    padding: 8px 4px 8px 20px;
+  }
+  .m-cta { text-align: center; margin-top: 12px; }
+
+  /* Shared gold pill (also used across pages via :global on the page side). */
+  .btn-gold {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-button);
+    font-size: 13px;
+    color: var(--sas-purple-deep);
+    background: var(--sas-gold);
+    text-decoration: none;
+    padding: 14px 22px;
+    border-radius: var(--radius-pill);
+    white-space: nowrap;
+    transition: background 150ms ease,
+      transform var(--duration-med) var(--ease-out),
+      box-shadow var(--duration-med) ease;
+  }
+  .btn-gold--sm { padding: 13px 22px; }
+  .btn-gold:hover {
+    background: var(--sas-gold-70);
+    color: var(--sas-purple-deep);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(54, 24, 79, .38);
+  }
+  .btn-gold:active { transform: translateY(1px) scale(.99); box-shadow: 0 3px 8px rgba(54, 24, 79, .25); }
+
+  @media (max-width: 900px) {
+    .nav-desktop { display: none; }
+    .hamburger { display: flex; }
+  }
+  /* Small screens: cap the landscape logo so header can't overflow alongside the
+     hamburger on a real 375px phone (298px logo + button + gutters > 375). */
+  @media (max-width: 560px) {
+    .logo-img { height: 40px; min-width: 0; }
+    .header-bar { gap: 12px; }
+  }
+  @media (max-width: 380px) {
+    .logo-img { height: 34px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .logo-img, .caret, .btn-gold { transition: none; }
+  }
+</style>
+
+<script>
+  const header = document.getElementById('site-header');
+  const wrap = document.getElementById('services-wrap');
+  const caret = document.getElementById('caret-btn');
+  const menu = document.getElementById('services-menu');
+  const hamburger = document.getElementById('hamburger');
+  const panel = document.getElementById('mobile-panel');
+
+  // Scroll-shrink logo.
+  const onScroll = () => {
+    if (!header) return;
+    header.classList.toggle('scrolled', window.scrollY > 32);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // Services dropdown (hover on wrap + click on caret).
+  const openMenu = () => {
+    if (!wrap || !menu || !caret) return;
+    wrap.classList.add('open');
+    menu.hidden = false;
+    caret.setAttribute('aria-expanded', 'true');
+  };
+  const closeMenu = () => {
+    if (!wrap || !menu || !caret) return;
+    wrap.classList.remove('open');
+    menu.hidden = true;
+    caret.setAttribute('aria-expanded', 'false');
+  };
+  wrap?.addEventListener('mouseenter', openMenu);
+  wrap?.addEventListener('mouseleave', closeMenu);
+  caret?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    wrap?.classList.contains('open') ? closeMenu() : openMenu();
+  });
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', closeMenu));
+  document.addEventListener('click', (e) => {
+    if (wrap?.classList.contains('open') && !wrap.contains(e.target as Node)) closeMenu();
+  });
+
+  // Mobile panel.
+  const toggleMobile = () => {
+    if (!panel || !hamburger) return;
+    const willOpen = panel.hidden;
+    panel.hidden = !willOpen;
+    hamburger.setAttribute('aria-expanded', String(willOpen));
+  };
+  hamburger?.addEventListener('click', toggleMobile);
+
+  // Escape closes both.
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    closeMenu();
+    if (panel && !panel.hidden) toggleMobile();
+  });
+</script>

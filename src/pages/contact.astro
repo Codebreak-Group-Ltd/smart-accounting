@@ -1,0 +1,312 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import CurveSeam from '../components/CurveSeam.astro';
+import Faq from '../components/Faq.astro';
+import type { FaqItem } from '../components/Faq.astro';
+import { Image } from 'astro:assets';
+import { site, siteUrl } from '../data/site';
+
+import officeMap from '../assets/images/office-map-penistone.webp';
+import independentYorkshire from '../assets/images/independent-yorkshire-business.png';
+
+// SEO metadata to playbook §4 (design meta was not client-approved).
+const title = 'Contact a Penistone Accountant | Free First Chat';
+const description = 'Talk to Craig Normington at Smart Accounting Solutions in Penistone, Yorkshire. The first conversation is free. Call, email or send a message.';
+
+const faqs: FaqItem[] = [
+  { q: 'What happens in the first meeting?', a: "Craig uses the first conversation to understand your business - its size, structure, what records you currently have, what's causing you the most pain, and what level of support you actually need. From that conversation, he will outline what the right service looks like for you, what it will cost, and what happens next. Most people find they leave with much greater clarity than they arrived with." },
+  { q: 'How long does it take to get started?', a: "Once you decide to proceed, onboarding is typically completed within a few days to a couple of weeks, depending on the state of your existing records. If you need software set up, the team will configure it and provide training. If your records need catching up, that will be scoped and agreed upfront. You won't be left waiting." },
+  { q: 'Do I need to visit your office or can everything be done remotely?', a: 'Both options work. Smart Accounting Solutions operates on cloud-based software, so day-to-day bookkeeping can be handled entirely remotely. Management account meetings can be in person (at your premises or Craig\'s office) or via video call - whichever suits you. Craig is also happy to come to you if you are local.' },
+  { q: 'What information do I need to provide to switch accountants?', a: 'Very little from your side. Your new accountant (or bookkeeper) will contact your old accountant or bookkeeper on your behalf - a standard professional clearance letter requesting the handover of your records and working papers. You sign an authority to release and the transfer is handled professionally. You don\'t need to manage the conversation between them.' },
+  { q: 'Will switching accountants be disruptive to my business?', a: 'Not significantly. The handover process - professional clearance letters, transfer of records, and onboarding - is handled by your new accountant. Most transitions complete within two to four weeks with minimal input from you. The disruption of switching is small; the benefit of being with the right firm is ongoing.' },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${siteUrl}/contact/#faq`,
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+};
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Contact', item: `${siteUrl}/contact/` },
+  ],
+};
+---
+
+<Base title={title} description={description} active="contact" schema={[faqSchema, breadcrumb]}>
+  <Hero>
+    <h1 class="hero-h1 contact-h1">Let's talk.</h1>
+    <p class="hero-lead">
+      The first conversation costs nothing. Tell Craig what is going on. He will be straight
+      with you about whether he can help, and then tailor the service to fit your exact needs.
+    </p>
+  </Hero>
+
+  <!-- Contact details + form -->
+  <section aria-label="Contact details and form" class="band-subtle">
+    <CurveSeam fill="#f7f5f9" variant="up" />
+    <div class="container contact-grid">
+      <div class="details-col">
+        <div class="details-card">
+          <h2 class="card-h2">How to reach us</h2>
+          <div class="detail-rows">
+            <div class="detail-row">
+              <p class="detail-label">Office</p>
+              <a href={site.phoneOfficeHref} class="detail-value">{site.phoneOffice}</a>
+            </div>
+            <div class="detail-row">
+              <p class="detail-label">Mobile and WhatsApp</p>
+              <a href={site.phoneMobileHref} class="detail-value">{site.phoneMobile}</a>
+            </div>
+            <div class="detail-row">
+              <p class="detail-label">Email</p>
+              <a href={`mailto:${site.emailPrimary}`} class="detail-value detail-value--email">{site.emailPrimary}</a>
+            </div>
+            <div class="detail-row">
+              <p class="detail-label">Address</p>
+              <p class="detail-text">Offices 8 and 9, Queens Building, Green Road, Penistone, S36 6FQ</p>
+            </div>
+            <div class="detail-row detail-row--last">
+              <p class="detail-label">what3words</p>
+              <p class="detail-text">{site.address.what3words}</p>
+            </div>
+          </div>
+        </div>
+        <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=53.522053,-1.621787" target="_blank" rel="noopener" aria-label="Open the Smart Accounting Solutions office location in Google Maps">
+          <Image src={officeMap} alt="Map showing the Smart Accounting Solutions office at Green Road, Penistone, South Yorkshire" widths={[380, 600, 760]} sizes="(max-width: 900px) 100vw, 560px" class="map-img" />
+        </a>
+        <p class="map-attr">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors</p>
+      </div>
+
+      <div id="message-form" class="form-card">
+        <h2 class="card-h2">Send us a message</h2>
+        <p class="form-sub">We will come back to you within one working day.</p>
+
+        <form
+          id="contact-form"
+          novalidate
+          data-endpoint={site.leadWebhook}
+          data-source={site.leadSource}
+          data-tags={site.leadTags}
+        >
+          <div class="field-grid">
+            <div class="field">
+              <label for="firstName">First name</label>
+              <input id="firstName" name="firstName" type="text" autocomplete="given-name" />
+              <p class="field-error" data-error-for="firstName" role="alert" hidden>Please enter your first name.</p>
+            </div>
+            <div class="field">
+              <label for="lastName">Last name</label>
+              <input id="lastName" name="lastName" type="text" autocomplete="family-name" />
+              <p class="field-error" data-error-for="lastName" role="alert" hidden>Please enter your last name.</p>
+            </div>
+          </div>
+          <div class="field-grid">
+            <div class="field">
+              <label for="email">Email address</label>
+              <input id="email" name="email" type="email" autocomplete="email" />
+              <p class="field-error" data-error-for="email" role="alert" hidden>Please enter a valid email address.</p>
+            </div>
+            <div class="field">
+              <label for="phone">Contact number <span class="optional">(optional)</span></label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+          </div>
+          <div class="field">
+            <label for="message">Tell us a bit about your business and what you need</label>
+            <textarea id="message" name="message" rows="5"></textarea>
+            <p class="field-error" data-error-for="message" role="alert" hidden>Please tell us a little about your business so Craig can help.</p>
+          </div>
+          <button type="submit" class="btn btn--gold form-submit">Send your message</button>
+        </form>
+
+        <div id="form-thanks" class="thanks" role="status" hidden>
+          <p class="thanks-title">Thank you. Your message is on its way.</p>
+          <p class="thanks-body">Craig will personally come back to you within one working day. If it is urgent, call {site.phoneMobile}.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What to expect -->
+  <section aria-label="What to expect">
+    <CurveSeam fill="#f7f5f9" />
+    <div class="container two-col two-col--center expect-pad">
+      <div>
+        <h2 class="h2 h2--expect">What to expect</h2>
+        <p class="body mt-28">Once you get in touch, Craig will personally come back to you. No passing you around, no automated responses. Just a direct reply to arrange a call or a meeting at a time that works for you.</p>
+        <p class="body body--strong mt-18">If you are local, Craig is always happy to come to you.</p>
+        <h2 class="h2 h2--expect2">Not sure what you need yet?</h2>
+        <p class="body mt-20">That is fine. Most people Craig speaks to do not know exactly what they are looking for. They just know something needs to change. Start with a conversation and take it from there.</p>
+        <a href="#message-form" class="btn btn--gold mt-32">Book a free chat with Craig</a>
+      </div>
+      <Image src={independentYorkshire} alt="An independent Yorkshire shop owner serving a customer" widths={[400, 600, 760]} sizes="(max-width: 900px) 100vw, 560px" class="expect-img" />
+    </div>
+  </section>
+
+  <Faq items={faqs} eyebrow="Based in Penistone. Serving businesses across West and North Yorkshire." />
+</Base>
+
+<style>
+  .contact-h1 { font-size: clamp(36px, 5vw, 64px); }
+  .band-subtle { background: var(--sas-gray-05); }
+
+  .contact-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px; align-items: start; padding-block: 88px;
+  }
+  .details-col { display: flex; flex-direction: column; gap: 32px; }
+  .details-card, .form-card {
+    background: var(--sas-white); border: 1px solid var(--sas-gray-15);
+    border-radius: var(--radius-lg); padding: 40px;
+  }
+  .form-card { scroll-margin-top: calc(var(--header-h) + 20px); }
+  .card-h2 {
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; font-size: 20px; color: var(--sas-purple-deep); margin: 0;
+  }
+  .detail-rows { display: flex; flex-direction: column; margin-top: 20px; }
+  .detail-row {
+    padding: 16px 0;
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(90deg, var(--sas-purple-15), rgba(201, 180, 224, .12)) 1;
+  }
+  .detail-row--last { padding-bottom: 0; }
+  .detail-label {
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    letter-spacing: var(--tracking-wide); font-size: 11.5px; color: var(--sas-gray-70); margin: 0;
+  }
+  .detail-value {
+    font-size: 17px; font-weight: 600; color: var(--sas-purple-deep); text-decoration: none;
+    display: inline-block; margin-top: 6px;
+  }
+  .detail-value:hover { color: var(--sas-purple); }
+  .detail-value--email { font-size: 16px; word-break: break-word; }
+  .detail-text { font-size: 15.5px; line-height: 1.55; color: var(--sas-ink); margin: 6px 0 0; }
+
+  .map-link { display: block; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+  .map-link:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+  .map-img { width: 100%; height: auto; display: block; }
+  .map-attr { font-size: 11.5px; color: var(--sas-gray-70); margin: 8px 0 0; }
+  .map-attr a { color: var(--sas-purple); }
+
+  .form-sub { font-size: 14.5px; color: var(--sas-gray-70); margin: 10px 0 0; }
+  #contact-form { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
+  .field-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 14px; font-weight: 600; color: var(--sas-purple-deep); }
+  .optional { font-weight: 400; color: var(--sas-gray-70); }
+  .field input, .field textarea {
+    font-family: var(--font-body); font-size: 15.5px; color: var(--sas-ink);
+    padding: 13px 14px; border: 1px solid var(--sas-gray-15); border-radius: var(--radius-md);
+    background: var(--sas-white); width: 100%; box-sizing: border-box;
+  }
+  .field textarea { resize: vertical; }
+  .field input:focus, .field textarea:focus {
+    outline: none; box-shadow: var(--focus-ring); border-color: var(--sas-purple);
+  }
+  .field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: var(--sas-error); }
+  .field-error { font-size: 13px; color: var(--sas-error); margin: 0; }
+  .form-submit { align-self: flex-start; border: none; cursor: pointer; }
+  .form-submit[disabled] { opacity: .7; cursor: progress; }
+
+  .thanks { margin-top: 28px; padding: 28px; background: var(--sas-purple-05); border-radius: var(--radius-md); }
+  .thanks-title {
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; font-size: 17px; color: var(--sas-purple-deep); margin: 0;
+  }
+  .thanks-body { font-size: 15.5px; line-height: 1.6; color: var(--sas-ink); margin: 12px 0 0; }
+
+  .expect-pad { padding-block: var(--space-9); }
+  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 64px; }
+  .two-col--center { align-items: center; }
+  .body { font-size: 16.5px; line-height: 1.6; color: var(--sas-ink); max-width: 62ch; }
+  .body--strong { font-weight: 600; color: var(--sas-purple-deep); }
+  .mt-18 { margin-top: 18px; }
+  .mt-20 { margin-top: 20px; }
+  .mt-28 { margin-top: 28px; }
+  .mt-32 { margin-top: 32px; }
+  .h2--expect { font-size: clamp(24px, 2.8vw, 34px); line-height: 1.16; }
+  .h2--expect2 { font-size: clamp(20px, 2.2vw, 26px); line-height: 1.2; margin-top: 48px; }
+  .expect-img { width: 100%; height: 100%; max-height: 560px; object-fit: cover; border-radius: var(--radius-lg); display: block; }
+</style>
+
+<script>
+  // Contact form: client-side validation (mirrors the design), attribution merge,
+  // swappable endpoint (playbook §8). The form ALWAYS reaches the thank-you state so
+  // the user is never blocked by a webhook failure. keepalive lets the POST survive
+  // navigation. If data-endpoint is empty (no CRM chosen yet), it skips the network.
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const thanks = document.getElementById('form-thanks');
+
+  if (form && thanks) {
+    const setError = (name: string, on: boolean) => {
+      const input = form.elements.namedItem(name) as HTMLInputElement | null;
+      const err = form.querySelector(`[data-error-for="${name}"]`) as HTMLElement | null;
+      if (input) input.setAttribute('aria-invalid', String(on));
+      if (err) err.hidden = !on;
+    };
+
+    const validate = () => {
+      const v = (n: string) => (form.elements.namedItem(n) as HTMLInputElement)?.value.trim() ?? '';
+      const errs: Record<string, boolean> = {
+        firstName: !v('firstName'),
+        lastName: !v('lastName'),
+        email: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email')),
+        message: !v('message'),
+      };
+      Object.entries(errs).forEach(([k, on]) => setError(k, on));
+      return !Object.values(errs).some(Boolean);
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) {
+        (form.querySelector('[aria-invalid="true"]') as HTMLElement | null)?.focus();
+        return;
+      }
+
+      const btn = form.querySelector('.form-submit') as HTMLButtonElement;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+
+      let attribution: Record<string, string> = {};
+      try { attribution = JSON.parse(localStorage.getItem('sas_attribution') || '{}'); } catch { /* ignore */ }
+
+      const data = new FormData(form);
+      const payload = {
+        firstName: data.get('firstName'),
+        lastName: data.get('lastName'),
+        email: data.get('email'),
+        phone: data.get('phone') || '',
+        message: data.get('message'),
+        source: form.dataset.source,
+        page: window.location.pathname,
+        tags: form.dataset.tags,
+        timestamp: new Date().toISOString(),
+        ...attribution,
+      };
+
+      const endpoint = form.dataset.endpoint;
+      if (endpoint) {
+        try {
+          await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            keepalive: true,
+          });
+        } catch { /* swallow — user still reaches thank-you; Netlify Forms can back this up */ }
+      }
+
+      form.hidden = true;
+      thanks.hidden = false;
+      thanks.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  }
+</script>

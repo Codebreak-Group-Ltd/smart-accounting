@@ -1,0 +1,158 @@
+---
+import { footerServices } from '../data/nav';
+import { site } from '../data/site';
+import BrandMark from './BrandMark.astro';
+---
+
+<footer class="site-footer">
+  <BrandMark size="min(56vw, 480px)" color="#ffffff" opacity={0.04} top="-10%" left="-6%" rotate="8deg" />
+  <div class="footer-inner">
+    <div class="footer-cols">
+      <div class="footer-brand">
+        <img src="/logos/logo-reverse.svg" alt={site.name} class="footer-logo" width="200" height="123" />
+        <p class="footer-strap">
+          Bookkeeping, VAT, payroll and management accounts for small businesses
+          across Yorkshire. Personal, proactive and always on hand.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Footer">
+        <p class="footer-head">Explore</p>
+        <a href="/" class="footer-link">Home</a>
+        <a href="/about/" class="footer-link">About Us</a>
+        <a href="/services/" class="footer-link">Services</a>
+        <a href="/contact/" class="footer-link">Contact Us</a>
+      </nav>
+
+      <nav class="footer-nav" aria-label="Footer services">
+        <p class="footer-head">Services</p>
+        {footerServices.map((s) => (
+          <a href={`/services/#${s.anchor}`} class="footer-link">{s.label}</a>
+        ))}
+        <a href="/services/" class="footer-link">All services</a>
+      </nav>
+
+      <div class="footer-nav">
+        <p class="footer-head">Contact</p>
+        <a href={site.phoneMobileHref} class="footer-link">{site.phoneMobile}</a>
+        <a href={`mailto:${site.emailFooter}`} class="footer-link footer-email">{site.emailFooter}</a>
+        <p class="footer-loc">Based in Penistone. Serving businesses across West and North Yorkshire.</p>
+        <a href={site.bookingUrl} class="footer-cta">Book a free chat</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-legal-text">
+        © {site.legalName}. All rights reserved. Registered in {site.registeredIn}. Company no. {site.companyNumber}.
+      </p>
+      <div class="footer-legal-links">
+        <a href="/legal/" class="footer-legal-link">Legal</a>
+        <a href="/privacy/" class="footer-legal-link">Privacy policy</a>
+      </div>
+    </div>
+    <p class="footer-credit">
+      Website by <a href="https://www.codebreak.co.uk/" class="footer-credit-link" rel="noopener">Codebreak</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+    background: var(--surface-brand-gradient);
+    color: var(--sas-white);
+  }
+  .footer-inner { position: relative; z-index: 1; max-width: var(--container-max); margin: 0 auto; padding: 72px var(--section-x) 40px; }
+  .footer-cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 48px;
+    align-items: start;
+  }
+  .footer-brand { display: flex; flex-direction: column; gap: 20px; max-width: 320px; }
+  .footer-logo { width: 200px; height: auto; }
+  .footer-strap {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, .85);
+    margin: 0;
+  }
+  .footer-nav { display: flex; flex-direction: column; gap: 10px; }
+  .footer-head {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-size: 12px;
+    color: var(--sas-gold);
+    margin: 0 0 8px;
+  }
+  .footer-link {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    color: rgba(255, 255, 255, .9);
+    text-decoration: none;
+  }
+  .footer-link:hover { color: var(--sas-white); text-decoration: underline; }
+  .footer-email { font-size: 13px; white-space: nowrap; }
+  .footer-loc {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, .85);
+    margin: 6px 0 0;
+  }
+  .footer-cta {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-button);
+    font-size: 12.5px;
+    color: var(--sas-purple-deep);
+    background: var(--sas-gold);
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: var(--radius-pill);
+    align-self: flex-start;
+    margin-top: 10px;
+    transition: background 150ms ease,
+      transform var(--duration-med) var(--ease-out),
+      box-shadow var(--duration-med) ease;
+  }
+  .footer-cta:hover {
+    background: var(--sas-gold-70);
+    color: var(--sas-purple-deep);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 30px rgba(54, 24, 79, .38);
+  }
+  .footer-cta:active { transform: translateY(1px) scale(.99); box-shadow: 0 3px 8px rgba(54, 24, 79, .25); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, .18);
+    margin-top: 56px;
+    padding-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+  }
+  .footer-legal-text { font-family: var(--font-body); font-size: 13px; color: rgba(255, 255, 255, .75); margin: 0; }
+  .footer-legal-links { display: flex; gap: 24px; }
+  .footer-legal-link { font-family: var(--font-body); font-size: 13px; color: rgba(255, 255, 255, .75); text-decoration: none; }
+  .footer-legal-link:hover { color: var(--sas-white); text-decoration: underline; }
+
+  .footer-credit {
+    text-align: center;
+    margin: 24px 0 0;
+    font-family: var(--font-body);
+    font-size: 12.5px;
+    color: rgba(255, 255, 255, .55);
+  }
+  .footer-credit-link { color: rgba(255, 255, 255, .8); text-decoration: none; }
+  .footer-credit-link:hover { color: var(--sas-white); text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) { .footer-cta { transition: none; } }
+</style>

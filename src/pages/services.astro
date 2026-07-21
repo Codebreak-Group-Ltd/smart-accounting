@@ -1,0 +1,425 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import SoftwareStrip from '../components/SoftwareStrip.astro';
+import CurveSeam from '../components/CurveSeam.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { Image } from 'astro:assets';
+import { site, siteUrl } from '../data/site';
+import { services as chipNav } from '../data/nav';
+
+import heroBackdrop from '../assets/images/hero-backdrop.png';
+import inControl from '../assets/images/in-control-of-the-numbers.png';
+
+// SEO metadata to playbook §4 (design meta was not client-approved).
+const title = 'Bookkeeping, VAT & Accounts | Small Business Yorkshire';
+const description = 'Bookkeeping, VAT, MTD, payroll, year-end accounts and tax for small businesses in Yorkshire. Fixed fees, one point of contact. Book a free chat.';
+
+// Chip labels differ slightly from the shared nav labels (design-exact).
+const chipLabels: Record<string, string> = {
+  mtd: 'MTD for ITSA',
+  bookkeeping: 'Bookkeeping Bureau',
+  vat: 'VAT Returns',
+  payroll: 'Payroll',
+  'manage-accounts': 'Management Accounts',
+  'year-end': 'Year-End Accounts',
+  'personal-and-business': 'Tax Returns',
+  'new-business': 'New Business Setup',
+  'training-and-support': 'Bookkeeper Training',
+};
+
+interface FaqGroup { title: string; items: { q: string; a: string }[]; }
+const faqGroups: FaqGroup[] = [
+  { title: 'Making Tax Digital for Income Tax', items: [
+    { q: 'What is Making Tax Digital and does it affect me?', a: 'Making Tax Digital (MTD) for Income Tax is a government programme requiring sole traders, landlords, and partnerships to keep digital records and submit quarterly updates to HMRC instead of a single annual tax return. From April 2026 it applies to those with income over £50,000; from April 2027 the threshold drops to £30,000; from April 2028 it drops again to £20,000. If any of those thresholds apply to your income now or in the next two years, you are affected.' },
+    { q: 'I received an MTD letter from HMRC. What do I need to do?', a: "HMRC's MTD letters are notices that you are in scope and must comply from April 2026. You need to: sign up for MTD for Income Tax, adopt compatible accounting software (QuickBooks, Xero, Sage, FreeAgent, or KashFlow all qualify), ensure your records are kept digitally, and submit quarterly updates to HMRC. Your first quarterly submission, covering the quarter ending June 2026, is due on 7 August 2026. Speaking to an accountant or bookkeeper now gives you time to get set up correctly before the deadline." },
+    { q: 'Do I still need to file a Self Assessment tax return under Making Tax Digital (MTD)?', a: 'Yes. Making Tax Digital changes how you keep records and report information during the year, but it does not remove the need to finalise and submit your tax return. Under MTD, you keep digital records, send quarterly updates to HMRC, and then use compatible software to complete and submit your tax return after the end of the tax year. The quarterly updates are summaries, not full tax returns, so you still need to finalise your income, claim any allowances or reliefs, make adjustments where needed, and confirm your overall tax position.' },
+    { q: 'What is the MTD deadline for sole traders?', a: 'Sole traders with a gross income over £50,000 must comply from 6 April 2026. The £30,000 threshold applies from April 2027, and £20,000 from April 2028. If you are close to any of these thresholds, it is worth getting set up now - the penalties for non-compliance apply from day one of your mandate date.' },
+    { q: 'My turnover was below £50,000 in 2024/25 but above £50,000 in 2025/26. Do I need to join Making Tax Digital (MTD)?', a: "No. Whether you need to join MTD depends on your income in a specific earlier tax year.\n\nFor the initial rollout: from 6 April 2026, HMRC will look at your total self-employment and property income for 2024/25. If it was more than £50,000, you'll need to join MTD. From 6 April 2027, the threshold falls to £30,000, and HMRC will look at your 2025/26 income.\n\nSo, if your income was below £50,000 in 2024/25, you won't need to join MTD in April 2026. If it was above £50,000 in 2025/26, you'll likely need to join MTD from 6 April 2027, as you'll be above the £30,000 threshold.\n\nIt's important to note that HMRC uses gross income (turnover), not profit, when determining whether you fall within MTD. If you have both self-employment and property income, HMRC combines these amounts when assessing the threshold. Income from employment (PAYE), dividends and pensions does not count towards the MTD income threshold." },
+    { q: 'Do I need to sign up for MTD as soon as my turnover goes above the threshold?', a: "No. You won't be brought into Making Tax Digital (MTD) part-way through a tax year because your turnover increases.\n\nHMRC assesses whether you need to join MTD based on the income reported for a completed tax year and then brings you into MTD from a future start date.\n\nFor example: if your turnover was £45,000 in 2024/25, you would not be required to join MTD from April 2026. If your turnover then increased to £70,000 in 2025/26, you would continue filing as normal during that tax year. HMRC would assess your completed 2025/26 income and, under the current timetable, you would be brought into MTD from 6 April 2027.\n\nIn short, crossing the threshold during a tax year doesn't trigger an immediate requirement to join MTD. HMRC uses figures from a completed tax year to determine when you need to start complying with the new rules." },
+    { q: 'Does MTD apply to landlords?', a: 'Yes. Landlords with total property income above the relevant threshold are subject to the same MTD for Income Tax rules as sole traders. From April 2026 (£50k), April 2027 (£30k) and April 2028 (£20k). Combined income from self-employment and property is used to determine which threshold applies.' },
+    { q: 'What software do I need for Making Tax Digital?', a: 'You need HMRC-recognised software that supports MTD for Income Tax. The most widely used options are QuickBooks, Xero, Sage, FreeAgent, and KashFlow. The right choice depends on your business type and how you prefer to work. A bookkeeper or accountant can advise on which platform suits you and get you set up and trained on it properly.' },
+    { q: 'What are the penalties for not complying with MTD?', a: 'HMRC operates a points-based penalty system for MTD. Late quarterly submissions accumulate penalty points, and once you hit the threshold (four points for quarterly filers), a £200 fine is issued. Further missed submissions add more fines. There are also separate penalties for late payment of any tax owed. Complying on time avoids all of these.' },
+  ]},
+  { title: 'New Business Accounts', items: [
+    { q: "I've just started a business. What do I need to sort out financially?", a: 'From day one you need to: register with HMRC (as self-employed or via Companies House if forming a limited company), open a dedicated business bank account, set up compliant bookkeeping records, understand your VAT position, and know your tax return deadlines. Getting this right at the start prevents the messy catch-up that many new business owners face a year or two in.' },
+    { q: 'When do I need to register for Self Assessment?', a: 'You must register for Self Assessment with HMRC if you are self-employed (including as a sole trader), earn rental income over £1,000 in a tax year, are a company director, or have other untaxed income above certain thresholds. Registration should be done by 5 October following the end of the tax year in which you first needed to file - late registration can lead to penalties.' },
+    { q: 'Should I operate as a sole trader or set up a limited company?', a: 'The right structure depends on your expected profit level, risk appetite, and long-term plans. Sole trader status is simpler and has lower admin, but you pay National Insurance and Income Tax on all profits. A limited company pays Corporation Tax (currently 19-25% depending on profits), which can be more tax-efficient once profits exceed roughly £30,000-£50,000 - but involves more compliance obligations. An accountant can model both options against your specific numbers.' },
+  ]},
+  { title: 'VAT', items: [
+    { q: 'Do I need to register for VAT?', a: "You must register for VAT once your taxable turnover exceeds £90,000 in any rolling 12-month period (the current UK threshold as of 2024/25). You can also register voluntarily below this threshold, which may be advantageous if you have significant VAT-bearing costs to reclaim. If you are approaching the threshold, it's important to monitor it closely - late registration carries penalties." },
+    { q: "What's the difference between zero-rated and VAT exempt?", a: 'Zero-rated means the supply is subject to VAT but at a 0% rate - you can still reclaim VAT on related costs. Exempt means the supply falls entirely outside the VAT system - you cannot reclaim VAT on costs related to exempt supplies. Getting this wrong affects both your VAT return and your ability to reclaim input tax, so correct classification matters.' },
+    { q: 'Can my bookkeeper file my VAT return for me?', a: "Yes. A bookkeeper can prepare and file your VAT return on your behalf through HMRC's Making Tax Digital-compliant software. They will ensure the return is accurate, check for common coding errors, and submit it on time. This removes a quarterly deadline from your to-do list and reduces the risk of errors that HMRC may query." },
+    { q: 'What happens if I miss a VAT return deadline?', a: 'HMRC operates a penalty points system for late VAT returns. Each missed deadline adds a point; reaching the threshold (four points for quarterly filers) triggers a £200 penalty. Further late returns add additional £200 fines. Interest is also charged on any VAT owed. Getting a bookkeeper to manage your quarterly submissions removes this risk entirely.' },
+  ]},
+  { title: 'Management Accounts', items: [
+    { q: 'What are management accounts and do I need them?', a: 'Management accounts are regular financial reports - typically monthly or quarterly - that show how your business is performing in real time. Unlike year-end accounts (which look back at a completed financial year), management accounts tell you now: what your profit margin is, how your cash is moving, which areas of the business are costing more than expected, and what you can expect in the months ahead. Any business making decisions about spending, hiring, or growth benefits from having them.' },
+    { q: 'What is cash flow forecasting and why does it matter?', a: "Cash flow forecasting projects your expected income and expenditure forward over the next three to six months, so you can see in advance when cash will be tight and when you'll have surplus. It allows you to plan for VAT bills, quiet trading periods, equipment purchases, or staff costs before they arrive - rather than being caught short. Many business failures are profitable businesses that run out of cash; forecasting prevents that." },
+    { q: 'My accountant only contacts me once a year at year end. Is that normal?', a: "It's common for traditional accountants, but it's not good enough for most small businesses. Annual accounts are filed months after the year ends and reflect decisions made 18 months ago. You need financial information while it's still useful - which means monthly or quarterly reporting, not an annual review. If your accountant only engages at year end, the value they're adding is largely compliance, not commercial support." },
+  ]},
+  { title: 'Bookkeeping Bureau', items: [
+    { q: "What's the difference between a bookkeeper and an accountant?", a: 'A bookkeeper handles the day-to-day maintenance of your financial records - categorising transactions, reconciling accounts, filing VAT returns, and keeping everything current. An accountant typically works at a higher level: preparing statutory year-end accounts, filing corporation tax or self-assessment returns, providing strategic financial advice, and handling HMRC compliance. Many businesses need both; some firms provide both services under one roof.' },
+    { q: 'What does a bookkeeper actually do?', a: 'A bookkeeper records and categorises all your business transactions - income, expenses, bank movements - on a regular basis. They reconcile your bank accounts, prepare VAT returns, keep your records compliant, and ensure your figures are accurate and up to date. Unlike a year-end accountant who looks back once a year, a bookkeeper keeps your finances current throughout the year.' },
+    { q: 'How often should my bookkeeping be updated?', a: 'Ideally weekly or monthly. The more current your records, the more useful your financial information is for decision-making. Quarterly updates are the minimum for staying VAT compliant. Waiting until year end to do everything in one go creates errors, stress, and means you have been flying blind for twelve months.' },
+    { q: 'How do I get my invoices and receipts to my bookkeeper?', a: 'Most modern accounting platforms (QuickBooks, Xero, Sage, FreeAgent, KashFlow) allow you to photograph receipts with a mobile app, forward supplier emails directly, and connect bank feeds automatically. Your bookkeeper will set up the system to suit how you work - minimising the admin on your side while ensuring everything is captured.' },
+    { q: 'Do I need a bookkeeper if I use accounting software?', a: "Accounting software processes data - it doesn't check that your data is correct. Transactions still need to be categorised accurately, bank feeds reconciled, VAT coded correctly, and anomalies investigated. Software speeds up the work; a bookkeeper ensures the output is accurate and meaningful. For most small businesses, using software without a bookkeeper reviewing the output leads to errors that compound over time." },
+    { q: 'What is a bookkeeping bureau?', a: 'A bookkeeping bureau is a service where a team of bookkeepers handles your records remotely, typically on a subscription or fixed fee basis. You submit your invoices, receipts, and bank statements (often through your accounting software), and the bureau processes, categorises, reconciles, and maintains everything on your behalf. It gives you the benefit of a dedicated bookkeeper without the cost of employing one in-house.' },
+  ]},
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${siteUrl}/services/#faq`,
+  mainEntity: faqGroups.flatMap((g) => g.items).map((f) => ({
+    '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  '@id': `${siteUrl}/services/#service`,
+  serviceType: 'Bookkeeping and accountancy',
+  provider: { '@id': `${siteUrl}/#organization` },
+  areaServed: 'Yorkshire',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Accountancy services',
+    itemListElement: Object.values(chipLabels).map((name) => ({
+      '@type': 'Offer', itemOffered: { '@type': 'Service', name },
+    })),
+  },
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: `${siteUrl}/services/` },
+  ],
+};
+---
+
+<Base title={title} description={description} active="services" schema={[serviceSchema, faqSchema, breadcrumb]}>
+  <Hero>
+    <h1 class="hero-h1 services-h1">Everything your business needs. Nothing you do not.</h1>
+    <p class="hero-lead">
+      A full range of bookkeeping and accountancy services for small businesses, sole traders
+      and landlords. One point of contact. No hidden extras. Fixed fees where possible.
+    </p>
+    <div class="hero-actions">
+      <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
+    </div>
+  </Hero>
+
+  <SoftwareStrip seamFill="#ffffff" seamVariant="up" />
+
+  <!-- Intro + anchor chips -->
+  <section aria-label="We will figure out what you need together">
+    <div class="container two-col two-col--center intro-pad">
+      <div>
+        <h2 class="h2 h2--intro">We'll figure out what you need together.</h2>
+        <p class="body mt-28">You do not need to know exactly what you need before you call us. That is our job. Craig will listen to where you are, understand what your business looks like, and work out the right level of support together.</p>
+        <p class="body mt-18">What we offer covers every stage of your business, from getting set up on the right software right through to year-end accounts and tax returns.</p>
+        <nav aria-label="Services on this page" class="chip-nav">
+          {['mtd','bookkeeping','vat','payroll','manage-accounts','year-end','personal-and-business','new-business','training-and-support'].map((id) => (
+            <a href={`#${id}`} class="chip">{chipLabels[id]}</a>
+          ))}
+        </nav>
+      </div>
+      <Image src={heroBackdrop} alt="Penistone high street at dusk with local shops and the hills beyond" widths={[400, 600, 760]} sizes="(max-width: 900px) 100vw, 560px" class="photo photo--intro" />
+    </div>
+  </section>
+
+  <!-- MTD for ITSA feature -->
+  <section id="mtd" aria-label="MTD for ITSA" class="band-lilac anchor">
+    <CurveSeam fill="#ffffff" />
+    <div class="container two-col two-col--center feature-pad">
+      <div>
+        <h2 class="h2 h2--feature">Making Tax Digital for Income Tax (MTD for ITSA)</h2>
+        <p class="body mt-28">As of April 2026, HMRC requires sole traders, partnerships and landlords earning over £50,000 to keep digital records and make quarterly submissions under Making Tax Digital for Income Tax Self Assessment (MTD for ITSA). The thresholds drop to £30,000 in April 2027 and £20,000 in April 2028.</p>
+        <p class="body mt-18">If you have received a letter from HMRC and do not know what to do, or if your current accountant has not yet walked you through the process, speak to us now. We will get you onto the right software, set everything up, and make sure your first quarterly submission is filed correctly and on time.</p>
+        <p class="body mt-18">If you are currently under the £50,000 threshold, do not assume it does not apply to you yet. Getting set up early means less pressure when your threshold arrives.</p>
+        <a href={site.bookingUrl} class="btn btn--purple btn--sm mt-32">Talk to Craig about MTD for ITSA</a>
+      </div>
+      <Image src={inControl} alt="A business owner keeping digital records on a laptop at the kitchen table" widths={[400, 600, 760]} sizes="(max-width: 900px) 100vw, 560px" class="photo photo--feature" />
+    </div>
+  </section>
+
+  <!-- Core services rows -->
+  <section aria-label="Core services">
+    <CurveSeam fill="#f4eff9" />
+    <div class="container rows-pad">
+      <div id="bookkeeping" class="svc-row anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Bookkeeping Bureau</h2></div>
+        <div class="svc-body">
+          <p class="svc-p">Our bookkeeping service is built around one idea: you upload, we handle everything else.</p>
+          <p class="svc-p">Your receipts, invoices and bank transactions go into your cloud accounting software. We process them, categorise everything correctly, reconcile your accounts and keep your records in order. You always have a single, dedicated bookkeeper who knows your business.</p>
+          <p class="svc-p">Don't want to upload? Give us the information and we will do everything for you. We tailor the service around exactly what you need. Need somebody to do your invoicing? We can do that for you too.</p>
+          <p class="svc-p">We work with QuickBooks, Xero, Sage, FreeAgent and KashFlow. If you are still on a desktop system or paper records, we can move you across and make sure you know how to use it properly.</p>
+          <p class="svc-p svc-p--strong">This is not just data entry. When something does not add up, we sort it. When information is missing, we chase it down. When a supplier overcharges you, we spot it.</p>
+        </div>
+      </div>
+      <div id="vat" class="svc-row anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">VAT Returns</h2></div>
+        <div class="svc-body">
+          <p class="svc-p">VAT is one of those things that seems simple until it is not. Different rates, partial exemptions, the wrong coding on a purchase invoice, all of it adds up and HMRC does notice.</p>
+          <p class="svc-p">We prepare and file your VAT returns accurately and on time, every quarter. If you are not yet VAT registered and need advice on thresholds and timing, we can help with that too.</p>
+        </div>
+      </div>
+      <div id="payroll" class="svc-row anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Payroll</h2></div>
+        <div class="svc-body">
+          <p class="svc-p">We handle payroll for small businesses that need it done properly and on time, without it becoming a distraction. If you want a full service that covers payroll alongside your accounts, we can take care of it.</p>
+        </div>
+      </div>
+      <div id="manage-accounts" class="svc-row anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Management Accounts and Regular Meetings</h2></div>
+        <div class="svc-body">
+          <p class="svc-p svc-p--strong">This is where most accountants stop, and we carry on.</p>
+          <p class="svc-p">Every month or quarter, if we feel it's of benefit to you we prepare a set of management accounts: a clear picture of how your business is actually performing right now. Then we sit down with you, in person where possible, and go through them together.</p>
+          <p class="svc-p">We pay particular attention to rising costs and where pressure on your margins is coming from. The last five years have changed the cost of running a business. Understanding exactly where the money is going is the first step to doing something about it.</p>
+          <p class="svc-p">Cash flow gets its own focus, too. We can help you look ahead so you know what is coming in, what has to go out, and what you will have left. No surprises.</p>
+          <p class="svc-p">We also do budgeting and forecasting. If you want to grow, take on a member of staff, or make a significant purchase, we will model the numbers with you before you commit.</p>
+        </div>
+      </div>
+      <div id="year-end" class="svc-row anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Year-End Accounts</h2></div>
+        <div class="svc-body">
+          <p class="svc-p">We prepare statutory year-end accounts for:</p>
+          <ul class="svc-list">
+            <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>Sole traders</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>Partnerships</span></li>
+            <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>Limited companies and LLPs</span></li>
+          </ul>
+          <p class="svc-p">These are filed with HMRC and, where required, with Companies House. All the normal compliance taken care of as you would expect from any Accountant.</p>
+        </div>
+      </div>
+      <div id="personal-and-business" class="svc-row anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Personal and Business Tax Returns</h2></div>
+        <div class="svc-body">
+          <p class="svc-p">Self Assessment, Corporation Tax, Capital Gains, we handle the full range of tax return services. We will also talk you through what you can and cannot claim for, because most business owners are paying more tax than they need to.</p>
+        </div>
+      </div>
+      <div id="new-business" class="svc-row anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">New Business Setup</h2></div>
+        <div class="svc-body">
+          <p class="svc-p">Starting out and not sure where to begin? We help new businesses choose the right structure, register with HMRC and Companies House, set up for PAYE, CIS and VAT schemes, and get onto the right accounting software from day one.</p>
+          <p class="svc-p">We are seeing more and more new business owners come to us at the start taking this out because we can add value any time. Getting the foundations right saves a lot of pain and cost later.</p>
+        </div>
+      </div>
+      <div id="training-and-support" class="svc-row svc-row--last anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Bookkeeper Training and Support</h2></div>
+        <div class="svc-body">
+          <p class="svc-p">If you already have a part-time bookkeeper but they are struggling with the software, making errors, or not giving you the information you actually need, we can help.</p>
+          <p class="svc-p">We work alongside your existing team to improve their skills, correct any issues in the system, and get everything running to a higher standard. You get more from the resource you are already paying for, and we can step in to provide the analysis and advice that sits above the bookkeeping.</p>
+          <a href={site.bookingUrl} class="btn btn--purple btn--sm mt-28">Talk to Craig about bookkeeper training</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- In-house cost comparison -->
+  <section aria-label="In-house bookkeeper cost comparison" class="band-subtle">
+    <CurveSeam fill="#ffffff" />
+    <div class="container compare-pad">
+      <h2 class="h2 h2--compare">Think an in-house bookkeeper is cheaper? Run the numbers.</h2>
+      <div class="compare-grid">
+        <div class="cost-card">
+          <p class="body">A part-time bookkeeper at minimum wage working 20 hours a week costs you more than you might think:</p>
+          <dl class="cost-dl">
+            <div class="cost-row"><dt>Wages</dt><dd>£254.20 per week</dd></div>
+            <div class="cost-row"><dt>Employer's National Insurance</dt><dd>£35.58</dd></div>
+            <div class="cost-row"><dt>Pension</dt><dd>£7.63</dd></div>
+            <div class="cost-row"><dt class="cost-strong">Weekly total</dt><dd>£297.41</dd></div>
+            <div class="cost-total"><dt>Annual cost</dt><dd>Over £15,400</dd></div>
+          </dl>
+          <p class="cost-note">And that is before sick days, holidays, and the fact that most bookkeepers can process information but cannot analyse it, identify cost pressures, flag problems, or tell you what the numbers mean for your business going forward.</p>
+        </div>
+        <div class="benefit-card">
+          <p class="benefit-intro">For a similar outgoing, Smart Accounting Solutions provides:</p>
+          <ul class="benefit-list">
+            {['Bookkeeping','Management accounts','Monthly meetings','Hands-on business support','Year-end accounts','Tax returns','Unlimited advice','No HR headaches'].map((b) => (
+              <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>{b}</span></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Transparent pricing -->
+  <section aria-label="Transparent pricing">
+    <CurveSeam fill="#f7f5f9" />
+    <div class="container container--880 pricing-pad center">
+      <p class="eyebrow">Transparent pricing</p>
+      <h2 class="h2 h2--pricing">Fees that fit your business.</h2>
+      <p class="body pricing-body">Every client we work with is different. The support you need, the size of your business, the services that are right for you, it all shapes what we charge. So rather than publish a price list that does not mean anything until we know your situation, we keep it simple.</p>
+      <p class="pricing-punch">Tell Craig what you need. He will tell you what it costs.</p>
+      <a href={site.bookingUrl} class="btn btn--gold mt-36">Book a free chat to get a quote</a>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Not sure what you need?"
+    lead="Start with a conversation. Craig will ask the right questions, understand your situation, and tell you exactly what would make a difference."
+    seamFill="#ffffff"
+    areaLine="Based in Penistone. Serving businesses in Penistone and surrounding areas."
+  />
+
+  <!-- Grouped FAQ -->
+  <section aria-label="Frequently asked questions" class="faq-grouped">
+    <CurveSeam fill="#ffffff" variant="up" />
+    <div class="container container--840 faq-pad">
+      <h2 class="h2 faq-title">Frequently asked questions</h2>
+      {faqGroups.map((group) => (
+        <div class="faq-group">
+          <h3 class="faq-group-title">{group.title}</h3>
+          {group.items.map((item) => (
+            <details class="faq-item">
+              <summary class="faq-summary">
+                <span class="faq-q">{item.q}</span>
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1V15M1 8H15" stroke="var(--sas-purple)" stroke-width="1.75" stroke-linecap="round"></path></svg>
+              </summary>
+              <div class="faq-a">{item.a}</div>
+            </details>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .services-h1 { max-width: 20ch; font-size: clamp(30px, 4.2vw, 54px); }
+
+  .band-lilac { background: var(--sas-purple-05); }
+  .band-subtle { background: var(--sas-gray-05); }
+
+  .intro-pad { padding: 96px 0 72px; }
+  .feature-pad { padding-block: 88px; }
+  .rows-pad { padding-top: 40px; }
+  .compare-pad { padding-block: 96px; }
+  .pricing-pad { padding-block: var(--space-9); }
+  .faq-pad { padding-block: var(--space-9); }
+  .mt-18 { margin-top: 18px; }
+  .mt-28 { margin-top: 28px; }
+  .mt-32 { margin-top: 32px; }
+  .mt-36 { margin-top: 36px; }
+  .center { text-align: center; }
+
+  .container--880 { max-width: calc(880px + 2 * var(--section-x)); }
+  .container--840 { max-width: calc(840px + 2 * var(--section-x)); }
+
+  .two-col { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 64px; }
+  .two-col--center { align-items: center; }
+
+  .body { font-size: 16.5px; line-height: 1.6; color: var(--sas-ink); max-width: 62ch; }
+
+  .h2--intro { font-size: clamp(24px, 2.8vw, 34px); line-height: 1.16; }
+  .h2--feature { font-size: clamp(22px, 2.6vw, 30px); line-height: 1.2; }
+  .h2--compare { font-size: clamp(24px, 2.8vw, 34px); line-height: 1.16; max-width: 26ch; }
+  .h2--pricing { font-size: clamp(26px, 3.2vw, 40px); line-height: 1.12; }
+
+  /* anchor offset for the fixed header */
+  .anchor { scroll-margin-top: calc(var(--header-h) + 20px); }
+
+  /* Photos */
+  .photo { width: 100%; border-radius: var(--radius-lg); display: block; }
+  .photo--intro { height: 100%; min-height: 280px; max-height: 480px; object-fit: cover; }
+  .photo--feature { height: 100%; min-height: 280px; max-height: 520px; object-fit: cover; }
+
+  /* Chip nav */
+  .chip-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .chip {
+    font-size: 13.5px; font-weight: 600; color: var(--sas-purple-deep); text-decoration: none;
+    border: 1px solid var(--sas-gray-15); border-radius: var(--radius-pill); padding: 9px 16px;
+    transition: background 150ms ease, color 150ms ease;
+  }
+  .chip:hover { background: var(--sas-purple-05); color: var(--sas-purple-deep); }
+
+  /* Service rows */
+  .svc-row {
+    display: flex; flex-wrap: wrap; gap: 24px 64px; padding: 56px 0;
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, var(--sas-purple-15), rgba(201, 180, 224, .12)) 1;
+  }
+  .svc-row--last { border-bottom: 0; }
+  .svc-head { flex: 1 1 260px; min-width: 240px; }
+  .svc-rule { width: 32px; height: 3px; background: var(--sas-gold); margin-bottom: 18px; }
+  :root.anim .svc-rule { transform: scaleX(0); transform-origin: left; transition: transform .5s var(--ease-out) .1s; }
+  :root.anim .is-revealed .svc-rule { transform: scaleX(1); }
+  .svc-h2 {
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    letter-spacing: .04em; font-size: 22px; line-height: 1.25; color: var(--sas-purple-deep); margin: 0;
+  }
+  .svc-body { flex: 2 1 420px; }
+  .svc-p { font-size: 16.5px; line-height: 1.6; color: var(--sas-ink); margin: 0 0 16px; max-width: 66ch; }
+  .svc-p:last-child { margin-bottom: 0; }
+  .svc-p--strong { font-weight: 600; color: var(--sas-purple-deep); }
+  .svc-list { list-style: none; margin: 16px 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .svc-list li { display: flex; gap: 12px; align-items: center; }
+  .svc-list li svg { flex-shrink: 0; }
+  .svc-list span { font-size: 16.5px; color: var(--sas-ink); }
+
+  /* Cost comparison */
+  .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; margin-top: 48px; align-items: stretch; }
+  .cost-card { background: var(--sas-white); border: 1px solid var(--sas-gray-15); border-radius: var(--radius-lg); padding: 40px; }
+  .cost-dl { margin: 28px 0 0; display: flex; flex-direction: column; }
+  .cost-row {
+    display: flex; justify-content: space-between; gap: 24px; padding: 12px 0;
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(90deg, var(--sas-purple-15), rgba(201, 180, 224, .12)) 1;
+  }
+  .cost-row dt { font-size: 15.5px; color: var(--sas-ink); }
+  .cost-row dd { font-size: 15.5px; font-weight: 600; color: var(--sas-purple-deep); margin: 0; }
+  .cost-row .cost-strong { font-weight: 600; color: var(--sas-purple-deep); }
+  .cost-total { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; padding: 16px 0 0; border-top: 2px solid var(--sas-purple-deep); }
+  .cost-total dt { font-family: var(--font-heading); font-weight: 700; text-transform: uppercase; letter-spacing: var(--tracking-button); font-size: 14px; color: var(--sas-purple-deep); }
+  .cost-total dd { font-family: var(--font-heading); font-weight: 700; font-size: 30px; color: var(--sas-purple-deep); margin: 0; }
+  .cost-note { font-size: 14.5px; line-height: 1.6; color: var(--sas-gray-70); margin: 24px 0 0; max-width: 60ch; }
+  .benefit-card { background: var(--surface-brand-gradient); border-radius: var(--radius-lg); padding: 40px; }
+  .benefit-intro { font-size: 16.5px; line-height: 1.6; font-weight: 600; color: var(--sas-white); margin: 0; }
+  .benefit-list { list-style: none; margin: 24px 0 0; padding: 0; display: flex; flex-direction: column; }
+  .benefit-list li { display: flex; gap: 14px; align-items: center; padding: 13px 0; }
+  .benefit-list li + li { border-top: 1px solid rgba(255, 255, 255, .16); }
+  .benefit-list li svg { flex-shrink: 0; }
+  .benefit-list span { font-size: 15.5px; font-weight: 600; color: var(--sas-white); }
+
+  /* Pricing */
+  .pricing-body { max-width: 62ch; margin-left: auto; margin-right: auto; margin-top: 28px; }
+  .pricing-punch {
+    font-size: clamp(18px, 1.8vw, 21px); line-height: 1.55; font-weight: 600;
+    color: var(--sas-purple-deep); margin: 28px auto 0; max-width: 40ch;
+  }
+
+  .btn--sm { padding: 16px 30px; font-size: 13.5px; }
+
+  /* Grouped FAQ */
+  .faq-title { margin-bottom: 0; font-size: clamp(26px, 3vw, 36px); }
+  .faq-group { margin-top: 48px; }
+  .faq-group-title {
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    letter-spacing: var(--tracking-button); font-size: 16px; color: var(--sas-purple);
+    margin: 0 0 8px; border-bottom: 2px solid var(--sas-gold); display: inline-block; padding-bottom: 8px;
+  }
+  .faq-item {
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, var(--sas-purple-15), rgba(201, 180, 224, .12)) 1;
+  }
+  .faq-summary {
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    cursor: pointer; padding: 22px 0; font-size: 16.5px; font-weight: 600; color: var(--sas-purple-deep);
+    list-style: none;
+  }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-summary:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: 6px; }
+  .faq-icon { flex-shrink: 0; transition: transform 160ms ease; }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); }
+  .faq-item[open] .faq-q { color: var(--sas-purple); }
+  .faq-a { font-size: 15.5px; line-height: 1.65; color: var(--sas-ink); padding: 0 40px 26px 0; max-width: 70ch; white-space: pre-line; }
+
+  @media (prefers-reduced-motion: reduce) { .faq-icon, .chip { transition: none; } }
+</style>

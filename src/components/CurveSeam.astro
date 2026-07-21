@@ -1,0 +1,20 @@
+---
+/* Curved section seam (playbook/handoff signature device). Sits at the top of a
+   section ONLY where the background colour changes. `fill` = the PREVIOUS section's
+   background colour. `variant`:
+   - 'down' (default): convex dip into this section. Wrapper height:0.
+   - 'up': mirrored, translated up 26px (used on some seams).
+   aria-hidden so the scroll-reveal script skips it. */
+interface Props {
+  fill: string;
+  variant?: 'down' | 'up';
+}
+const { fill, variant = 'down' } = Astro.props;
+const path = variant === 'up' ? 'M0 26H1440V21C1050 1 390 1 0 21Z' : 'M0 0H1440V5C1050 25 390 25 0 5Z';
+const style = variant === 'up' ? 'display:block;transform:translateY(-26px)' : 'display:block';
+---
+<div aria-hidden="true" style="height:0">
+  <svg width="100%" height="26" viewBox="0 0 1440 26" preserveAspectRatio="none" style={style}>
+    <path d={path} fill={fill}></path>
+  </svg>
+</div>
