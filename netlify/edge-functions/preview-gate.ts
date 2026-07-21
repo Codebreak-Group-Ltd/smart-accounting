@@ -8,26 +8,40 @@
  * Env vars (set in the Netlify UI, never committed):
  *   PREVIEW_PASSWORD  required to enable the gate
  *   PREVIEW_USER      optional, defaults to "client"
+ *
+ * Implementation note: we DECODE the incoming Authorization header and compare,
+ * rather than btoa()-encoding our own expected value — btoa throws on any non-Latin1
+ * character in the password, which would crash the function. All parsing is guarded.
  */
-import type { Context } from '@netlify/edge-functions';
 
-export default async (request: Request, _context: Context) => {
+export default async (request: Request) => {
   const password = Netlify.env.get('PREVIEW_PASSWORD');
   // Gate disabled when no password is configured — pass straight through.
   if (!password) return;
 
   const user = Netlify.env.get('PREVIEW_USER') || 'client';
-  const expected = 'Basic ' + btoa(`${user}:${password}`);
-  const provided = request.headers.get('authorization') || '';
+  const header = request.headers.get('authorization') || '';
 
-  // Constant-ish comparison is unnecessary here (shared preview credential), but we
-  // still avoid leaking which of user/pass was wrong by checking the whole header.
-  if (provided !== expected) {
+  let authorized = false;
+  if (header.startsWith('Basic ')) {
+    try {
+      const decoded = atob(header.slice(6).trim()); // "user:password"
+      const sep = decoded.indexOf(':');
+      if (sep !== -1) {
+        authorized =
+          decoded.slice(0, sep) === user && decoded.slice(sep + 1) === password;
+      }
+    } catch {
+      authorized = false;
+    }
+  }
+
+  if (!authorized) {
     return new Response('Authentication required.', {
       status: 401,
       headers: {
         'WWW-Authenticate':
-          'Basic realm="Smart Accounting Solutions — private preview", charset="UTF-8"',
+          'Basic realm="Smart Accounting Solutions - private preview", charset="UTF-8"',
         'Content-Type': 'text/plain; charset=utf-8',
         // Belt-and-braces: never let a gated response be indexed or cached.
         'X-Robots-Tag': 'noindex, nofollow',
