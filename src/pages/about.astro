@@ -10,6 +10,8 @@ import { Image } from 'astro:assets';
 import { site, siteUrl } from '../data/site';
 
 import craig from '../assets/images/craig-normington.webp';
+import katrina from '../assets/images/katrina.webp';
+import rebecca from '../assets/images/rebecca.webp';
 import precisionStillLife from '../assets/images/precision-still-life.png';
 import theAdvisoryMoment from '../assets/images/the-advisory-moment.png';
 
@@ -119,6 +121,16 @@ const breadcrumb = {
     <div class="container container--880 pad-md center">
       <h2 class="h2 h2--team">Meet the team</h2>
       <p class="team-lead">Smart Accounting Solutions is built around a team of well-trained bookkeepers who understand why accuracy matters, not just how to enter data. Every team member is taken through the full process, from bookkeeping to management accounts, so they understand the bigger picture of what they are doing and why it matters to the client.</p>
+      <ul class="team-grid" role="list">
+        <li class="team-member">
+          <Image src={katrina} alt="Katrina, bookkeeper at Smart Accounting Solutions" widths={[220, 320, 440]} sizes="200px" class="team-photo" />
+          <p class="team-name">Katrina</p>
+        </li>
+        <li class="team-member">
+          <Image src={rebecca} alt="Rebecca, bookkeeper at Smart Accounting Solutions" widths={[220, 320, 440]} sizes="200px" class="team-photo" />
+          <p class="team-name">Rebecca</p>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -183,6 +195,11 @@ const breadcrumb = {
 
   /* Meet the team */
   .team-lead { font-size: clamp(17px, 1.7vw, 20px); line-height: 1.65; color: var(--sas-ink); margin: 28px auto 0; max-width: 62ch; }
+
+  .team-grid { list-style: none; padding: 0; margin: 48px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(40px, 6vw, 72px); }
+  .team-member { display: flex; flex-direction: column; align-items: center; gap: 18px; }
+  .team-photo { width: clamp(150px, 40vw, 200px); height: clamp(150px, 40vw, 200px); border-radius: 50%; object-fit: cover; display: block; }
+  .team-name { font-family: var(--font-heading); font-weight: 700; font-size: 20px; color: var(--sas-purple); letter-spacing: .01em; margin: 0; }
 
   @media (min-width: 901px) { .order-first { order: -1; } }
 </style>
