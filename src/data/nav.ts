@@ -8,7 +8,7 @@ export interface ServiceLink {
 
 export const services: ServiceLink[] = [
   { label: 'MTD for ITSA', anchor: 'mtd' },
-  { label: 'Bookkeeping Bureau', anchor: 'bookkeeping' },
+  { label: 'Bookkeeping', anchor: 'bookkeeping' },
   { label: 'VAT Returns', anchor: 'vat' },
   { label: 'Payroll', anchor: 'payroll' },
   { label: 'Management Accounts', anchor: 'manage-accounts' },
