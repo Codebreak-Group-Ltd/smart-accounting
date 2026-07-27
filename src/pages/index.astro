@@ -23,13 +23,12 @@ const description = 'Bookkeeping, VAT, payroll, accounts and tax for small busin
 const showTestimonials = true;
 
 const faqs: FaqItem[] = [
-  { q: 'What does a bookkeeper actually do?', a: 'A bookkeeper records and categorises all your business transactions - income, expenses, bank movements - on a regular basis. They reconcile your bank accounts, prepare VAT returns, keep your records compliant, and ensure your figures are accurate and up to date. Unlike a year-end accountant who looks back once a year, a bookkeeper keeps your finances current throughout the year.' },
+  { q: 'What does your bookkeeper do for you?', a: 'A bookkeeper records and categorises all your business transactions - income, expenses, bank movements - on a regular basis. They reconcile your bank accounts, prepare VAT returns, keep your records compliant, and ensure your figures are accurate and up to date. Unlike a year-end accountant who looks back once a year, a bookkeeper keeps your finances current throughout the year.' },
   { q: "What's the difference between a bookkeeper and an accountant?", a: 'A bookkeeper handles the day-to-day maintenance of your financial records - categorising transactions, reconciling accounts, filing VAT returns, and keeping everything current. An accountant typically works at a higher level: preparing statutory year-end accounts, filing corporation tax or self-assessment returns, providing strategic financial advice, and handling HMRC compliance. Many businesses need both; some firms provide both services under one roof.' },
   { q: 'How do I know if my business is actually profitable?', a: "If you don't have up-to-date management accounts, you genuinely don't know. Turnover doesn't tell you profitability - you need accurate income and expenditure figures, broken down clearly, to understand your real margins. A bookkeeper producing monthly or quarterly management accounts will give you that picture on an ongoing basis." },
   { q: 'What makes Smart Accounting Solutions different from other accountants?', a: 'The primary difference is personal involvement and continuity. You will always deal with the same bookkeeper who knows your business, and Craig is always directly accessible - not a call centre, not a form, not a three-day wait. Smart Accounting Solutions also places a strong emphasis on regular face-to-face meetings, management accounts, and business understanding - not just compliance-led year-end work.' },
   { q: 'How do I get started with Smart Accounting Solutions?', a: 'The first step is a free, no-obligation conversation with Craig. Contact the team by phone (07393 635760), email (hello@smartaccountingsolutions.co.uk), or via the website contact form. Craig will listen to where you are, ask the right questions, and be straightforward about whether and how he can help - no hard sell, no fixed agenda.' },
-  { q: 'My accountant only contacts me once a year at year end. Is that normal?', a: "It's common for traditional accountants, but it's not good enough for most small businesses. Annual accounts are filed months after the year ends and reflect decisions made 18 months ago. You need financial information while it's still useful - which means monthly or quarterly reporting, not an annual review. If your accountant only engages at year end, the value they're adding is largely compliance, not commercial support." },
-  { q: "I'm not sure I can afford a bookkeeper right now.", a: 'The question worth asking is whether you can afford not to have one. Missed tax reliefs, HMRC penalties, incorrect VAT coding, and the time you spend on financial admin all have a cost. A bookkeeper typically pays for themselves - and then some - through the time you save and the tax savings they identify. A free initial conversation with Craig will give you a clear picture of what the cost actually looks like for your specific business.' },
+  { q: 'My accountant only contacts me once a year at year end. Is that normal?', a: "It's common for traditional accountants, but it's not good enough for most small businesses. Annual accounts are filed months after the year ends and reflect decisions made 18 months ago. You need financial information while it's still useful - which means regular, up-to-date information, not an annual review. If your accountant only engages at year end, the value they're adding is largely compliance, not commercial support." },
 ];
 
 const faqSchema = {
@@ -52,6 +51,7 @@ const faqSchema = {
       then sits down with you to make sense of the numbers. You get a clear picture of where
       your business stands and have someone alongside you when decisions need to be made.
     </p>
+    <p class="hero-note">Fixed monthly fee, with unlimited support by phone, email and face to face included. You are never charged extra for picking up the phone.</p>
     <div class="hero-actions">
       <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
       <a href={site.phoneMobileHref} class="btn btn--outline">Call 07393 635760</a>
@@ -71,8 +71,10 @@ const faqSchema = {
         <p class="body body--strong mt-32">Does this sound like you?</p>
         <ul class="pain-list">
           <li><span class="tri" aria-hidden="true"></span><span>I am never quite sure where I stand with the numbers</span></li>
-          <li><span class="tri" aria-hidden="true"></span><span>I do not have anyone I can lean on to talk through plans and growth</span></li>
-          <li><span class="tri" aria-hidden="true"></span><span>It is hard to raise concerns with peers or staff for fear of how it will look</span></li>
+          <li><span class="tri" aria-hidden="true"></span><span>I do not always know where to turn when I need advice</span></li>
+          <li><span class="tri" aria-hidden="true"></span><span>I do not have a team around me, and it can feel like a lonely struggle</span></li>
+          <li><span class="tri" aria-hidden="true"></span><span>I worry about missing something important, like a deadline</span></li>
+          <li><span class="tri" aria-hidden="true"></span><span>I cannot always just pick up the phone to my accountant when I need to</span></li>
           <li><span class="tri" aria-hidden="true"></span><span>The administration burden often feels overwhelming and pulls me away from doing what I am best at</span></li>
         </ul>
       </div>
@@ -86,8 +88,8 @@ const faqSchema = {
     <BrandMark size="min(64vw, 640px)" color="#ffffff" opacity={0.05} top="4%" right="-8%" rotate="-6deg" />
     <div class="container container--880 pad-lg">
       <p class="statement">It is not your fault.</p>
-      <p class="band-lead">You did not go into business to become an expert in bookkeeping, tax codes and quarterly filings. But most accountants are not set up to help with any of this either. They hand you a set of numbers that are already out of date and tell you what you should have done differently. That is not advice. That is history.</p>
-      <p class="band-sub">There is also the question of rising costs. The last five years have changed what it costs to run a business, and for many owners that has eaten directly into their margins. The sooner you have a clear picture of where the pressure is coming from, the sooner you can do something about it.</p>
+      <p class="band-lead">You did not go into business to become an expert in bookkeeping, tax codes and quarterly filings. That is our job, not yours. What you deserve is numbers that are up to date while they still mean something, and someone who sits down with you to explain what they show and what to do next. That is the standard we hold ourselves to.</p>
+      <p class="band-sub">Your business is always changing, and so is everything around it, from costs to tax rules. With your figures kept up to date all year round, we can give you the information and advice to make good decisions as things change, not months after the moment has passed.</p>
       <hr class="gold-divider gold-divider--wide" />
       <p class="band-punch">You deserve better than an accountant who only shows up once a year.</p>
       <a href={site.bookingUrl} class="btn btn--gold mt-44">Book a free chat</a>
@@ -102,10 +104,12 @@ const faqSchema = {
       <div>
         <p class="eyebrow">A different kind of service</p>
         <h2 class="h2 h2--sm">We do not just process your numbers. We help you understand them, throughout the year, when it still matters.</h2>
-        <p class="body mt-28">Smart Accounting Solutions was built for the businesses that traditional accountants overlook. The sole traders. The small limited companies. The landlords navigating Making Tax Digital. The owner who has a part-time bookkeeper and is not sure they are getting everything they could from them.</p>
-        <p class="body mt-18">We handle everything from the basics up: bookkeeping, VAT returns, payroll, management accounts, year-end accounts and tax returns. And then we sit down with you, go through the figures, and tell you what they mean for your business right now, not in 18 months' time when the opportunity to act has passed.</p>
-        <p class="body mt-18">If you already have a part-time bookkeeper, we can work alongside them too. We will train them, support them and make sure you are actually getting a return from the time they spend.</p>
-        <p class="pull-quote">One phone call, one WhatsApp message. You will always get through to someone who knows you.</p>
+        <p class="body body--strong mt-28">Built for businesses like yours.</p>
+        <p class="body mt-18">Smart Accounting Solutions was built for the businesses that traditional accountants overlook. The sole traders. The small limited companies. The landlords navigating Making Tax Digital. We handle everything from the basics up, from bookkeeping, VAT and payroll through to management accounts, year-end accounts and tax returns. Then we sit down with you, go through the figures, and tell you what they mean for your business right now, not in 18 months' time when the opportunity to act has passed.</p>
+        <p class="body body--strong mt-32">Already have a bookkeeper?</p>
+        <p class="body mt-18">You may already have a part-time bookkeeper and not be sure you are getting everything you could from them. We can work alongside them. We will train them, support them, and make sure you get a real return from the time they spend. Whether you do the work yourself or someone does it for you, we are here to make sure you get the information you need. We become part of your team. We are here to help, not to replace, unless replacing is what you want.</p>
+        <p class="pull-quote">One phone call, one WhatsApp message. You will always get through to someone who knows you, and it is all included in your fixed monthly fee.</p>
+        <p class="body body--strong mt-28">Fixed monthly fees. Unlimited support. Dedicated people who know your business, your bookkeeper and Craig.</p>
       </div>
     </div>
   </section>
@@ -119,17 +123,17 @@ const faqSchema = {
         <h2 class="h2 h2--lg">Meet Craig</h2>
         <p class="body mt-28">My name is Craig Normington. I have over 25 years of experience working directly with small businesses across Yorkshire and beyond.</p>
         <p class="body mt-18">I set up Smart Accounting Solutions because I kept meeting business owners who were not getting the help they needed. Not because their business was too small, but because most accountancy practices are not built to give that kind of attention to smaller clients.</p>
-        <p class="body mt-18">Every client I take on, I stay involved with personally. You will not be handed off. You will not go through a call centre. You will deal with me, and with a dedicated bookkeeper who knows your business inside out.</p>
+        <p class="body mt-18">Every client I take on, I stay involved with personally. You will not be handed off. You will not go through a call centre. You will deal with me, and with your dedicated bookkeeper who knows your business inside out.</p>
         <div class="stats">
           <div class="stat"><p class="stat-fig">25+</p><p class="stat-label">Years with small businesses</p></div>
           <div class="stat"><p class="stat-fig">One</p><p class="stat-label">Point of contact, always</p></div>
-          <div class="stat"><p class="stat-fig">Penistone</p><p class="stat-label">West and North Yorkshire</p></div>
+          <div class="stat"><p class="stat-fig">Penistone</p><p class="stat-label">Serving across Yorkshire</p></div>
         </div>
         <a href="/about/" class="text-link">Find out more about Craig
           <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true"><path d="M1 6H15M15 6L10.5 1.5M15 6L10.5 10.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </a>
       </div>
-      <Image src={craig} alt="Craig Normington, Director of Smart Accounting Solutions, bookkeeper and accountant serving small businesses across West and North Yorkshire" widths={[400, 600, 720]} sizes="(max-width: 900px) 100vw, 460px" class="img-circle" />
+      <Image src={craig} alt="Craig Normington, Director of Smart Accounting Solutions, bookkeeper and accountant serving small businesses across Yorkshire" widths={[400, 600, 720]} sizes="(max-width: 900px) 100vw, 460px" class="img-circle" />
     </div>
   </section>
 
@@ -137,19 +141,27 @@ const faqSchema = {
   <section aria-label="What you get">
     <CurveSeam fill="#f7f5f9" />
     <div class="container pad-lg">
-      <h2 class="h2 h2--wide">What you get</h2>
+      <h2 class="h2 h2--wide">Every client gets</h2>
       <div class="get-rows">
         <div class="get-row">
-          <h3 class="get-h3"><span class="sq" aria-hidden="true"></span>A dedicated bookkeeper.</h3>
+          <h3 class="get-h3"><span class="sq" aria-hidden="true"></span>Your dedicated bookkeeper.</h3>
           <p class="body">You will always deal with the same person. They will learn how you work, what your business needs, and how to make your life easier. No starting from scratch every month.</p>
         </div>
         <div class="get-row">
           <h3 class="get-h3"><span class="sq" aria-hidden="true"></span>Craig, always on hand</h3>
           <p class="body">Your bookkeeper handles the day-to-day. But Craig is always one call away if something bigger comes up. Finances, HMRC questions, plans for the future, whatever it is, just ask.</p>
         </div>
-        <div class="get-row get-row--last">
+        <div class="get-row">
+          <h3 class="get-h3"><span class="sq" aria-hidden="true"></span>A fixed fee, agreed up front</h3>
+          <p class="body">You know exactly what you are paying from the start. One fixed monthly fee, no hidden costs, and no charge every time you call, email or need a meeting.</p>
+        </div>
+        <div class="get-row">
           <h3 class="get-h3"><span class="sq" aria-hidden="true"></span>Real meetings, not just reports</h3>
           <p class="body">We believe in sitting down together. Whether that is at your place, ours, or on a Zoom or Teams call, we go through the numbers and make sure you actually understand them and know what to do with them. That is how good decisions get made.</p>
+        </div>
+        <div class="get-row get-row--last">
+          <h3 class="get-h3"><span class="sq" aria-hidden="true"></span>A regular business review</h3>
+          <p class="body">At least every six months we will sit down to talk through your business and your plans, even when nothing is wrong. Staying close is how we spot opportunities and head off problems early.</p>
         </div>
       </div>
       <Image src={theAdvisoryMoment} alt="Craig going through a set of figures with a client at a desk" widths={[600, 900, 1200]} sizes="(max-width: 1200px) 100vw, 1152px" class="photo photo--wide" />
@@ -164,7 +176,7 @@ const faqSchema = {
         <p class="eyebrow">MTD for Income Tax is here.</p>
         <h2 class="h2 h2--md2">Do you know what to do next?</h2>
         <p class="body mt-28">As of April 2026, self-employed businesses and landlords earning over £50,000 must keep digital records and submit quarterly updates to HMRC under Making Tax Digital for Income Tax (MTD for ITSA).</p>
-        <p class="body mt-18">By now most people have had the letter. What many do not yet know is exactly what they have to do, or what happens if their quarterly submission goes wrong.</p>
+        <p class="body mt-18">By now most people have had the letter. What many do not yet know is exactly what they have to do, or what happens if their quarterly submission goes wrong. If your first quarterly period has already passed, we can get you caught up and compliant quickly.</p>
         <p class="body mt-18">If your accountant has not walked you through the process in detail, that is a problem worth sorting. We will get you on the right software, set everything up correctly, and make sure your submissions are filed accurately and on time.</p>
         <p class="body mt-18">And if your turnover is currently below £50,000, do not wait. The threshold drops to £30,000 in April 2027 and £20,000 in April 2028. Getting set up properly now is far easier than scrambling later.</p>
         <a href={site.bookingUrl} class="btn btn--purple btn--sm mt-36">Talk to Craig about MTD for ITSA</a>
@@ -215,7 +227,7 @@ const faqSchema = {
           'Business owners who want more than a once-a-year tax conversation',
           'Anyone who has outgrown their current bookkeeping solution',
           'New businesses that want to get set up properly from day one',
-          'Anyone who feels they are not getting the help they need from their current accountant',
+          'Business owners looking for a more proactive accountant',
         ].map((t) => (
           <li>
             <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg>
@@ -259,7 +271,7 @@ const faqSchema = {
         <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
         <a href={site.phoneMobileHref} class="btn btn--outline">Call 07393 635760</a>
       </div>
-      <p class="cta-area">Based in Penistone. Serving businesses across West and North Yorkshire.</p>
+      <p class="cta-area">{site.serviceAreaCopy}</p>
     </div>
   </section>
 
@@ -277,6 +289,16 @@ const faqSchema = {
     text-transform: uppercase;
     letter-spacing: .22em;
     font-size: 12.5px;
+    color: var(--sas-gold);
+  }
+
+  /* Standout hero line: fixed fee + unlimited support (client priority). */
+  .hero-note {
+    margin: 22px 0 0;
+    max-width: 52ch;
+    font-size: 16px;
+    line-height: 1.55;
+    font-weight: 600;
     color: var(--sas-gold);
   }
 
