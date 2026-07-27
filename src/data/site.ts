@@ -30,7 +30,7 @@ export const site = {
   address: {
     street: 'Offices 8 and 9, Queens Building, Green Road',
     locality: 'Penistone',
-    region: 'South Yorkshire', // NB: approved marketing copy says "West and North Yorkshire" — see flag above
+    region: 'South Yorkshire', // Penistone sits in South Yorkshire; visible copy standardised to "Yorkshire" (client-approved, 2026-07-27)
     postcode: 'S36 6FQ',
     country: 'GB',
     what3words: '///pods.trap.lease',
@@ -38,8 +38,8 @@ export const site = {
   // Approximate geo for LocalBusiness schema (Penistone town centre — refine with GBP).
   geo: { latitude: 53.5257, longitude: -1.6293 },
 
-  // Service area as stated in approved copy (verbatim).
-  serviceAreaCopy: 'Based in Penistone. Serving businesses across West and North Yorkshire.',
+  // Service area — single source for the footer, CTA bands and page area lines.
+  serviceAreaCopy: 'Based in Penistone, South Yorkshire. Serving businesses across Yorkshire.',
 
   // CTA destinations — swappable
   bookingUrl: '/contact/', // TODO: replace with Craig's calendar link when supplied
