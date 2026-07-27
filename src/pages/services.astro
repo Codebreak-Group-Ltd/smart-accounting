@@ -18,7 +18,7 @@ const description = 'Bookkeeping, VAT, MTD, payroll, year-end accounts and tax f
 // Chip labels differ slightly from the shared nav labels (design-exact).
 const chipLabels: Record<string, string> = {
   mtd: 'MTD for ITSA',
-  bookkeeping: 'Bookkeeping Bureau',
+  bookkeeping: 'Bookkeeping',
   vat: 'VAT Returns',
   payroll: 'Payroll',
   'manage-accounts': 'Management Accounts',
@@ -41,7 +41,7 @@ const faqGroups: FaqGroup[] = [
     { q: 'What software do I need for Making Tax Digital?', a: 'You need HMRC-recognised software that supports MTD for Income Tax. The most widely used options are QuickBooks, Xero, Sage, FreeAgent, and KashFlow. The right choice depends on your business type and how you prefer to work. A bookkeeper or accountant can advise on which platform suits you and get you set up and trained on it properly.' },
     { q: 'What are the penalties for not complying with MTD?', a: 'HMRC operates a points-based penalty system for MTD. Late quarterly submissions accumulate penalty points, and once you hit the threshold (four points for quarterly filers), a £200 fine is issued. Further missed submissions add more fines. There are also separate penalties for late payment of any tax owed. Complying on time avoids all of these.' },
   ]},
-  { title: 'New Business Accounts', items: [
+  { title: 'Starting a Business', items: [
     { q: "I've just started a business. What do I need to sort out financially?", a: 'From day one you need to: register with HMRC (as self-employed or via Companies House if forming a limited company), open a dedicated business bank account, set up compliant bookkeeping records, understand your VAT position, and know your tax return deadlines. Getting this right at the start prevents the messy catch-up that many new business owners face a year or two in.' },
     { q: 'When do I need to register for Self Assessment?', a: 'You must register for Self Assessment with HMRC if you are self-employed (including as a sole trader), earn rental income over £1,000 in a tax year, are a company director, or have other untaxed income above certain thresholds. Registration should be done by 5 October following the end of the tax year in which you first needed to file - late registration can lead to penalties.' },
     { q: 'Should I operate as a sole trader or set up a limited company?', a: 'The right structure depends on your expected profit level, risk appetite, and long-term plans. Sole trader status is simpler and has lower admin, but you pay National Insurance and Income Tax on all profits. A limited company pays Corporation Tax (currently 19-25% depending on profits), which can be more tax-efficient once profits exceed roughly £30,000-£50,000 - but involves more compliance obligations. An accountant can model both options against your specific numbers.' },
@@ -57,13 +57,12 @@ const faqGroups: FaqGroup[] = [
     { q: 'What is cash flow forecasting and why does it matter?', a: "Cash flow forecasting projects your expected income and expenditure forward over the next three to six months, so you can see in advance when cash will be tight and when you'll have surplus. It allows you to plan for VAT bills, quiet trading periods, equipment purchases, or staff costs before they arrive - rather than being caught short. Many business failures are profitable businesses that run out of cash; forecasting prevents that." },
     { q: 'My accountant only contacts me once a year at year end. Is that normal?', a: "It's common for traditional accountants, but it's not good enough for most small businesses. Annual accounts are filed months after the year ends and reflect decisions made 18 months ago. You need financial information while it's still useful - which means monthly or quarterly reporting, not an annual review. If your accountant only engages at year end, the value they're adding is largely compliance, not commercial support." },
   ]},
-  { title: 'Bookkeeping Bureau', items: [
+  { title: 'Bookkeeping & Support', items: [
     { q: "What's the difference between a bookkeeper and an accountant?", a: 'A bookkeeper handles the day-to-day maintenance of your financial records - categorising transactions, reconciling accounts, filing VAT returns, and keeping everything current. An accountant typically works at a higher level: preparing statutory year-end accounts, filing corporation tax or self-assessment returns, providing strategic financial advice, and handling HMRC compliance. Many businesses need both; some firms provide both services under one roof.' },
     { q: 'What does a bookkeeper actually do?', a: 'A bookkeeper records and categorises all your business transactions - income, expenses, bank movements - on a regular basis. They reconcile your bank accounts, prepare VAT returns, keep your records compliant, and ensure your figures are accurate and up to date. Unlike a year-end accountant who looks back once a year, a bookkeeper keeps your finances current throughout the year.' },
     { q: 'How often should my bookkeeping be updated?', a: 'Ideally weekly or monthly. The more current your records, the more useful your financial information is for decision-making. Quarterly updates are the minimum for staying VAT compliant. Waiting until year end to do everything in one go creates errors, stress, and means you have been flying blind for twelve months.' },
     { q: 'How do I get my invoices and receipts to my bookkeeper?', a: 'Most modern accounting platforms (QuickBooks, Xero, Sage, FreeAgent, KashFlow) allow you to photograph receipts with a mobile app, forward supplier emails directly, and connect bank feeds automatically. Your bookkeeper will set up the system to suit how you work - minimising the admin on your side while ensuring everything is captured.' },
     { q: 'Do I need a bookkeeper if I use accounting software?', a: "Accounting software processes data - it doesn't check that your data is correct. Transactions still need to be categorised accurately, bank feeds reconciled, VAT coded correctly, and anomalies investigated. Software speeds up the work; a bookkeeper ensures the output is accurate and meaningful. For most small businesses, using software without a bookkeeper reviewing the output leads to errors that compound over time." },
-    { q: 'What is a bookkeeping bureau?', a: 'A bookkeeping bureau is a service where a team of bookkeepers handles your records remotely, typically on a subscription or fixed fee basis. You submit your invoices, receipts, and bank statements (often through your accounting software), and the bureau processes, categorises, reconciles, and maintains everything on your behalf. It gives you the benefit of a dedicated bookkeeper without the cost of employing one in-house.' },
   ]},
 ];
 
@@ -107,7 +106,7 @@ const breadcrumb = {
     <h1 class="hero-h1 services-h1">Everything your business needs. Nothing you do not.</h1>
     <p class="hero-lead">
       A full range of bookkeeping and accountancy services for small businesses, sole traders
-      and landlords. One point of contact. No hidden extras. Fixed fees where possible.
+      and landlords. One point of contact. No hidden extras. Fixed monthly fees.
     </p>
     <div class="hero-actions">
       <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
@@ -124,7 +123,7 @@ const breadcrumb = {
         <p class="body mt-28">You do not need to know exactly what you need before you call us. That is our job. Craig will listen to where you are, understand what your business looks like, and work out the right level of support together.</p>
         <p class="body mt-18">What we offer covers every stage of your business, from getting set up on the right software right through to year-end accounts and tax returns.</p>
         <nav aria-label="Services on this page" class="chip-nav">
-          {['mtd','bookkeeping','vat','payroll','manage-accounts','year-end','personal-and-business','new-business','training-and-support'].map((id) => (
+          {['mtd','bookkeeping','vat','manage-accounts','year-end','personal-and-business','new-business','payroll','training-and-support'].map((id) => (
             <a href={`#${id}`} class="chip">{chipLabels[id]}</a>
           ))}
         </nav>
@@ -153,11 +152,13 @@ const breadcrumb = {
     <CurveSeam fill="#f4eff9" />
     <div class="container rows-pad">
       <div id="bookkeeping" class="svc-row anchor">
-        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Bookkeeping Bureau</h2></div>
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Bookkeeping</h2></div>
         <div class="svc-body">
+          <p class="svc-p">We keep your bookkeeping up to date all year round, so whenever you need advice it is based on current numbers, not last year's.</p>
           <p class="svc-p">Our bookkeeping service is built around one idea: you upload, we handle everything else.</p>
           <p class="svc-p">Your receipts, invoices and bank transactions go into your cloud accounting software. We process them, categorise everything correctly, reconcile your accounts and keep your records in order. You always have a single, dedicated bookkeeper who knows your business.</p>
           <p class="svc-p">Don't want to upload? Give us the information and we will do everything for you. We tailor the service around exactly what you need. Need somebody to do your invoicing? We can do that for you too.</p>
+          <p class="svc-p">We also work with you to make each month easier. For example, we can get set up with your portal logins so we pull your invoices for you, rather than you having to.</p>
           <p class="svc-p">We work with QuickBooks, Xero, Sage, FreeAgent and KashFlow. If you are still on a desktop system or paper records, we can move you across and make sure you know how to use it properly.</p>
           <p class="svc-p svc-p--strong">This is not just data entry. When something does not add up, we sort it. When information is missing, we chase it down. When a supplier overcharges you, we spot it.</p>
         </div>
@@ -166,21 +167,15 @@ const breadcrumb = {
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">VAT Returns</h2></div>
         <div class="svc-body">
           <p class="svc-p">VAT is one of those things that seems simple until it is not. Different rates, partial exemptions, the wrong coding on a purchase invoice, all of it adds up and HMRC does notice.</p>
-          <p class="svc-p">We prepare and file your VAT returns accurately and on time, every quarter. If you are not yet VAT registered and need advice on thresholds and timing, we can help with that too.</p>
-        </div>
-      </div>
-      <div id="payroll" class="svc-row anchor">
-        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Payroll</h2></div>
-        <div class="svc-body">
-          <p class="svc-p">We handle payroll for small businesses that need it done properly and on time, without it becoming a distraction. If you want a full service that covers payroll alongside your accounts, we can take care of it.</p>
+          <p class="svc-p">We prepare and file your VAT returns accurately and on time, every quarter. We make sure everything is done well before the deadline, so it is never something you have to worry about. If you are not yet VAT registered and need advice on thresholds and timing, we can help with that too.</p>
         </div>
       </div>
       <div id="manage-accounts" class="svc-row anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Management Accounts and Regular Meetings</h2></div>
         <div class="svc-body">
           <p class="svc-p svc-p--strong">This is where most accountants stop, and we carry on.</p>
-          <p class="svc-p">Every month or quarter, if we feel it's of benefit to you we prepare a set of management accounts: a clear picture of how your business is actually performing right now. Then we sit down with you, in person where possible, and go through them together.</p>
-          <p class="svc-p">We pay particular attention to rising costs and where pressure on your margins is coming from. The last five years have changed the cost of running a business. Understanding exactly where the money is going is the first step to doing something about it.</p>
+          <p class="svc-p">Every month, quarter or six months, depending on what suits your business, we prepare a set of management accounts: a clear picture of how your business is actually performing right now. Then we sit down with you, in person where possible, and go through them together.</p>
+          <p class="svc-p">We pay particular attention to rising costs and where pressure on your margins is coming from. Your business, and everything around it, is always changing, so understanding exactly where the money is going is the first step to doing something about it.</p>
           <p class="svc-p">Cash flow gets its own focus, too. We can help you look ahead so you know what is coming in, what has to go out, and what you will have left. No surprises.</p>
           <p class="svc-p">We also do budgeting and forecasting. If you want to grow, take on a member of staff, or make a significant purchase, we will model the numbers with you before you commit.</p>
         </div>
@@ -195,12 +190,14 @@ const breadcrumb = {
             <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>Limited companies and LLPs</span></li>
           </ul>
           <p class="svc-p">These are filed with HMRC and, where required, with Companies House. All the normal compliance taken care of as you would expect from any Accountant.</p>
+          <p class="svc-p">By the time your year end arrives this is simply a process, because we have stayed on top of your numbers all year. It is one more deadline we make sure you never miss, and we sit down to talk it through in plain English so it makes sense.</p>
         </div>
       </div>
       <div id="personal-and-business" class="svc-row anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Personal and Business Tax Returns</h2></div>
         <div class="svc-body">
           <p class="svc-p">Self Assessment, Corporation Tax, Capital Gains, we handle the full range of tax return services. We will also talk you through what you can and cannot claim for, because most business owners are paying more tax than they need to.</p>
+          <p class="svc-p">As with your year-end accounts, this is one more deadline we make sure you never miss, and we explain everything in plain English so you understand it.</p>
         </div>
       </div>
       <div id="new-business" class="svc-row anchor">
@@ -208,6 +205,12 @@ const breadcrumb = {
         <div class="svc-body">
           <p class="svc-p">Starting out and not sure where to begin? We help new businesses choose the right structure, register with HMRC and Companies House, set up for PAYE, CIS and VAT schemes, and get onto the right accounting software from day one.</p>
           <p class="svc-p">We are seeing more and more new business owners come to us at the start taking this out because we can add value any time. Getting the foundations right saves a lot of pain and cost later.</p>
+        </div>
+      </div>
+      <div id="payroll" class="svc-row anchor">
+        <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Payroll</h2></div>
+        <div class="svc-body">
+          <p class="svc-p">We handle payroll for small businesses that need it done properly and on time, without it becoming a distraction. If you want a full service that covers payroll alongside your accounts, we can take care of it.</p>
         </div>
       </div>
       <div id="training-and-support" class="svc-row svc-row--last anchor">
@@ -241,7 +244,7 @@ const breadcrumb = {
         <div class="benefit-card">
           <p class="benefit-intro">For a similar outgoing, Smart Accounting Solutions provides:</p>
           <ul class="benefit-list">
-            {['Bookkeeping','Management accounts','Monthly meetings','Hands-on business support','Year-end accounts','Tax returns','Unlimited advice','No HR headaches'].map((b) => (
+            {['Bookkeeping','Management accounts','Monthly meetings','Hands-on business support','Year-end accounts','Tax returns','Software subscription included','Unlimited advice and support','No HR headaches'].map((b) => (
               <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>{b}</span></li>
             ))}
           </ul>
