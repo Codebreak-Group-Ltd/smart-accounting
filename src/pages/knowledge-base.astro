@@ -71,34 +71,33 @@ const breadcrumb = {
     </div>
   </section>
 
-  <!-- FAQ groups -->
-  <section aria-label="Frequently asked questions" class="kb-body">
+  <!-- FAQ groups, sectioned the same way as the Services page's core-services rows -->
+  <section aria-label="Frequently asked questions">
     <CurveSeam fill="#f4eff9" />
-    <div class="container container--narrow kb-pad">
-      {kbSections.map((section) => (
-        <div id={section.slug} class="faq-group anchor">
-          <h2 class="faq-group-title">
-            <span class="faq-group-num" aria-hidden="true">{section.number}</span>
-            {section.title}
-          </h2>
-          {section.questions.map((item) => (
-            <details class="faq-item">
-              <summary class="faq-summary">
-                <span class="faq-q">{item.q}</span>
-                <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1V15M1 8H15" stroke="var(--sas-purple)" stroke-width="1.75" stroke-linecap="round"></path></svg>
-              </summary>
-              <div class="faq-a">
-                <p>{item.a}</p>
-                {item.links && item.links.length > 0 && (
-                  <p class="faq-links">
-                    {item.links.map((link) => (
-                      <a href={link.url} rel="noopener" target="_blank">{link.label} ↗</a>
-                    ))}
-                  </p>
-                )}
-              </div>
-            </details>
-          ))}
+    <div class="container rows-pad">
+      {kbSections.map((section, i) => (
+        <div id={section.slug} class={`svc-row anchor ${i === kbSections.length - 1 ? 'svc-row--last' : ''}`}>
+          <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">{section.title}</h2></div>
+          <div class="svc-body">
+            {section.questions.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-summary">
+                  <span class="faq-q">{item.q}</span>
+                  <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1V15M1 8H15" stroke="var(--sas-purple)" stroke-width="1.75" stroke-linecap="round"></path></svg>
+                </summary>
+                <div class="faq-a">
+                  <p>{item.a}</p>
+                  {item.links && item.links.length > 0 && (
+                    <p class="faq-links">
+                      {item.links.map((link) => (
+                        <a href={link.url} rel="noopener" target="_blank">{link.label} ↗</a>
+                      ))}
+                    </p>
+                  )}
+                </div>
+              </details>
+            ))}
+          </div>
         </div>
       ))}
     </div>
@@ -130,25 +129,24 @@ const breadcrumb = {
   /* anchor offset for the fixed header */
   .anchor { scroll-margin-top: calc(var(--header-h) + 20px); }
 
-  .kb-pad { padding: var(--space-9) 0; }
+  .rows-pad { padding: var(--space-9) 0; }
 
-  /* Grouped FAQ — matches services.astro's FAQ pattern, with a numbered badge added */
-  .faq-group { margin-top: 56px; }
-  .faq-group:first-child { margin-top: 0; }
-  .faq-group-title {
-    display: flex; align-items: center; gap: 14px;
+  /* Service-style rows — same pattern as services.astro's core-services section */
+  .svc-row {
+    display: flex; flex-wrap: wrap; gap: 24px 64px; padding: 56px 0;
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, var(--sas-purple-15), rgba(201, 180, 224, .12)) 1;
+  }
+  .svc-row:first-child { padding-top: 0; }
+  .svc-row--last { border-bottom: 0; }
+  .svc-head { flex: 1 1 260px; min-width: 240px; }
+  .svc-rule { width: 32px; height: 3px; background: var(--sas-gold); margin-bottom: 18px; }
+  .svc-h2 {
     font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
-    letter-spacing: var(--tracking-button); font-size: 16px; color: var(--sas-purple);
-    margin: 0 0 8px; padding-bottom: 12px;
-    border-bottom: 2px solid var(--sas-gold);
+    letter-spacing: .04em; font-size: 22px; line-height: 1.25; color: var(--sas-purple-deep); margin: 0;
   }
-  .faq-group-num {
-    flex-shrink: 0; display: grid; place-items: center;
-    width: 30px; height: 30px; border-radius: 50%;
-    background: var(--sas-purple-deep); color: var(--sas-gold);
-    font-family: var(--font-heading); font-weight: 700; font-size: 13px;
-    letter-spacing: normal; text-transform: none;
-  }
+  .svc-body { flex: 2 1 420px; }
+
   .faq-item {
     border-bottom: 1px solid transparent;
     border-image: linear-gradient(90deg, var(--sas-purple-15), rgba(201, 180, 224, .12)) 1;
