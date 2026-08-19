@@ -1,0 +1,270 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Cookie Policy | Smart Accounting Solutions';
+const description = 'How Smart Accounting Solutions uses cookies and similar technologies on our website, and how you can manage them.';
+
+interface CookieRow { name: string; purpose: string; duration: string; }
+interface CookieGroup { title: string; intro: string; rows: CookieRow[]; }
+
+const cookieGroups: CookieGroup[] = [
+  {
+    title: 'Strictly Necessary Cookies',
+    intro:
+      'These are essential for our website to work, for example by keeping pages secure or remembering information you have entered on a form. The website cannot function properly without them, so they do not require your consent, but we are still transparent about what they do.',
+    rows: [
+      {
+        name: 'cookie_consent / cookie consent tool',
+        purpose: 'Keeps the website secure and working correctly during your visit',
+        duration: 'Session – 12 months',
+      },
+    ],
+  },
+  {
+    title: 'Analytics / Performance Cookies',
+    intro:
+      'These help us understand how visitors use our website, for example which pages are most popular, so we can improve it. We only set these with your consent.',
+    rows: [
+      {
+        name: '_ga, _ga_*, _gid / Google Analytics (GA4)',
+        purpose: 'Helps us see how many people visit our site and how they use it',
+        duration: 'Up to 24 months',
+      },
+    ],
+  },
+  {
+    title: 'Functional / Preference Cookies',
+    intro:
+      'These remember choices you have made, such as language or display settings, to give you a more personalised experience.',
+    rows: [
+      {
+        name: 'Set by our website / hosting platform',
+        purpose: 'Remembers your preferences for future visits',
+        duration: 'Up to 12 months',
+      },
+    ],
+  },
+];
+---
+<Base title={title} description={description} noindex={true}>
+  <section class="section policy">
+    <div class="container container--narrow">
+      <h1 class="h2">Cookie Policy</h1>
+      <hr class="gold-divider" />
+      <p class="lead">
+        This policy explains how Smart Accounting Solutions uses cookies and similar
+        technologies on our website, and how you can manage them. It should be read
+        alongside our <a href="/privacy/">Privacy Policy</a>.
+      </p>
+
+      <div class="policy-body">
+        <h2 class="h3">At a Glance</h2>
+        <ul class="policy-list">
+          <li>Cookies are small files that help our website work properly and help us understand how it is used.</li>
+          <li>Some cookies are essential; others, such as analytics cookies, only run if you agree to them.</li>
+          <li>You can accept, reject or change your cookie choices at any time.</li>
+          <li>We do not use cookies to sell your data to advertisers.</li>
+        </ul>
+
+        <h2 class="h3">What Are Cookies?</h2>
+        <p>
+          Cookies are small text files that a website saves to your computer, phone or
+          tablet when you visit it. They help the site remember things about your visit,
+          such as your preferences, and help us understand how our website is used so we
+          can improve it.
+        </p>
+        <p>
+          Other similar technologies, such as pixels or local storage, work in a similar
+          way and are covered by this policy too.
+        </p>
+
+        <h2 class="h3">How We Use Cookies</h2>
+        <p>We use cookies to:</p>
+        <ul class="policy-list">
+          <li>make our website work properly</li>
+          <li>remember your preferences and settings</li>
+          <li>understand how visitors use our website, so we can improve it</li>
+          <li>keep our website secure</li>
+        </ul>
+        <p>We do not use cookies for online advertising or to sell your information to third parties.</p>
+
+        <h2 class="h3">The Cookies We Use</h2>
+        <p>Cookies generally fall into the categories below.</p>
+
+        {cookieGroups.map((group) => (
+          <>
+            <h3 class="h4">{group.title}</h3>
+            <p>{group.intro}</p>
+            <div class="policy-table-wrap">
+              <table class="policy-table">
+                <thead>
+                  <tr>
+                    <th scope="col">Cookie / provider</th>
+                    <th scope="col">Purpose</th>
+                    <th scope="col">Duration</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {group.rows.map((row) => (
+                    <tr>
+                      <td data-label="Cookie / provider">{row.name}</td>
+                      <td data-label="Purpose">{row.purpose}</td>
+                      <td data-label="Duration">{row.duration}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </>
+        ))}
+
+        <h3 class="h4">Marketing / Advertising Cookies</h3>
+        <p>
+          We do not currently use advertising or marketing cookies on our website. If
+          this changes in future, we will update this policy and ask for your consent
+          first. When we begin running marketing campaigns, we may use advertising
+          cookies (for example from Google or Meta) to measure how our marketing
+          performs and to show you relevant ads. These are only ever set with your
+          consent.
+        </p>
+
+        <h2 class="h3">Managing Your Cookie Preferences</h2>
+        <p>
+          When you first visit our website, you will be shown a cookie banner where you
+          can accept or reject non-essential cookies. You can change your mind at any
+          time by revisiting the cookie settings available on our website.
+        </p>
+        <p>
+          You can also control cookies through your browser settings. Most browsers let
+          you see what cookies you have and delete them individually, or block cookies
+          from some or all websites. Blocking essential cookies may stop parts of our
+          website working properly.
+        </p>
+        <p>
+          For more information on managing cookies in your browser, visit your
+          browser's help pages or
+          <a href="https://www.aboutcookies.org/" rel="noopener" target="_blank">aboutcookies.org</a>
+          for independent guidance on managing cookies in most browsers.
+        </p>
+
+        <h2 class="h3">Third-Party Cookies</h2>
+        <p>
+          Some cookies on our site may be set by trusted third parties who provide
+          services to us, such as analytics or website hosting. These providers have
+          their own privacy and cookie policies, which we encourage you to check.
+        </p>
+
+        <h2 class="h3">Changes to This Policy</h2>
+        <p>
+          We may update this Cookie Policy from time to time, for example if we change
+          the cookies we use. Any changes will be posted on this page and, where
+          appropriate, on our Privacy Policy page.
+        </p>
+
+        <h2 class="h3">Contact Us</h2>
+        <p>
+          If you have any questions about this Cookie Policy or how we use cookies,
+          please contact our Data Protection Point of Contact:
+        </p>
+        <ul class="policy-contact">
+          <li><span>Email</span> <a href="mailto:gdpr@smartaccountingsolutions.co.uk">gdpr@smartaccountingsolutions.co.uk</a></li>
+          <li><span>Phone</span> <a href="tel:+441143493311">0114 3493311</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .policy-body { margin-top: var(--space-6); }
+
+  .h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--sas-purple-deep);
+    line-height: 1.2;
+    font-size: 21px;
+    margin: var(--space-7) 0 var(--space-3);
+  }
+  .h3:first-child { margin-top: 0; }
+
+  .h4 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-heading);
+    font-size: 17px;
+    margin: var(--space-6) 0 var(--space-2);
+  }
+
+  .policy-body p {
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--text-body);
+    max-width: 68ch;
+    margin: 0 0 var(--space-4);
+  }
+  .policy-body a { color: var(--action-primary); text-decoration: underline; text-underline-offset: 2px; }
+  .policy-body a:hover { color: var(--action-primary-hover); }
+
+  .policy-list {
+    margin: 0 0 var(--space-4);
+    padding-left: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-list li {
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--text-body);
+  }
+
+  .policy-table-wrap { overflow-x: auto; margin: 0 0 var(--space-5); }
+  .policy-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 14px;
+    min-width: 480px;
+  }
+  .policy-table th {
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-size: 11.5px;
+    color: var(--sas-white);
+    background: var(--surface-brand);
+    padding: 10px 14px;
+  }
+  .policy-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-default);
+    color: var(--text-body);
+    vertical-align: top;
+  }
+  .policy-table tbody tr:last-child td { border-bottom: none; }
+  .policy-table tbody tr:nth-child(even) { background: var(--surface-subtle); }
+
+  .policy-contact {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .policy-contact li { font-family: var(--font-body); font-size: 15.5px; color: var(--text-body); }
+  .policy-contact span { font-weight: 600; color: var(--text-heading); margin-right: 6px; }
+  .policy-contact a { color: var(--action-primary); text-decoration: underline; text-underline-offset: 2px; }
+  .policy-contact a:hover { color: var(--action-primary-hover); }
+
+  @media (max-width: 560px) {
+    .policy-table { min-width: 420px; }
+  }
+</style>
