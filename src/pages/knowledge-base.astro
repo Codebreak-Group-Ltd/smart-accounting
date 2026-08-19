@@ -1,0 +1,142 @@
+---
+import Base from '../layouts/Base.astro';
+import CurveSeam from '../components/CurveSeam.astro';
+import { siteUrl } from '../data/site';
+import { kbSections } from '../data/faqs';
+
+const title = 'Knowledge Base | FAQs | Smart Accounting Solutions';
+const description = 'Straight answers to the questions we hear most from sole traders, landlords, partnerships and limited companies — bookkeeping, VAT, payroll, CIS, tax and Companies House.';
+
+const chipLabels: Record<string, string> = {
+  'starting-registrations-getting-set-up': 'Getting Set Up',
+  'bookkeeping-expenses': 'Bookkeeping & Expenses',
+  'vat': 'VAT',
+  'payroll-employees-benefits': 'Payroll & Employees',
+  'construction-industry-scheme-contractors-subcontractors': 'CIS',
+  'management-accounts-cash-flow-understanding-your-figures': 'Management Accounts',
+  'year-end-accounts-tax-sole-traders-self-assessment': 'Sole Traders & Self Assessment',
+  'year-end-accounts-tax-limited-companies': 'Limited Companies',
+  'year-end-accounts-tax-partnerships': 'Partnerships',
+  'year-end-accounts-tax-limited-liability-partnerships': 'LLPs',
+  'personal-hmrc-records-national-insurance-tax-codes': 'Personal Tax & NI',
+  'limited-companies-companies-house': 'Companies House',
+  'companies-house-identity-verification': 'ID Verification',
+  'business-financial-difficulties-hmrc-problems': 'Financial Difficulties',
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  '@id': `${siteUrl}/knowledge-base/#faq`,
+  mainEntity: kbSections.flatMap((s) => s.questions).map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const breadcrumb = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` },
+    { '@type': 'ListItem', position: 2, name: 'Knowledge Base', item: `${siteUrl}/knowledge-base/` },
+  ],
+};
+---
+<Base title={title} description={description} schema={[faqSchema, breadcrumb]}>
+  <section aria-label="Knowledge base">
+    <div class="container container--narrow intro-pad">
+      <h1 class="h2">Knowledge Base</h1>
+      <hr class="gold-divider" />
+      <p class="lead">
+        Straight answers to the questions we get asked most — from getting set up
+        as a sole trader or limited company, through bookkeeping, VAT and payroll,
+        to year-end accounts, tax and Companies House. Can't find what you're
+        looking for? Get in touch and we'll be happy to help.
+      </p>
+      <nav aria-label="Jump to a topic" class="chip-nav">
+        {kbSections.map((section) => (
+          <a href={`#${section.slug}`} class="chip">{chipLabels[section.slug] ?? section.title}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <section aria-label="Frequently asked questions" class="kb-body">
+    <CurveSeam fill="#ffffff" variant="up" />
+    <div class="container container--narrow kb-pad">
+      {kbSections.map((section) => (
+        <div id={section.slug} class="faq-group anchor">
+          <h2 class="faq-group-title">{section.title}</h2>
+          {section.questions.map((item) => (
+            <details class="faq-item">
+              <summary class="faq-summary">
+                <span class="faq-q">{item.q}</span>
+                <svg class="faq-icon" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1V15M1 8H15" stroke="var(--sas-purple)" stroke-width="1.75" stroke-linecap="round"></path></svg>
+              </summary>
+              <div class="faq-a">
+                <p>{item.a}</p>
+                {item.links && item.links.length > 0 && (
+                  <p class="faq-links">
+                    {item.links.map((link) => (
+                      <a href={link.url} rel="noopener" target="_blank">{link.label} ↗</a>
+                    ))}
+                  </p>
+                )}
+              </div>
+            </details>
+          ))}
+        </div>
+      ))}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .intro-pad { padding: 96px 0 40px; }
+  .kb-pad { padding-bottom: var(--space-9); }
+
+  /* Jump nav */
+  .chip-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .chip {
+    font-size: 13.5px; font-weight: 600; color: var(--sas-purple-deep); text-decoration: none;
+    border: 1px solid var(--sas-gray-15); border-radius: var(--radius-pill); padding: 9px 16px;
+    transition: background 150ms ease, color 150ms ease;
+  }
+  .chip:hover { background: var(--sas-purple-05); color: var(--sas-purple-deep); }
+
+  /* anchor offset for the fixed header */
+  .anchor { scroll-margin-top: calc(var(--header-h) + 20px); }
+
+  /* Grouped FAQ — matches services.astro's FAQ pattern */
+  .faq-group { margin-top: 48px; }
+  .faq-group:first-child { margin-top: 0; }
+  .faq-group-title {
+    font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
+    letter-spacing: var(--tracking-button); font-size: 16px; color: var(--sas-purple);
+    margin: 0 0 8px; border-bottom: 2px solid var(--sas-gold); display: inline-block; padding-bottom: 8px;
+  }
+  .faq-item {
+    border-bottom: 1px solid transparent;
+    border-image: linear-gradient(90deg, var(--sas-purple-15), rgba(201, 180, 224, .12)) 1;
+  }
+  .faq-summary {
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    cursor: pointer; padding: 22px 0; font-size: 16.5px; font-weight: 600; color: var(--sas-purple-deep);
+    list-style: none;
+  }
+  .faq-summary::-webkit-details-marker { display: none; }
+  .faq-summary:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: 6px; }
+  .faq-icon { flex-shrink: 0; transition: transform 160ms ease; }
+  .faq-item[open] .faq-icon { transform: rotate(45deg); }
+  .faq-item[open] .faq-q { color: var(--sas-purple); }
+  .faq-a { font-size: 15.5px; line-height: 1.65; color: var(--sas-ink); padding: 0 40px 26px 0; max-width: 70ch; }
+  .faq-a p { margin: 0 0 10px; }
+  .faq-a p:last-child { margin-bottom: 0; }
+  .faq-links { display: flex; flex-wrap: wrap; gap: 16px; }
+  .faq-links a { color: var(--action-primary); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+  .faq-links a:hover { color: var(--action-primary-hover); }
+
+  @media (prefers-reduced-motion: reduce) { .faq-icon, .chip { transition: none; } }
+</style>
