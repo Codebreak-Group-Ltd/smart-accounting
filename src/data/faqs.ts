@@ -1,10 +1,11 @@
 export interface KbLink { label: string; url: string; }
 export interface KbQuestion { q: string; a: string; links?: KbLink[]; }
-export interface KbSection { slug: string; title: string; questions: KbQuestion[]; }
+export interface KbSection { number: number; slug: string; title: string; questions: KbQuestion[]; }
 
 // Source: client-supplied "SAS Final Website Questions and Answers" doc (2026-08-19).
 export const kbSections: KbSection[] = [
   {
+    number: 1,
     slug: 'starting-registrations-getting-set-up',
     title: 'Starting, Registrations & Getting Set Up',
     questions: [
@@ -14,7 +15,7 @@ export const kbSections: KbSection[] = [
       },
       {
         q: 'What\'s the difference between a sole trader and a limited company?',
-        a: 'As a sole trader, you and the business are the same — you run the business personally in your own name. A limited company is separate from you; it is its own legal entity. Think of it as another person in the relationship: the company earns the money, has its own tax responsibilities and prepares its own accounts.',
+        a: 'As a sole trader, you and the business are the same. You run the business personally in your own name. A limited company is separate from you; it is its own legal entity. Think of it as another person in the relationship: the company earns the money, has its own tax responsibilities and prepares its own accounts.',
       },
       {
         q: 'When should I change from a sole trader to a limited company?',
@@ -119,6 +120,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 2,
     slug: 'bookkeeping-expenses',
     title: 'Bookkeeping & Expenses',
     questions: [
@@ -153,6 +155,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 3,
     slug: 'vat',
     title: 'VAT',
     questions: [
@@ -212,6 +215,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 4,
     slug: 'payroll-employees-benefits',
     title: 'Payroll, Employees & Benefits',
     questions: [
@@ -315,6 +319,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 5,
     slug: 'construction-industry-scheme-contractors-subcontractors',
     title: 'Construction Industry Scheme (CIS) - Contractors & Subcontractors',
     questions: [
@@ -371,6 +376,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 6,
     slug: 'management-accounts-cash-flow-understanding-your-figures',
     title: 'Management Accounts, Cash Flow & Understanding Your Figures',
     questions: [
@@ -393,6 +399,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 7,
     slug: 'year-end-accounts-tax-sole-traders-self-assessment',
     title: 'Year-End Accounts & Tax - Sole Traders / Self Assessment',
     questions: [
@@ -460,6 +467,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 8,
     slug: 'year-end-accounts-tax-limited-companies',
     title: 'Year-End Accounts & Tax - Limited Companies',
     questions: [
@@ -511,6 +519,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 9,
     slug: 'year-end-accounts-tax-partnerships',
     title: 'Year-End Accounts & Tax - Partnerships',
     questions: [
@@ -557,6 +566,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 10,
     slug: 'year-end-accounts-tax-limited-liability-partnerships',
     title: 'Year-End Accounts & Tax - Limited Liability Partnerships (LLPs)',
     questions: [
@@ -611,6 +621,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 11,
     slug: 'personal-hmrc-records-national-insurance-tax-codes',
     title: 'Personal HMRC Records, National Insurance & Tax Codes',
     questions: [
@@ -652,6 +663,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 12,
     slug: 'limited-companies-companies-house',
     title: 'Limited Companies & Companies House',
     questions: [
@@ -706,6 +718,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 13,
     slug: 'companies-house-identity-verification',
     title: 'Companies House Identity Verification',
     questions: [
@@ -757,6 +770,7 @@ export const kbSections: KbSection[] = [
     ],
   },
   {
+    number: 14,
     slug: 'business-financial-difficulties-hmrc-problems',
     title: 'Business Financial Difficulties & HMRC Problems',
     questions: [
