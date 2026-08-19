@@ -1,11 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
 import CurveSeam from '../components/CurveSeam.astro';
-import { siteUrl } from '../data/site';
+import CtaBand from '../components/CtaBand.astro';
+import { site, siteUrl } from '../data/site';
 import { kbSections } from '../data/faqs';
 
 const title = 'Knowledge Base | FAQs | Smart Accounting Solutions';
-const description = 'Straight answers to the questions we hear most from sole traders, landlords, partnerships and limited companies — bookkeeping, VAT, payroll, CIS, tax and Companies House.';
+const description = 'Straight answers to the questions we hear most from sole traders, landlords, partnerships and limited companies, covering bookkeeping, VAT, payroll, CIS, tax and Companies House.';
 
 const chipLabels: Record<string, string> = {
   'starting-registrations-getting-set-up': 'Getting Set Up',
@@ -45,16 +47,22 @@ const breadcrumb = {
 };
 ---
 <Base title={title} description={description} schema={[faqSchema, breadcrumb]}>
-  <section aria-label="Knowledge base">
-    <div class="container container--narrow intro-pad">
-      <h1 class="h2">Knowledge Base</h1>
-      <hr class="gold-divider" />
-      <p class="lead">
-        Straight answers to the questions we get asked most — from getting set up
-        as a sole trader or limited company, through bookkeeping, VAT and payroll,
-        to year-end accounts, tax and Companies House. Can't find what you're
-        looking for? Get in touch and we'll be happy to help.
-      </p>
+  <Hero>
+    <h1 class="hero-h1 kb-h1">Straight answers to the questions we hear most.</h1>
+    <p class="hero-lead">
+      178 questions from real clients, covering getting set up, bookkeeping, VAT, payroll,
+      CIS, year-end accounts and Companies House. No jargon, no guesswork.
+    </p>
+    <div class="hero-actions">
+      <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
+    </div>
+  </Hero>
+
+  <!-- Jump nav -->
+  <section aria-label="Jump to a topic" class="band-lilac">
+    <CurveSeam fill="#ffffff" variant="up" />
+    <div class="container container--narrow jump-pad">
+      <p class="eyebrow">Jump to a topic</p>
       <nav aria-label="Jump to a topic" class="chip-nav">
         {kbSections.map((section) => (
           <a href={`#${section.slug}`} class="chip">{chipLabels[section.slug] ?? section.title}</a>
@@ -63,12 +71,16 @@ const breadcrumb = {
     </div>
   </section>
 
+  <!-- FAQ groups -->
   <section aria-label="Frequently asked questions" class="kb-body">
-    <CurveSeam fill="#ffffff" variant="up" />
+    <CurveSeam fill="#f4eff9" />
     <div class="container container--narrow kb-pad">
       {kbSections.map((section) => (
         <div id={section.slug} class="faq-group anchor">
-          <h2 class="faq-group-title">{section.title}</h2>
+          <h2 class="faq-group-title">
+            <span class="faq-group-num" aria-hidden="true">{section.number}</span>
+            {section.title}
+          </h2>
           {section.questions.map((item) => (
             <details class="faq-item">
               <summary class="faq-summary">
@@ -91,31 +103,51 @@ const breadcrumb = {
       ))}
     </div>
   </section>
+
+  <CtaBand
+    heading="Still have a question?"
+    lead="Get in touch and we'll be happy to help. No question is too small."
+    seamFill="#ffffff"
+  />
 </Base>
 
 <style>
-  .intro-pad { padding: 96px 0 40px; }
-  .kb-pad { padding-bottom: var(--space-9); }
+  .kb-h1 { max-width: 22ch; }
+
+  .band-lilac { background: var(--sas-purple-05); }
+  .jump-pad { padding: 44px 0; }
 
   /* Jump nav */
-  .chip-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .chip-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
   .chip {
     font-size: 13.5px; font-weight: 600; color: var(--sas-purple-deep); text-decoration: none;
-    border: 1px solid var(--sas-gray-15); border-radius: var(--radius-pill); padding: 9px 16px;
-    transition: background 150ms ease, color 150ms ease;
+    background: var(--sas-white);
+    border: 1px solid var(--sas-purple-15); border-radius: var(--radius-pill); padding: 9px 16px;
+    transition: background 150ms ease, color 150ms ease, transform 150ms ease;
   }
-  .chip:hover { background: var(--sas-purple-05); color: var(--sas-purple-deep); }
+  .chip:hover { background: var(--sas-purple); color: var(--sas-white); transform: translateY(-2px); }
 
   /* anchor offset for the fixed header */
   .anchor { scroll-margin-top: calc(var(--header-h) + 20px); }
 
-  /* Grouped FAQ — matches services.astro's FAQ pattern */
-  .faq-group { margin-top: 48px; }
+  .kb-pad { padding: var(--space-9) 0; }
+
+  /* Grouped FAQ — matches services.astro's FAQ pattern, with a numbered badge added */
+  .faq-group { margin-top: 56px; }
   .faq-group:first-child { margin-top: 0; }
   .faq-group-title {
+    display: flex; align-items: center; gap: 14px;
     font-family: var(--font-heading); font-weight: 700; text-transform: uppercase;
     letter-spacing: var(--tracking-button); font-size: 16px; color: var(--sas-purple);
-    margin: 0 0 8px; border-bottom: 2px solid var(--sas-gold); display: inline-block; padding-bottom: 8px;
+    margin: 0 0 8px; padding-bottom: 12px;
+    border-bottom: 2px solid var(--sas-gold);
+  }
+  .faq-group-num {
+    flex-shrink: 0; display: grid; place-items: center;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: var(--sas-purple-deep); color: var(--sas-gold);
+    font-family: var(--font-heading); font-weight: 700; font-size: 13px;
+    letter-spacing: normal; text-transform: none;
   }
   .faq-item {
     border-bottom: 1px solid transparent;
