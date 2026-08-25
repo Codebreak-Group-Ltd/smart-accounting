@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+
+const title = 'Complaints Procedure | Smart Accounting Solutions';
+const description = 'How to raise a complaint with Smart Accounting Solutions and what to expect from us.';
+---
+<Base title={title} description={description} noindex={true}>
+  <section class="section policy">
+    <div class="container container--narrow">
+      <h1 class="h2">Complaints Procedure</h1>
+      <hr class="gold-divider" />
+      <p class="lead">
+        We want you to be happy with our service. If something's gone wrong, please tell us.
+        Most things can be sorted out quickly with a simple phone call.
+      </p>
+
+      <div class="policy-body">
+        <h2 class="h3">At a Glance</h2>
+        <ul class="policy-list">
+          <li>The fastest way to sort a problem out is to call us on <a href="tel:+441143493311">0114 3493311</a>.</li>
+          <li>You can also email us if you'd prefer.</li>
+          <li>We'll always confirm we've received your complaint and keep you updated.</li>
+          <li>Still not happy? You have the right to seek professional advice.</li>
+        </ul>
+
+        <h2 class="h3">Call Us First</h2>
+        <p>
+          Most complaints can be sorted out there and then with a quick phone call. If something
+          isn't right, call us on <a href="tel:+441143493311">0114 3493311</a> and ask to speak to
+          a member of the team. We'll listen, look into it, and do what we can to put things right
+          straight away. We aim to resolve most complaints within 2 working days.
+        </p>
+
+        <h2 class="h3">Prefer It In Writing?</h2>
+        <p>If your complaint is more detailed, or you'd rather put it in writing, you can also reach us by email.</p>
+        <ul class="policy-list">
+          <li>Email <a href="mailto:complaints@smartaccountingsolutions.co.uk">complaints@smartaccountingsolutions.co.uk</a></li>
+          <li>It helps us if you can include your name, contact details, and as much detail as possible, including any relevant dates or documents.</li>
+        </ul>
+
+        <h2 class="h3">If We Can't Sort It Straight Away</h2>
+        <p>Sometimes a complaint needs a closer look. If that's the case, here's what you can expect.</p>
+        <ul class="policy-list">
+          <li>We'll confirm we've received your complaint and let you know who's looking into it.</li>
+          <li>We'll look into what happened. This might mean reviewing your file or speaking with the team involved.</li>
+          <li>We'll come back to you with what we've found and, where needed, what we're doing to put things right.</li>
+          <li>If your complaint is more complex, it may take a little longer to fully resolve, but we'll keep you updated throughout, rather than leaving you waiting in silence. We aim to resolve these within 14 working days.</li>
+        </ul>
+
+        <h2 class="h3">If You're Still Not Happy</h2>
+        <p>
+          If you're unhappy with how we've handled things, let us know and we'll arrange for
+          someone who wasn't originally involved to review the matter. Please note that there
+          may be a cost associated with this review.
+        </p>
+        <p>
+          Making a complaint will not affect how we treat you. You will not be treated unfairly
+          or disadvantaged in any way as a result of raising a concern.
+        </p>
+        <p>
+          If you remain unhappy following the review, you have the right to seek independent
+          professional advice. Any costs associated with obtaining such advice will be your
+          responsibility.
+        </p>
+
+        <h2 class="h3">Contact Us</h2>
+        <p>If you'd like to make a complaint, or have any questions about this procedure, please contact us.</p>
+        <ul class="policy-contact">
+          <li><span>Email</span> <a href="mailto:complaints@smartaccountingsolutions.co.uk">complaints@smartaccountingsolutions.co.uk</a></li>
+          <li><span>Phone</span> <a href="tel:+441143493311">0114 3493311</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .policy-body { margin-top: var(--space-6); }
+
+  .h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--sas-purple-deep);
+    line-height: 1.2;
+    font-size: 21px;
+    margin: var(--space-7) 0 var(--space-3);
+  }
+  .h3:first-child { margin-top: 0; }
+
+  .policy-body p {
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--text-body);
+    max-width: 68ch;
+    margin: 0 0 var(--space-4);
+  }
+  .policy-body a { color: var(--action-primary); text-decoration: underline; text-underline-offset: 2px; }
+  .policy-body a:hover { color: var(--action-primary-hover); }
+
+  .policy-list {
+    margin: 0 0 var(--space-4);
+    padding-left: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-list li {
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--text-body);
+  }
+
+  .policy-contact {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .policy-contact li { font-family: var(--font-body); font-size: 15.5px; color: var(--text-body); }
+  .policy-contact span { font-weight: 600; color: var(--text-heading); margin-right: 6px; }
+  .policy-contact a { color: var(--action-primary); text-decoration: underline; text-underline-offset: 2px; }
+  .policy-contact a:hover { color: var(--action-primary-hover); }
+</style>
