@@ -1,19 +1,347 @@
 ---
 import Base from '../layouts/Base.astro';
+
 const title = 'Privacy Policy | Smart Accounting Solutions';
 const description = 'How Smart Accounting Solutions collects, uses and protects your personal data.';
+
+interface LawfulBasisRow { use: string; basis: string; interest: string; }
+
+const lawfulBasisRows: LawfulBasisRow[] = [
+  {
+    use: 'Provide our services and meet our contractual obligations to you, your employer, or our clients',
+    basis: 'Contract',
+    interest: 'N/A',
+  },
+  {
+    use: 'Meet our legal and regulatory obligations',
+    basis: 'Legal obligation',
+    interest: 'N/A',
+  },
+  {
+    use: 'Send you relevant marketing about our services',
+    basis: 'Legitimate interests',
+    interest: 'Promoting our services to existing and prospective clients',
+  },
+  {
+    use: 'Develop and grow our business',
+    basis: 'Legitimate interests',
+    interest: 'Growing and improving our practice',
+  },
+  {
+    use: 'Manage our general business administration',
+    basis: 'Legitimate interests',
+    interest: 'Running our business efficiently',
+  },
+  {
+    use: "Contact you about services or events you've asked about, or that we think may interest you",
+    basis: 'Consent',
+    interest: 'N/A',
+  },
+  {
+    use: 'Ask for your feedback, and let you know about changes to our services',
+    basis: 'Legitimate interests',
+    interest: 'Maintaining and improving service quality, and keeping clients informed',
+  },
+];
 ---
 <Base title={title} description={description} noindex={true}>
-  <section class="section">
+  <section class="section policy">
     <div class="container container--narrow">
       <h1 class="h2">Privacy Policy</h1>
       <hr class="gold-divider" />
       <p class="lead">
-        This page is awaiting approved copy from the client. It must name every data
-        processor the live site uses (analytics, ad platforms, CRM), the lawful basis,
-        retention, and the user's rights including the right to complain to the ICO
-        (playbook §7). The cookie table will be generated from the consent registry.
+        At Smart Accounting Solutions, we take your privacy seriously. This policy explains
+        what personal information we collect, why we collect it, and what rights you have.
+        It follows UK data protection law (UK GDPR).
       </p>
+
+      <div class="policy-body">
+        <h2 class="h3">At a Glance</h2>
+        <ul class="policy-list">
+          <li>We collect your contact details and information related to the services we provide.</li>
+          <li>We use it to deliver our services, meet our legal duties, and run our business.</li>
+          <li>We never sell your data. Some of our suppliers may store data outside the UK, always with appropriate safeguards in place.</li>
+          <li>You have rights over your personal data, including asking to see or correct it and, in some circumstances, asking us to delete it. Just email us.</li>
+        </ul>
+
+        <h2 class="h3">About Us</h2>
+        <p>
+          Smart Accounting Solutions is a trading style of The Intelligent Assembly Ltd,
+          registered in England and Wales, company number 11203679. Our registered office is
+          Queens Building, Green Road, Penistone, S36 6BJ.
+        </p>
+        <p>
+          We are the 'data controller' for your personal data. This means we decide how and
+          why it's used, and we're responsible for keeping it safe. We have a Data Protection
+          member of staff who looks after privacy questions. You can reach them using the
+          details in 'Contact Us', below.
+        </p>
+
+        <h2 class="h3">What Information Do We Collect?</h2>
+        <p>We may collect information about you when you:</p>
+        <ul class="policy-list">
+          <li>ask us for a quote or proposal</li>
+          <li>become a client, or work for a business we act for</li>
+          <li>contact us by phone, email, post or social media</li>
+          <li>appear in public records (for example, Companies House), or are referred to us by your employer or one of our clients</li>
+        </ul>
+        <p>This can include:</p>
+        <ul class="policy-list">
+          <li>your name, address and contact details</li>
+          <li>details of the services we provide to you</li>
+          <li>records of our correspondence with you</li>
+          <li>details of any complaints or queries you raise</li>
+          <li>information from marketing, surveys or research</li>
+        </ul>
+
+        <h2 class="h3">How Do We Use Your Information?</h2>
+        <p>We use your personal data to:</p>
+        <ul class="policy-list">
+          <li>provide our services and meet our contractual obligations to you, your employer, or our clients</li>
+          <li>meet our legal and regulatory obligations</li>
+          <li>send you relevant marketing about our services</li>
+          <li>develop and grow our business</li>
+          <li>manage our general business administration</li>
+          <li>contact you about services or events you've asked about, or that we think may interest you (only where you've agreed to this)</li>
+          <li>ask for your feedback, and let you know about changes to our services</li>
+        </ul>
+        <p>
+          Under UK data protection law, we must have a valid lawful basis for each way we use
+          your personal data. Our main lawful bases are set out below.
+        </p>
+
+        <div class="policy-table-wrap">
+          <table class="policy-table">
+            <thead>
+              <tr>
+                <th scope="col">What we use your data for</th>
+                <th scope="col">Lawful basis</th>
+                <th scope="col">Our legitimate interest</th>
+              </tr>
+            </thead>
+            <tbody>
+              {lawfulBasisRows.map((row) => (
+                <tr>
+                  <td data-label="What we use your data for">{row.use}</td>
+                  <td data-label="Lawful basis">{row.basis}</td>
+                  <td data-label="Our legitimate interest">{row.interest}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>
+          If you choose not to give us certain information, we may not be able to provide our
+          services or meet our legal obligations.
+        </p>
+
+        <h2 class="h3">How Long Do We Keep Your Information?</h2>
+        <p>
+          We only keep your personal data for as long as we need it. When deciding how long, we
+          consider things like:
+        </p>
+        <ul class="policy-list">
+          <li>any legal or regulatory requirements</li>
+          <li>why we collected the information in the first place</li>
+          <li>the type and amount of information involved</li>
+          <li>whether we could achieve the same purpose without keeping it</li>
+        </ul>
+        <p>
+          If we ever want to use your data for a new reason, unrelated to why we first
+          collected it, we'll let you know and explain the legal basis for doing so.
+        </p>
+
+        <h2 class="h3">Do We Share Your Information?</h2>
+        <p>We may share your data with trusted third parties where:</p>
+        <ul class="policy-list">
+          <li>the law requires it</li>
+          <li>it's necessary to manage our relationship with you</li>
+          <li>we have another good reason for doing so, such as running our business efficiently</li>
+        </ul>
+        <p>
+          We use trusted software providers to help us run our practice and deliver our
+          services, including Microsoft (office software and email), QuickBooks (bookkeeping
+          and accounting, provided by Intuit), TaxCalc (tax preparation), Xama (identity
+          verification and anti-money laundering checks, including biometric checks where
+          required by law), and Karbon (practice management).
+        </p>
+        <p>
+          Where we use biometric data for identity verification as part of our anti-money
+          laundering obligations, we do so on the basis of substantial public interest, under
+          the condition in the Data Protection Act 2018 relating to regulatory requirements
+          concerning unlawful acts and dishonesty, in line with our legal duty to prevent and
+          detect financial crime.
+        </p>
+        <p>
+          We currently use third-party providers for professional advisory and consultancy
+          support. They're required to protect your data and can only use it as we instruct.
+        </p>
+        <p>We may also share your data with a regulator, or if our business is ever sold or restructured.</p>
+        <p>
+          Some of the suppliers we use to run our business, including Microsoft, QuickBooks,
+          TaxCalc, Xama, and Karbon, may store or process personal data outside the UK and EEA,
+          including in the United States. Where this happens, we ensure appropriate safeguards
+          are in place, such as the UK International Data Transfer Addendum, Standard
+          Contractual Clauses, or the UK extension to the EU-US Data Privacy Framework.
+        </p>
+
+        <h2 class="h3">Keeping Your Information Safe</h2>
+        <p>
+          We use appropriate security measures to protect your data from being lost, misused,
+          accessed without permission, altered or shared inappropriately. Only people who need
+          it for their role can access it, and they must keep it confidential.
+        </p>
+        <p>
+          If we ever suspect a data security breach, we have procedures in place to deal with
+          it, and we'll tell you and the relevant regulator where we're legally required to.
+        </p>
+
+        <h2 class="h3">Your Rights</h2>
+        <p>Under data protection law, you have the right to:</p>
+        <ul class="policy-list">
+          <li><strong>Access.</strong> Ask for a copy of the personal data we hold about you.</li>
+          <li><strong>Correct.</strong> Ask us to correct inaccurate or incomplete data.</li>
+          <li><strong>Delete.</strong> Ask us to delete your data where there's no good reason for us to keep it.</li>
+          <li><strong>Object.</strong> Object to us using your data for certain purposes, including direct marketing.</li>
+          <li><strong>Restrict.</strong> Ask us to pause using your data, for example while we check its accuracy.</li>
+          <li><strong>Transfer.</strong> Ask us to send your data to you or another organisation, where this is technically possible and the processing is based on your consent or on a contract with you.</li>
+        </ul>
+        <p>
+          To use any of these rights, email our Data Protection Point of Contact at
+          <a href="mailto:gdpr@smartaccountingsolutions.co.uk">gdpr@smartaccountingsolutions.co.uk</a>.
+        </p>
+        <p>
+          These requests are usually free. We may charge a reasonable fee, or decline, if a
+          request is clearly unfounded or excessive. We might also ask you to confirm your
+          identity first, to keep your data secure.
+        </p>
+
+        <h2 class="h3">Withdrawing Your Consent</h2>
+        <p>
+          If we're using your data based on your consent, for example for marketing, you can
+          withdraw that consent at any time by emailing
+          <a href="mailto:gdpr@smartaccountingsolutions.co.uk">gdpr@smartaccountingsolutions.co.uk</a>.
+          Once we know you've withdrawn consent, we'll stop using your data for that purpose,
+          unless we have another lawful reason to continue.
+        </p>
+
+        <h2 class="h3">Keeping Your Details Up To Date</h2>
+        <p>
+          Please let us know if your personal details change, so we can keep our records
+          accurate. You can contact us using the details below.
+        </p>
+
+        <h2 class="h3">Changes To This Policy</h2>
+        <p>
+          We may update this Privacy Policy from time to time. Any changes will be posted on
+          this page.
+        </p>
+
+        <h2 class="h3">Contact Us</h2>
+        <p>
+          If you have any questions about this policy, or how we handle your personal data,
+          please contact our Data Protection Point of Contact:
+        </p>
+        <ul class="policy-contact">
+          <li><span>Email</span> <a href="mailto:gdpr@smartaccountingsolutions.co.uk">gdpr@smartaccountingsolutions.co.uk</a></li>
+          <li><span>Phone</span> <a href="tel:+441143493311">0114 3493311</a></li>
+        </ul>
+        <p>
+          You also have the right to complain to the Information Commissioner's Office (ICO),
+          the UK's data protection regulator, Wycliffe House, Water Lane, Wilmslow, Cheshire,
+          SK9 5AF.
+        </p>
+        <ul class="policy-contact">
+          <li><span>Phone</span> <a href="tel:+443031231113">0303 123 1113</a> (local rate) or <a href="tel:+441625545745">01625 545 745</a></li>
+          <li><span>Website</span> <a href="https://ico.org.uk/concerns" rel="noopener" target="_blank">ico.org.uk/concerns</a></li>
+        </ul>
+      </div>
     </div>
   </section>
 </Base>
+
+<style>
+  .policy-body { margin-top: var(--space-6); }
+
+  .h3 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--sas-purple-deep);
+    line-height: 1.2;
+    font-size: 21px;
+    margin: var(--space-7) 0 var(--space-3);
+  }
+  .h3:first-child { margin-top: 0; }
+
+  .policy-body p {
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--text-body);
+    max-width: 68ch;
+    margin: 0 0 var(--space-4);
+  }
+  .policy-body a { color: var(--action-primary); text-decoration: underline; text-underline-offset: 2px; }
+  .policy-body a:hover { color: var(--action-primary-hover); }
+
+  .policy-list {
+    margin: 0 0 var(--space-4);
+    padding-left: 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .policy-list li {
+    font-family: var(--font-body);
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: var(--text-body);
+  }
+
+  .policy-table-wrap { overflow-x: auto; margin: 0 0 var(--space-5); }
+  .policy-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-body);
+    font-size: 14px;
+    min-width: 480px;
+  }
+  .policy-table th {
+    text-align: left;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-size: 11.5px;
+    color: var(--sas-white);
+    background: var(--surface-brand);
+    padding: 10px 14px;
+  }
+  .policy-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border-default);
+    color: var(--text-body);
+    vertical-align: top;
+  }
+  .policy-table tbody tr:last-child td { border-bottom: none; }
+  .policy-table tbody tr:nth-child(even) { background: var(--surface-subtle); }
+
+  .policy-contact {
+    list-style: none;
+    margin: 0 0 var(--space-4);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .policy-contact li { font-family: var(--font-body); font-size: 15.5px; color: var(--text-body); }
+  .policy-contact span { font-weight: 600; color: var(--text-heading); margin-right: 6px; }
+  .policy-contact a { color: var(--action-primary); text-decoration: underline; text-underline-offset: 2px; }
+  .policy-contact a:hover { color: var(--action-primary-hover); }
+
+  @media (max-width: 560px) {
+    .policy-table { min-width: 420px; }
+  }
+</style>
