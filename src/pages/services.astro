@@ -31,20 +31,20 @@ const chipLabels: Record<string, string> = {
 interface FaqGroup { title: string; items: { q: string; a: string }[]; }
 const faqGroups: FaqGroup[] = [
   { title: 'Making Tax Digital for Income Tax', items: [
-    { q: 'What is Making Tax Digital and does it affect me?', a: 'Making Tax Digital (MTD) for Income Tax is a government programme requiring sole traders, landlords, and partnerships to keep digital records and submit quarterly updates to HMRC instead of a single annual tax return. From April 2026 it applies to those with income over £50,000; from April 2027 the threshold drops to £30,000; from April 2028 it drops again to £20,000. If any of those thresholds apply to your income now or in the next two years, you are affected.' },
-    { q: 'I received an MTD letter from HMRC. What do I need to do?', a: "HMRC's MTD letters are notices that you are in scope and must comply from April 2026. You need to: sign up for MTD for Income Tax, adopt compatible accounting software (QuickBooks, Xero, Sage, FreeAgent, or KashFlow all qualify), ensure your records are kept digitally, and submit quarterly updates to HMRC. Your first quarterly submission, covering the quarter ending June 2026, is due on 7 August 2026. Speaking to an accountant or bookkeeper now gives you time to get set up correctly before the deadline." },
-    { q: 'Do I still need to file a Self Assessment tax return under Making Tax Digital (MTD)?', a: 'Yes. Making Tax Digital changes how you keep records and report information during the year, but it does not remove the need to finalise and submit your tax return. Under MTD, you keep digital records, send quarterly updates to HMRC, and then use compatible software to complete and submit your tax return after the end of the tax year. The quarterly updates are summaries, not full tax returns, so you still need to finalise your income, claim any allowances or reliefs, make adjustments where needed, and confirm your overall tax position.' },
-    { q: 'What is the MTD deadline for sole traders?', a: 'Sole traders with a gross income over £50,000 must comply from 6 April 2026. The £30,000 threshold applies from April 2027, and £20,000 from April 2028. If you are close to any of these thresholds, it is worth getting set up now - the penalties for non-compliance apply from day one of your mandate date.' },
-    { q: 'My turnover was below £50,000 in 2024/25 but above £50,000 in 2025/26. Do I need to join Making Tax Digital (MTD)?', a: "No. Whether you need to join MTD depends on your income in a specific earlier tax year.\n\nFor the initial rollout: from 6 April 2026, HMRC will look at your total self-employment and property income for 2024/25. If it was more than £50,000, you'll need to join MTD. From 6 April 2027, the threshold falls to £30,000, and HMRC will look at your 2025/26 income.\n\nSo, if your income was below £50,000 in 2024/25, you won't need to join MTD in April 2026. If it was above £50,000 in 2025/26, you'll likely need to join MTD from 6 April 2027, as you'll be above the £30,000 threshold.\n\nIt's important to note that HMRC uses gross income (turnover), not profit, when determining whether you fall within MTD. If you have both self-employment and property income, HMRC combines these amounts when assessing the threshold. Income from employment (PAYE), dividends and pensions does not count towards the MTD income threshold." },
-    { q: 'Do I need to sign up for MTD as soon as my turnover goes above the threshold?', a: "No. You won't be brought into Making Tax Digital (MTD) part-way through a tax year because your turnover increases.\n\nHMRC assesses whether you need to join MTD based on the income reported for a completed tax year and then brings you into MTD from a future start date.\n\nFor example: if your turnover was £45,000 in 2024/25, you would not be required to join MTD from April 2026. If your turnover then increased to £70,000 in 2025/26, you would continue filing as normal during that tax year. HMRC would assess your completed 2025/26 income and, under the current timetable, you would be brought into MTD from 6 April 2027.\n\nIn short, crossing the threshold during a tax year doesn't trigger an immediate requirement to join MTD. HMRC uses figures from a completed tax year to determine when you need to start complying with the new rules." },
-    { q: 'Does MTD apply to landlords?', a: 'Yes. Landlords with total property income above the relevant threshold are subject to the same MTD for Income Tax rules as sole traders. From April 2026 (£50k), April 2027 (£30k) and April 2028 (£20k). Combined income from self-employment and property is used to determine which threshold applies.' },
+    { q: 'What is Making Tax Digital and does it affect me?', a: "Making Tax Digital (MTD) for Income Tax is a new way for sole traders and landlords to report their income and expenses to HMRC. It requires you to keep digital records, send quarterly updates using compatible software and submit your annual tax return through that software.\n\nFrom April 2026 it applies if your qualifying income from self-employment and property is over £50,000. The threshold drops to £30,000 from April 2027 and £20,000 from April 2028.\n\nIf your income is close to one of these thresholds, it is worth getting prepared early.\n\nIf you're not sure whether MTD applies to you or when you need to start, get in touch and we'll check it for you." },
+    { q: 'I need to use MTD for Income Tax. What do I need to do?', a: "You will need to use MTD-compatible accounting software, keep digital records of your self-employment or property income and expenses, and submit quarterly updates to HMRC.\n\nWe can help you choose the right software, get everything set up correctly and make sure your records and quarterly submissions are dealt with properly from the start." },
+    { q: 'Do I still need to file a Self Assessment tax return under MTD for Income Tax?', a: "No.\n\nInstead you'll keep digital records, send four quarterly updates to HMRC and complete a Final Declaration after the end of the tax year." },
+    { q: 'What are the MTD deadlines for sole traders?', a: 'If you are required to use MTD for Income Tax, the standard quarterly update deadlines are 7 August, 7 November, 7 February and 7 May.\n\nYour annual tax return is still due by 31 January following the end of the tax year.\n\nIf we look after your MTD submissions, we will keep track of the deadlines and make sure everything is dealt with on time.' },
+    { q: 'How does HMRC decide when I need to start using MTD?', a: 'HMRC looks at your qualifying income from a previous completed tax year to decide when you need to start using MTD.\n\nIf your qualifying income for 2024/25 was over £50,000, you need to use MTD from April 2026. If your 2025/26 qualifying income is over £30,000, you will need to use it from April 2027. The threshold then falls to £20,000 from April 2028.\n\nQualifying income is based on your gross income from self-employment and property, before expenses are deducted.' },
+    { q: 'Do I need to sign up for MTD as soon as my turnover goes above the threshold?', a: 'No. Going over the threshold part-way through a tax year does not mean you suddenly have to start using MTD immediately.\n\nHMRC uses your qualifying income from a completed tax year to determine whether you need to use MTD from a future April.\n\nFor example, your 2025/26 income is used to determine whether you need to start MTD from April 2027.' },
+    { q: 'Does MTD apply to landlords?', a: 'Yes. MTD for Income Tax applies to landlords as well as sole traders where their qualifying income is above the relevant threshold.\n\nIf you have both self-employment and property income, HMRC combines the qualifying income from both when deciding whether you need to use MTD.\n\nThe thresholds are £50,000 from April 2026, £30,000 from April 2027 and £20,000 from April 2028.' },
     { q: 'What software do I need for Making Tax Digital?', a: 'You need HMRC-recognised software that supports MTD for Income Tax. The most widely used options are QuickBooks, Xero, Sage, FreeAgent, and KashFlow. The right choice depends on your business type and how you prefer to work. A bookkeeper or accountant can advise on which platform suits you and get you set up and trained on it properly.' },
-    { q: 'What are the penalties for not complying with MTD?', a: 'HMRC operates a points-based penalty system for MTD. Late quarterly submissions accumulate penalty points, and once you hit the threshold (four points for quarterly filers), a £200 fine is issued. Further missed submissions add more fines. There are also separate penalties for late payment of any tax owed. Complying on time avoids all of these.' },
+    { q: 'What are the penalties for not complying with MTD?', a: "For the first year of MTD for Income Tax, covering the 2026/27 tax year, HMRC will not issue penalty points for late quarterly updates.\n\nYou will still need to submit all of your quarterly updates before you can submit your annual tax return, and penalties can still apply if your tax return is late or your tax is paid late.\n\nFrom the following tax year, late quarterly submissions will fall within HMRC's points-based penalty system. If you reach four penalty points, a £200 penalty applies." },
   ]},
   { title: 'Starting a Business', items: [
-    { q: "I've just started a business. What do I need to sort out financially?", a: 'From day one you need to: register with HMRC (as self-employed or via Companies House if forming a limited company), open a dedicated business bank account, set up compliant bookkeeping records, understand your VAT position, and know your tax return deadlines. Getting this right at the start prevents the messy catch-up that many new business owners face a year or two in.' },
-    { q: 'When do I need to register for Self Assessment?', a: 'You must register for Self Assessment with HMRC if you are self-employed (including as a sole trader), earn rental income over £1,000 in a tax year, are a company director, or have other untaxed income above certain thresholds. Registration should be done by 5 October following the end of the tax year in which you first needed to file - late registration can lead to penalties.' },
-    { q: 'Should I operate as a sole trader or set up a limited company?', a: 'The right structure depends on your expected profit level, risk appetite, and long-term plans. Sole trader status is simpler and has lower admin, but you pay National Insurance and Income Tax on all profits. A limited company pays Corporation Tax (currently 19-25% depending on profits), which can be more tax-efficient once profits exceed roughly £30,000-£50,000 - but involves more compliance obligations. An accountant can model both options against your specific numbers.' },
+    { q: "I've just started a business. What do I need to sort out financially?", a: 'There are a few things worth getting right from the start. You need to make sure the business is set up correctly, keep proper financial records, and know what tax you need to pay and when.\n\nWe recommend having a separate bank account for your business and using accounting software to keep track of your income and expenses. Depending on the business, you may also need to think about VAT, payroll or other registrations.\n\nYou do not need to work all of this out on your own. We can go through it with you, get everything set up properly and make sure you know what you need to do from the start.' },
+    { q: 'When do I need to register for Self Assessment?', a: 'If you are self-employed and need to complete a Self Assessment tax return, you normally need to register with HMRC by 5 October following the end of the tax year in which you started trading.\n\nThere are other circumstances where you may need to complete a Self Assessment tax return, including receiving rental income or other untaxed income. Becoming a director of a limited company may also mean you need to register, depending on how you receive income from the company.\n\nIf you are not sure whether you need to register, speak to us and we can check it for you and make sure it is dealt with at the right time.' },
+    { q: 'Should I operate as a sole trader or set up a limited company?', a: 'Which structure is right for you will depend on your business, how much you expect to earn, how you want to take money from the business and your plans for the future.\n\nIt is worth getting this right from the start. We can talk through the options with you, look at your circumstances and help you choose the structure that makes sense for you and your business.' },
   ]},
   { title: 'VAT', items: [
     { q: 'Do I need to register for VAT?', a: "You must register for VAT once your taxable turnover exceeds £90,000 in any rolling 12-month period (the current UK threshold as of 2024/25). You can also register voluntarily below this threshold, which may be advantageous if you have significant VAT-bearing costs to reclaim. If you are approaching the threshold, it's important to monitor it closely - late registration carries penalties." },
@@ -62,7 +62,7 @@ const faqGroups: FaqGroup[] = [
     { q: 'What does a bookkeeper actually do?', a: 'A bookkeeper records and categorises all your business transactions - income, expenses, bank movements - on a regular basis. They reconcile your bank accounts, prepare VAT returns, keep your records compliant, and ensure your figures are accurate and up to date. Unlike a year-end accountant who looks back once a year, a bookkeeper keeps your finances current throughout the year.' },
     { q: 'How often should my bookkeeping be updated?', a: 'Ideally weekly or monthly. The more current your records, the more useful your financial information is for decision-making. Quarterly updates are the minimum for staying VAT compliant. Waiting until year end to do everything in one go creates errors, stress, and means you have been flying blind for twelve months.' },
     { q: 'How do I get my invoices and receipts to my bookkeeper?', a: 'Most modern accounting platforms (QuickBooks, Xero, Sage, FreeAgent, KashFlow) allow you to photograph receipts with a mobile app, forward supplier emails directly, and connect bank feeds automatically. Your bookkeeper will set up the system to suit how you work - minimising the admin on your side while ensuring everything is captured.' },
-    { q: 'Do I need a bookkeeper if I use accounting software?', a: "Accounting software processes data - it doesn't check that your data is correct. Transactions still need to be categorised accurately, bank feeds reconciled, VAT coded correctly, and anomalies investigated. Software speeds up the work; a bookkeeper ensures the output is accurate and meaningful. For most small businesses, using software without a bookkeeper reviewing the output leads to errors that compound over time." },
+    { q: 'Do I need a bookkeeper if I use accounting software?', a: "Accounting software makes bookkeeping easier, but it doesn't do everything for you. Someone still needs to make sure transactions are recorded correctly, the bank is reconciled and the figures are accurate.\n\nYou can do this yourself or use a bookkeeper to do it for you.\n\nIf you need help with your bookkeeping, get in touch and we'll be happy to help." },
   ]},
 ];
 
@@ -105,8 +105,8 @@ const breadcrumb = {
   <Hero>
     <h1 class="hero-h1 services-h1">Everything your business needs. Nothing you do not.</h1>
     <p class="hero-lead">
-      A full range of bookkeeping and accountancy services for small businesses, sole traders
-      and landlords. One point of contact. No hidden extras. Fixed monthly fees.
+      A full range of bookkeeping and accountancy services for business owners, built around
+      you and your business. One point of contact. No hidden extras. Fixed monthly fees.
     </p>
     <div class="hero-actions">
       <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
@@ -121,7 +121,7 @@ const breadcrumb = {
       <div>
         <h2 class="h2 h2--intro">We'll figure out what you need together.</h2>
         <p class="body mt-28">You do not need to know exactly what you need before you call us. That is our job. Craig will listen to where you are, understand what your business looks like, and work out the right level of support together.</p>
-        <p class="body mt-18">What we offer covers every stage of your business, from getting set up on the right software right through to year-end accounts and tax returns.</p>
+        <p class="body mt-18">What we offer covers every stage of your business, from getting set up on the right software and keeping your bookkeeping up to date, through to VAT, MTD, management accounts, year-end accounts and tax returns.</p>
         <nav aria-label="Services on this page" class="chip-nav">
           {['mtd','bookkeeping','vat','manage-accounts','year-end','personal-and-business','new-business','payroll','training-and-support'].map((id) => (
             <a href={`#${id}`} class="chip">{chipLabels[id]}</a>
@@ -138,9 +138,9 @@ const breadcrumb = {
     <div class="container two-col two-col--center feature-pad">
       <div>
         <h2 class="h2 h2--feature">Making Tax Digital for Income Tax (MTD for ITSA)</h2>
-        <p class="body mt-28">As of April 2026, HMRC requires sole traders, partnerships and landlords earning over £50,000 to keep digital records and make quarterly submissions under Making Tax Digital for Income Tax Self Assessment (MTD for ITSA). The thresholds drop to £30,000 in April 2027 and £20,000 in April 2028.</p>
-        <p class="body mt-18">If you have received a letter from HMRC and do not know what to do, or if your current accountant has not yet walked you through the process, speak to us now. We will get you onto the right software, set everything up, and make sure your first quarterly submission is filed correctly and on time.</p>
-        <p class="body mt-18">If you are currently under the £50,000 threshold, do not assume it does not apply to you yet. Getting set up early means less pressure when your threshold arrives.</p>
+        <p class="body mt-28">From April 2026, HMRC required sole traders and landlords with qualifying income over £50,000 to keep digital records and make quarterly submissions under Making Tax Digital for Income Tax (MTD for ITSA). The threshold drops to £30,000 in April 2027 and £20,000 in April 2028.</p>
+        <p class="body mt-18">If you need help with MTD for Income Tax, we are here to help. We will get you onto the right software, set everything up correctly and make sure your submissions are filed accurately and on time. If you've fallen behind, don't worry. Get in touch and we can get you caught up.</p>
+        <p class="body mt-18">If your income is currently below £50,000, do not leave it until the last minute. Getting set up early means less pressure when the time comes.</p>
         <a href={site.bookingUrl} class="btn btn--purple btn--sm mt-32">Talk to Craig about MTD for ITSA</a>
       </div>
       <Image src={inControl} alt="A business owner keeping digital records on a laptop at the kitchen table" widths={[400, 600, 760]} sizes="(max-width: 900px) 100vw, 560px" class="photo photo--feature" />
@@ -155,68 +155,68 @@ const breadcrumb = {
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Bookkeeping</h2></div>
         <div class="svc-body">
           <p class="svc-p">We keep your bookkeeping up to date all year round, so whenever you need advice it is based on current numbers, not last year's.</p>
-          <p class="svc-p">Our bookkeeping service is built around one idea: you upload, we handle everything else.</p>
-          <p class="svc-p">Your receipts, invoices and bank transactions go into your cloud accounting software. We process them, categorise everything correctly, reconcile your accounts and keep your records in order. You always have a single, dedicated bookkeeper who knows your business.</p>
-          <p class="svc-p">Don't want to upload? Give us the information and we will do everything for you. We tailor the service around exactly what you need. Need somebody to do your invoicing? We can do that for you too.</p>
-          <p class="svc-p">We also work with you to make each month easier. For example, we can get set up with your portal logins so we pull your invoices for you, rather than you having to.</p>
-          <p class="svc-p">We work with QuickBooks, Xero, Sage, FreeAgent and KashFlow. If you are still on a desktop system or paper records, we can move you across and make sure you know how to use it properly.</p>
-          <p class="svc-p svc-p--strong">This is not just data entry. When something does not add up, we sort it. When information is missing, we chase it down. When a supplier overcharges you, we spot it.</p>
+          <p class="svc-p">Our bookkeeping service is built around one idea: we're here to take the stress away.</p>
+          <p class="svc-p">You can upload your receipts and invoices and we'll handle everything else, or simply give us the information and we can do it all for you. We tailor the service around exactly what you need. If you need someone to do your invoicing, we can do that for you too.</p>
+          <p class="svc-p">Your receipts, invoices and bank transactions go into your accounting software. We process them, categorise everything correctly, reconcile your accounts and keep your records in order. You always have a dedicated bookkeeper who knows you and your business.</p>
+          <p class="svc-p">We also look for ways to make things easier for you. If we can get access to your supplier portals, we can download the invoices ourselves, meaning you don't have to. If there's something we can take off your hands, we will.</p>
+          <p class="svc-p">We work with all the well-known cloud accounting software as well as desktop accounting systems. If you are still using a desktop system or paper records, that's fine. We can work with what you have or help you move across to something new when the time is right.</p>
+          <p class="svc-p svc-p--strong">This is not just data entry. We look after your bookkeeping in the background, making sure everything is kept up to date, and get in touch whenever we have any queries.</p>
         </div>
       </div>
       <div id="vat" class="svc-row anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">VAT Returns</h2></div>
         <div class="svc-body">
-          <p class="svc-p">VAT is one of those things that seems simple until it is not. Different rates, partial exemptions, the wrong coding on a purchase invoice, all of it adds up and HMRC does notice.</p>
-          <p class="svc-p">We prepare and file your VAT returns accurately and on time, every quarter. We make sure everything is done well before the deadline, so it is never something you have to worry about. If you are not yet VAT registered and need advice on thresholds and timing, we can help with that too.</p>
+          <p class="svc-p">VAT is one of those things that seems simple until it is not. Different rates, partial exemptions and the wrong coding on a purchase invoice can all affect your VAT return.</p>
+          <p class="svc-p">We prepare and file your VAT returns accurately and on time. We make sure everything is done well before the deadline, so you know how much VAT you need to pay. If you are not yet VAT registered and need advice on thresholds and timing, we can help with that too.</p>
         </div>
       </div>
       <div id="manage-accounts" class="svc-row anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Management Accounts and Regular Meetings</h2></div>
         <div class="svc-body">
-          <p class="svc-p svc-p--strong">This is where most accountants stop, and we carry on.</p>
+          <p class="svc-p svc-p--strong">Keeping your bookkeeping up to date is only part of the job. We also want to help you understand what the numbers are telling you.</p>
           <p class="svc-p">Every month, quarter or six months, depending on what suits your business, we prepare a set of management accounts: a clear picture of how your business is actually performing right now. Then we sit down with you, in person where possible, and go through them together.</p>
-          <p class="svc-p">We pay particular attention to rising costs and where pressure on your margins is coming from. Your business, and everything around it, is always changing, so understanding exactly where the money is going is the first step to doing something about it.</p>
-          <p class="svc-p">Cash flow gets its own focus, too. We can help you look ahead so you know what is coming in, what has to go out, and what you will have left. No surprises.</p>
+          <p class="svc-p">We look at what is happening across your business, where your money is coming from and where it is going, how your costs and margins are changing, and anything else that needs your attention. The important thing is not just having the numbers, but understanding what they mean and what you can do with them.</p>
+          <p class="svc-p">Cash flow gets its own focus, too. We can help you look ahead so you know what is coming in, what has to go out, and what you are likely to have left.</p>
           <p class="svc-p">We also do budgeting and forecasting. If you want to grow, take on a member of staff, or make a significant purchase, we will model the numbers with you before you commit.</p>
         </div>
       </div>
       <div id="year-end" class="svc-row anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Year-End Accounts</h2></div>
         <div class="svc-body">
-          <p class="svc-p">We prepare statutory year-end accounts for:</p>
+          <p class="svc-p">We prepare year-end accounts for:</p>
           <ul class="svc-list">
             <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>Sole traders</span></li>
             <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>Partnerships</span></li>
             <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>Limited companies and LLPs</span></li>
           </ul>
-          <p class="svc-p">These are filed with HMRC and, where required, with Companies House. All the normal compliance taken care of as you would expect from any Accountant.</p>
-          <p class="svc-p">By the time your year end arrives this is simply a process, because we have stayed on top of your numbers all year. It is one more deadline we make sure you never miss, and we sit down to talk it through in plain English so it makes sense.</p>
+          <p class="svc-p">We take care of all the year-end filing, as you would expect from any accountant.</p>
+          <p class="svc-p">By the time your year end arrives, this is simply a process because we have stayed on top of your numbers all year. We get your accounts completed soon after the year end, giving you plenty of notice of any tax you need to pay, and we sit down with you to talk everything through in plain English so it makes sense.</p>
         </div>
       </div>
       <div id="personal-and-business" class="svc-row anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Personal and Business Tax Returns</h2></div>
         <div class="svc-body">
-          <p class="svc-p">Self Assessment, Corporation Tax, Capital Gains, we handle the full range of tax return services. We will also talk you through what you can and cannot claim for, because most business owners are paying more tax than they need to.</p>
-          <p class="svc-p">As with your year-end accounts, this is one more deadline we make sure you never miss, and we explain everything in plain English so you understand it.</p>
+          <p class="svc-p">Self Assessment, Corporation Tax, Capital Gains, we handle the full range of tax return services. We will also talk you through what you can and cannot claim and make sure you are not paying more tax than you need to.</p>
+          <p class="svc-p">We get your tax returns completed as soon as we can, so you know what tax you need to pay and have plenty of notice before it is due. We explain everything in plain English so you understand it.</p>
         </div>
       </div>
       <div id="new-business" class="svc-row anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">New Business Setup</h2></div>
         <div class="svc-body">
           <p class="svc-p">Starting out and not sure where to begin? We help new businesses choose the right structure, register with HMRC and Companies House, set up for PAYE, CIS and VAT schemes, and get onto the right accounting software from day one.</p>
-          <p class="svc-p">We are seeing more and more new business owners come to us at the start taking this out because we can add value any time. Getting the foundations right saves a lot of pain and cost later.</p>
+          <p class="svc-p">Getting things right from the start can save a lot of time, cost and hassle later. We can help you put the right foundations in place from day one, so you can concentrate on getting your business up and running.</p>
         </div>
       </div>
       <div id="payroll" class="svc-row anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Payroll</h2></div>
         <div class="svc-body">
-          <p class="svc-p">We handle payroll for small businesses that need it done properly and on time, without it becoming a distraction. If you want a full service that covers payroll alongside your accounts, we can take care of it.</p>
+          <p class="svc-p">We handle your payroll accurately and on time, so it is one less thing for you to worry about. Whether you have one employee or a larger team, we can take care of the payroll for you alongside everything else we do.</p>
         </div>
       </div>
       <div id="training-and-support" class="svc-row svc-row--last anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Bookkeeper Training and Support</h2></div>
         <div class="svc-body">
-          <p class="svc-p">If you already have a part-time bookkeeper but they are struggling with the software, making errors, or not giving you the information you actually need, we can help.</p>
+          <p class="svc-p">If you already have a bookkeeper or accounts person in your business, we can work alongside them to provide training, support and help them get the most from your accounting software.</p>
           <p class="svc-p">We work alongside your existing team to improve their skills, correct any issues in the system, and get everything running to a higher standard. You get more from the resource you are already paying for, and we can step in to provide the analysis and advice that sits above the bookkeeping.</p>
           <a href={site.bookingUrl} class="btn btn--purple btn--sm mt-28">Talk to Craig about bookkeeper training</a>
         </div>
@@ -231,20 +231,18 @@ const breadcrumb = {
       <h2 class="h2 h2--compare">Think an in-house bookkeeper is cheaper? Run the numbers.</h2>
       <div class="compare-grid">
         <div class="cost-card">
-          <p class="body">A part-time bookkeeper at minimum wage working 20 hours a week costs you more than you might think:</p>
+          <p class="body">A part-time bookkeeper working 16 hours a week at the 2026/27 National Living Wage costs more than you might think:</p>
           <dl class="cost-dl">
-            <div class="cost-row"><dt>Wages</dt><dd>£254.20 per week</dd></div>
-            <div class="cost-row"><dt>Employer's National Insurance</dt><dd>£35.58</dd></div>
-            <div class="cost-row"><dt>Pension</dt><dd>£7.63</dd></div>
-            <div class="cost-row"><dt class="cost-strong">Weekly total</dt><dd>£297.41</dd></div>
-            <div class="cost-total"><dt>Annual cost</dt><dd>Over £15,400</dd></div>
+            <div class="cost-row"><dt>16 hours × £12.71</dt><dd>£203.36 per week</dd></div>
+            <div class="cost-total"><dt>Annual wage cost</dt><dd>Over £10,500</dd></div>
           </dl>
-          <p class="cost-note">And that is before sick days, holidays, and the fact that most bookkeepers can process information but cannot analyse it, identify cost pressures, flag problems, or tell you what the numbers mean for your business going forward.</p>
+          <p class="cost-note">Employer's National Insurance and workplace pension costs may also apply, depending on your circumstances — Employment Allowance can reduce or remove the National Insurance cost for many employers, so we haven't added it here as a fixed extra.</p>
+          <p class="cost-note">And that is before considering paid holidays, sickness, recruitment, training and the time involved in managing an employee.</p>
         </div>
         <div class="benefit-card">
           <p class="benefit-intro">For a similar outgoing, Smart Accounting Solutions provides:</p>
           <ul class="benefit-list">
-            {['Bookkeeping','Management accounts','Monthly meetings','Hands-on business support','Year-end accounts','Tax returns','Software subscription included','Unlimited advice and support','No HR headaches'].map((b) => (
+            {['Software subscription included','Bookkeeping','Management accounts','Monthly meetings','Hands-on business support','Year-end accounts','Tax returns','Unlimited phone calls, emails and meetings','No HR headaches'].map((b) => (
               <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>{b}</span></li>
             ))}
           </ul>
@@ -259,7 +257,8 @@ const breadcrumb = {
     <div class="container container--880 pricing-pad center">
       <p class="eyebrow">Transparent pricing</p>
       <h2 class="h2 h2--pricing">Fees that fit your business.</h2>
-      <p class="body pricing-body">Every client we work with is different. The support you need, the size of your business, the services that are right for you, it all shapes what we charge. So rather than publish a price list that does not mean anything until we know your situation, we keep it simple.</p>
+      <p class="body pricing-body">Every client we work with is different. The support you need and the services that are right for you will depend on your business and how you want us to work with you.</p>
+      <p class="body pricing-body">We agree a fixed monthly fee, so you know exactly what you're paying and what's included.</p>
       <p class="pricing-punch">Tell Craig what you need. He will tell you what it costs.</p>
       <a href={site.bookingUrl} class="btn btn--gold mt-36">Book a free chat to get a quote</a>
     </div>
@@ -269,6 +268,7 @@ const breadcrumb = {
     heading="Not sure what you need?"
     lead="Start with a conversation. Craig will ask the right questions, understand your situation, and tell you exactly what would make a difference."
     seamFill="#ffffff"
+    areaLine="Based in South Yorkshire. Serving businesses across Yorkshire."
   />
 
   <!-- Grouped FAQ -->
