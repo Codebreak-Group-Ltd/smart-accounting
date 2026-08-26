@@ -39,7 +39,7 @@ export const site = {
   geo: { latitude: 53.5257, longitude: -1.6293 },
 
   // Service area — single source for the footer, CTA bands and page area lines.
-  serviceAreaCopy: 'Based in Penistone, South Yorkshire. Serving businesses across Yorkshire.',
+  serviceAreaCopy: 'Based in South Yorkshire. Serving businesses across Yorkshire.',
 
   // CTA destinations — swappable
   bookingUrl: '/contact/', // TODO: replace with Craig's calendar link when supplied
