@@ -17,8 +17,8 @@ export const site = {
   founder: 'Craig Normington',
 
   // Contact — swappable
-  phoneOffice: '0114 698 2055',
-  phoneOfficeHref: 'tel:+441146982055',
+  phoneOffice: '0114 349 3311',
+  phoneOfficeHref: 'tel:+441143493311',
   phoneMobile: '07393 635 760',
   phoneMobileHref: 'tel:+447393635760',
   // Canonical email — Joel confirmed hello@ throughout (2026-07-21), resolving the
