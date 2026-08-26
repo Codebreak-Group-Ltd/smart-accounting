@@ -24,6 +24,7 @@ const isActive = (key: string) => (active === key ? 'is-active' : '');
 
     <!-- Desktop nav -->
     <nav class="nav-desktop" aria-label="Main navigation">
+      <a href="/" class={`nav-link ${isActive('home')}`}>Home</a>
       <a href="/about/" class={`nav-link ${isActive('about')}`}>About Us</a>
 
       <div class="services-wrap" id="services-wrap">
@@ -60,6 +61,7 @@ const isActive = (key: string) => (active === key ? 'is-active' : '');
 
   <!-- Mobile panel -->
   <nav class="mobile-panel" id="mobile-panel" aria-label="Mobile navigation" hidden>
+    <a href="/" class="m-link">Home</a>
     <a href="/about/" class="m-link">About Us</a>
     <a href="/services/" class="m-link">Services</a>
     {services.map((s) => (
