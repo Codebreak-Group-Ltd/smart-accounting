@@ -14,11 +14,11 @@ const title = 'Contact a Penistone Accountant | Free First Chat';
 const description = 'Talk to Craig Normington at Smart Accounting Solutions in Penistone, Yorkshire. The first conversation is free. Call, email or send a message.';
 
 const faqs: FaqItem[] = [
-  { q: 'What happens in the first meeting?', a: "Craig uses the first conversation to understand your business - its size, structure, what records you currently have, what's causing you the most pain, and what level of support you actually need. From that conversation, he will outline what the right service looks like for you, what it will cost, and what happens next. Most people find they leave with much greater clarity than they arrived with." },
-  { q: 'How long does it take to get started?', a: "Once you decide to proceed, onboarding is typically completed within a few days to a couple of weeks, depending on the state of your existing records. If you need software set up, the team will configure it and provide training. If your records need catching up, that will be scoped and agreed upfront. You won't be left waiting." },
-  { q: 'Do I need to visit your office or can everything be done remotely?', a: 'Both options work. Smart Accounting Solutions operates on cloud-based software, so day-to-day bookkeeping can be handled entirely remotely. Management account meetings can be in person (at your premises or Craig\'s office) or via video call - whichever suits you. Craig is also happy to come to you if you are local.' },
-  { q: 'What information do I need to provide to switch accountants?', a: 'Very little from your side. Your new accountant (or bookkeeper) will contact your old accountant or bookkeeper on your behalf - a standard professional clearance letter requesting the handover of your records and working papers. You sign an authority to release and the transfer is handled professionally. You don\'t need to manage the conversation between them.' },
-  { q: 'Will switching accountants be disruptive to my business?', a: 'Not significantly. The handover process - professional clearance letters, transfer of records, and onboarding - is handled by your new accountant. Most transitions complete within two to four weeks with minimal input from you. The disruption of switching is small; the benefit of being with the right firm is ongoing.' },
+  { q: 'What happens in the first meeting?', a: "The first meeting is simply a chance for Craig to get to know you and your business, what's causing you pain and what level of support you need. He'll talk you through the right services for you and what happens next. Most people find they leave with much greater clarity than when they arrived." },
+  { q: 'How long does it take to get started?', a: "Getting started is a simple process and can usually be completed within a few days. We'll take care of everything and get you set up as quickly as possible." },
+  { q: 'Do I need to visit your office or can everything be done remotely?', a: "No. Everything can be done remotely if that works best for you. Meetings can be by phone or video, at our office, or Craig can come to you. We value strong client relationships, so face-to-face meetings are important to us where practical, but we'll always work in the way that suits you best." },
+  { q: 'What information do I need to provide to switch accountants?', a: "Very little. We'll just need a few details from you to get started, and then you can leave everything with us. We'll contact your existing accountant and take care of the rest." },
+  { q: 'Will switching accountants be disruptive to my business?', a: "No. The handover process is very straightforward, and we'll handle it all for you. The disruption of switching is small, but the benefit of being with the right firm is ongoing." },
 ];
 
 const faqSchema = {
@@ -41,8 +41,8 @@ const breadcrumb = {
   <Hero>
     <h1 class="hero-h1 contact-h1">Let's talk.</h1>
     <p class="hero-lead">
-      The first conversation costs nothing. Tell Craig what is going on. He will be straight
-      with you about whether he can help, and then tailor the service to fit your exact needs.
+      The first conversation costs nothing. Tell Craig what's going on. He'll listen to you,
+      understand you and your business, and tailor the service to fit your needs.
     </p>
   </Hero>
 
@@ -134,8 +134,8 @@ const breadcrumb = {
     <div class="container two-col two-col--center expect-pad">
       <div>
         <h2 class="h2 h2--expect">What to expect</h2>
-        <p class="body mt-28">Once you get in touch, Craig will personally come back to you. No passing you around, no automated responses. Just a direct reply to arrange a call or a meeting at a time that works for you.</p>
-        <p class="body body--strong mt-18">If you are local, Craig is always happy to come to you.</p>
+        <p class="body mt-28">Once you get in touch, Craig will personally come back to you. No passing you around. Just a direct reply to arrange a call or a meeting at a time that works for you.</p>
+        <p class="body body--strong mt-18">Craig is always happy to come to you.</p>
         <h2 class="h2 h2--expect2">Not sure what you need yet?</h2>
         <p class="body mt-20">That is fine. Most people Craig speaks to do not know exactly what they are looking for. They just know something needs to change. Start with a conversation and take it from there.</p>
         <a href="#message-form" class="btn btn--gold mt-32">Book a free chat with Craig</a>
@@ -144,7 +144,7 @@ const breadcrumb = {
     </div>
   </section>
 
-  <Faq items={faqs} eyebrow={site.serviceAreaCopy} />
+  <Faq items={faqs} eyebrow="Based in South Yorkshire. Serving businesses across Yorkshire." />
 </Base>
 
 <style>
