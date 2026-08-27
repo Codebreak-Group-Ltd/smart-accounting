@@ -28,7 +28,7 @@ const faqs: FaqItem[] = [
   { q: "What's the difference between a bookkeeper and an accountant?", a: 'A bookkeeper handles the day-to-day maintenance of your financial records - categorising transactions, reconciling accounts, filing VAT returns, and keeping everything current. An accountant typically works at a higher level: preparing statutory year-end accounts, filing corporation tax or self-assessment returns, and providing business and accountancy advice.' },
   { q: 'How do I know if my business is actually profitable?', a: 'Turnover, or the balance in your bank account, does not tell you whether your business is profitable. You need accurate, up-to-date income and expenditure figures, broken down clearly so you can see what your business is actually making. Producing management accounts monthly or quarterly gives you that picture on an ongoing basis.' },
   { q: 'What makes Smart Accounting Solutions different from other accountants?', a: 'We get involved in your business throughout the year and become part of your team. Craig remains personally involved and always available when you need him. You will also have a dedicated bookkeeper who gets to know you and your business. We believe in building personal relationships with our clients so we can really understand you and your business. We personalise our service to each client, giving you the help and support you need. We keep your figures up to date, meet with you regularly and help you understand what the numbers actually mean for your business. It is all built around giving you useful information, practical help and someone to talk to whenever you need it.' },
-  { q: 'How do I get started with Smart Accounting Solutions?', a: 'The first step is a conversation with Craig. Get in touch by phone on 07393 635760, email hello@smartaccountingsolutions.co.uk, or through the website contact form. Craig will listen to where you are, discuss what you need and explain how we can help. No hard sell, no fixed agenda.' },
+  { q: 'How do I get started with Smart Accounting Solutions?', a: 'The first step is a conversation with Craig. Get in touch by phone on 0114 349 3311, email hello@smartaccountingsolutions.co.uk, or through the website contact form. Craig will listen to where you are, discuss what you need and explain how we can help. No hard sell, no fixed agenda.' },
   { q: 'My accountant only contacts me once a year at year end. Is that normal?', a: "It's common for traditional accountants, but it's not good enough for most businesses. Annual accounts are filed months after the year end and reflect historical decisions. You need financial information while it is still useful, which means regular, up-to-date information, not an annual review when the figures are already out of date. If your accountant only engages at year end, the value they are adding is largely compliance, not ongoing business support." },
 ];
 
@@ -55,7 +55,7 @@ const faqSchema = {
     <p class="hero-note">Fixed monthly fee, with unlimited support by phone, email and face to face included. You are never charged extra for picking up the phone.</p>
     <div class="hero-actions">
       <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
-      <a href={site.phoneMobileHref} class="btn btn--outline">Call 07393 635760</a>
+      <a href={site.phoneOfficeHref} class="btn btn--outline">Call {site.phoneOffice}</a>
     </div>
     <p slot="band" class="hero-strip">Bookkeeping&nbsp;&nbsp;·&nbsp;&nbsp;VAT&nbsp;&nbsp;·&nbsp;&nbsp;Payroll&nbsp;&nbsp;·&nbsp;&nbsp;Accounts&nbsp;&nbsp;·&nbsp;&nbsp;Tax</p>
   </Hero>
@@ -270,7 +270,7 @@ const faqSchema = {
       <p class="cta-lead">The first conversation is free and there is no obligation. Tell Craig where you are and what you need. If you're not quite sure what you need yet, that's fine. We can work it out together.</p>
       <div class="cta-actions">
         <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
-        <a href={site.phoneMobileHref} class="btn btn--outline">Call 07393 635760</a>
+        <a href={site.phoneOfficeHref} class="btn btn--outline">Call {site.phoneOffice}</a>
       </div>
       <p class="cta-area">Serving businesses across Yorkshire.</p>
     </div>
