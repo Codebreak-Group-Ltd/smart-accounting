@@ -12,7 +12,7 @@
 export const site = {
   name: 'Smart Accounting Solutions',
   legalName: 'Smart Accounting Solutions Limited',
-  companyNumber: '17212171',
+  companyNumber: '11203679', // The Intelligent Assembly Limited (SAS trading entity) — client-confirmed 2026-08-27
   registeredIn: 'England & Wales',
   founder: 'Craig Normington',
 
@@ -28,7 +28,7 @@ export const site = {
 
   // Address (NAP) — swappable
   address: {
-    street: 'Offices 8 and 9, Queens Building, Green Road',
+    street: 'Office 2, Queens Building, Green Road',
     locality: 'Penistone',
     region: 'South Yorkshire', // Penistone sits in South Yorkshire; visible copy standardised to "Yorkshire" (client-approved, 2026-07-27)
     postcode: 'S36 6FQ',
