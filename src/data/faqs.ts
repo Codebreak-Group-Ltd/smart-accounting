@@ -240,6 +240,10 @@ export const kbSections: KbSection[] = [
         a: 'Employment Allowance reduces the amount of employer\'s National Insurance your business has to pay. Whether you can claim it depends on your business. If you need help, get in touch and we\'ll be happy to help.',
       },
       {
+        q: 'Can a single-director company claim Employment Allowance?',
+        a: 'No, if the director is the only employee liable for employer\'s National Insurance, the company cannot claim Employment Allowance. If the company employs other people who are also liable for employer\'s National Insurance, it may be able to claim Employment Allowance, depending on how much they earn. If you\'re unsure whether your company can claim, please get in touch.',
+      },
+      {
         q: 'What is a P32, and is it the same as a P30?',
         a: 'A P32 is a payroll report showing the tax, National Insurance and other amounts you need to pay HMRC. You may also hear it called a P30, although P32 is the term most payroll software uses now.',
       },
