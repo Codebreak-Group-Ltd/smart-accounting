@@ -19,8 +19,7 @@ export const site = {
   // Contact — swappable
   phoneOffice: '0114 349 3311',
   phoneOfficeHref: 'tel:+441143493311',
-  phoneMobile: '07393 635 760',
-  phoneMobileHref: 'tel:+447393635760',
+  whatsappHref: 'https://wa.me/441143493311', // WhatsApp uses the office number — client-confirmed 2026-08-28
   // Canonical email — Joel confirmed hello@ throughout (2026-07-21), resolving the
   // earlier info@/hello@/craig@ mismatch across the approved copy.
   emailPrimary: 'hello@smartaccountingsolutions.co.uk',

@@ -13,7 +13,7 @@ import inControl from '../assets/images/in-control-of-the-numbers.png';
 
 // SEO metadata to playbook §4 (design meta was not client-approved).
 const title = 'Bookkeeping, VAT & Accounts | Small Business Yorkshire';
-const description = 'Bookkeeping, VAT, MTD, payroll, year-end accounts and tax for small businesses in Yorkshire. Fixed fees, one point of contact. Book a free chat.';
+const description = 'Bookkeeping, VAT, MTD, payroll, year-end accounts and tax for small businesses in Yorkshire. Fixed fees, your own dedicated team. Book a free chat.';
 
 // Chip labels differ slightly from the shared nav labels (design-exact).
 const chipLabels: Record<string, string> = {
@@ -106,7 +106,7 @@ const breadcrumb = {
     <h1 class="hero-h1 services-h1">Everything your business needs. Nothing you do not.</h1>
     <p class="hero-lead">
       A full range of bookkeeping and accountancy services for business owners, built around
-      you and your business. One point of contact. No hidden extras. Fixed monthly fees.
+      you and your business. Your own dedicated team. No hidden extras. Fixed monthly fees.
     </p>
     <div class="hero-actions">
       <a href={site.bookingUrl} class="btn btn--gold">Book a free chat</a>
@@ -120,7 +120,7 @@ const breadcrumb = {
     <div class="container two-col two-col--center intro-pad">
       <div>
         <h2 class="h2 h2--intro">We'll figure out what you need together.</h2>
-        <p class="body mt-28">You do not need to know exactly what you need before you call us. That is our job. Craig will listen to where you are, understand what your business looks like, and work out the right level of support together.</p>
+        <p class="body mt-28">You do not need to know exactly what you need before you call. That is our job. Craig will listen to where you are, understand what your business looks like, and together you can work out the right level of support.</p>
         <p class="body mt-18">What we offer covers every stage of your business, from getting set up on the right software and keeping your bookkeeping up to date, through to VAT, MTD, management accounts, year-end accounts and tax returns.</p>
         <nav aria-label="Services on this page" class="chip-nav">
           {['mtd','bookkeeping','vat','manage-accounts','year-end','personal-and-business','new-business','payroll','training-and-support'].map((id) => (
@@ -138,9 +138,10 @@ const breadcrumb = {
     <div class="container two-col two-col--center feature-pad">
       <div>
         <h2 class="h2 h2--feature">Making Tax Digital for Income Tax (MTD for ITSA)</h2>
-        <p class="body mt-28">From April 2026, HMRC required sole traders and landlords with qualifying income over £50,000 to keep digital records and make quarterly submissions under Making Tax Digital for Income Tax (MTD for ITSA). The threshold drops to £30,000 in April 2027 and £20,000 in April 2028.</p>
-        <p class="body mt-18">If you need help with MTD for Income Tax, we are here to help. We will get you onto the right software, set everything up correctly and make sure your submissions are filed accurately and on time. If you've fallen behind, don't worry. Get in touch and we can get you caught up.</p>
-        <p class="body mt-18">If your income is currently below £50,000, do not leave it until the last minute. Getting set up early means less pressure when the time comes.</p>
+        <p class="body mt-28">As of April 2026, sole traders and landlords with more than £50,000 of qualifying income must keep digital records and submit quarterly updates to HMRC under Making Tax Digital for Income Tax (MTD for ITSA).</p>
+        <p class="body mt-18">Need help with MTD, or want us to take care of it for you? We will run through the process with you, get you on the right software, set everything up correctly and make sure your quarterly updates are filed accurately and on time.</p>
+        <p class="body mt-18">Already behind? Don't worry. Get in touch and we'll help you get up to date.</p>
+        <p class="body mt-18">And if your income is currently below £50,000, do not wait. The threshold drops to £30,000 in April 2027 and £20,000 in April 2028. Getting set up properly now is far easier than scrambling later.</p>
         <a href={site.bookingUrl} class="btn btn--purple btn--sm mt-32">Talk to Craig about MTD for ITSA</a>
       </div>
       <Image src={inControl} alt="A business owner keeping digital records on a laptop at the kitchen table" widths={[400, 600, 760]} sizes="(max-width: 900px) 100vw, 560px" class="photo photo--feature" />
@@ -158,7 +159,7 @@ const breadcrumb = {
           <p class="svc-p">Our bookkeeping service is built around one idea: we're here to take the stress away.</p>
           <p class="svc-p">You can upload your receipts and invoices and we'll handle everything else, or simply give us the information and we can do it all for you. We tailor the service around exactly what you need. If you need someone to do your invoicing, we can do that for you too.</p>
           <p class="svc-p">Your receipts, invoices and bank transactions go into your accounting software. We process them, categorise everything correctly, reconcile your accounts and keep your records in order. You always have a dedicated bookkeeper who knows you and your business.</p>
-          <p class="svc-p">We also look for ways to make things easier for you. If we can get access to your supplier portals, we can download the invoices ourselves, meaning you don't have to. If there's something we can take off your hands, we will.</p>
+          <p class="svc-p">We always look for ways to make things easier for you. If we can get access to your supplier portals, we can handle the invoices ourselves, meaning you don't have to. If there's something we can take off your hands, we will.</p>
           <p class="svc-p">We work with all the well-known cloud accounting software as well as desktop accounting systems. If you are still using a desktop system or paper records, that's fine. We can work with what you have or help you move across to something new when the time is right.</p>
           <p class="svc-p svc-p--strong">This is not just data entry. We look after your bookkeeping in the background, making sure everything is kept up to date, and get in touch whenever we have any queries.</p>
         </div>
@@ -167,7 +168,7 @@ const breadcrumb = {
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">VAT Returns</h2></div>
         <div class="svc-body">
           <p class="svc-p">VAT is one of those things that seems simple until it is not. Different rates, partial exemptions and the wrong coding on a purchase invoice can all affect your VAT return.</p>
-          <p class="svc-p">We prepare and file your VAT returns accurately and on time. We make sure everything is done well before the deadline, so you know how much VAT you need to pay. If you are not yet VAT registered and need advice on thresholds and timing, we can help with that too.</p>
+          <p class="svc-p">We prepare and file your VAT returns accurately and on time, making sure you know how much VAT you need to pay. If you are not yet VAT registered and need advice on thresholds and timing, we can help with that too.</p>
         </div>
       </div>
       <div id="manage-accounts" class="svc-row anchor">
@@ -177,7 +178,7 @@ const breadcrumb = {
           <p class="svc-p">Every month, quarter or six months, depending on what suits your business, we prepare a set of management accounts: a clear picture of how your business is actually performing right now. Then we sit down with you, in person where possible, and go through them together.</p>
           <p class="svc-p">We look at what is happening across your business, where your money is coming from and where it is going, how your costs and margins are changing, and anything else that needs your attention. The important thing is not just having the numbers, but understanding what they mean and what you can do with them.</p>
           <p class="svc-p">Cash flow gets its own focus, too. We can help you look ahead so you know what is coming in, what has to go out, and what you are likely to have left.</p>
-          <p class="svc-p">We also do budgeting and forecasting. If you want to grow, take on a member of staff, or make a significant purchase, we will model the numbers with you before you commit.</p>
+          <p class="svc-p">We can also help you plan ahead with budgeting and forecasting. If you want to grow, take on a member of staff, or make a significant purchase, we will model the numbers with you before you commit.</p>
         </div>
       </div>
       <div id="year-end" class="svc-row anchor">
@@ -216,9 +217,9 @@ const breadcrumb = {
       <div id="training-and-support" class="svc-row svc-row--last anchor">
         <div class="svc-head"><div class="svc-rule"></div><h2 class="svc-h2">Bookkeeper Training and Support</h2></div>
         <div class="svc-body">
-          <p class="svc-p">If you already have a bookkeeper or accounts person in your business, we can work alongside them to provide training, support and help them get the most from your accounting software.</p>
+          <p class="svc-p">If you already have a bookkeeper or accounts person in your business, we can work alongside them to provide training and support.</p>
           <p class="svc-p">We work alongside your existing team to improve their skills, correct any issues in the system, and get everything running to a higher standard. You get more from the resource you are already paying for, and we can step in to provide the analysis and advice that sits above the bookkeeping.</p>
-          <a href={site.bookingUrl} class="btn btn--purple btn--sm mt-28">Talk to Craig about bookkeeper training</a>
+          <a href={site.bookingUrl} class="btn btn--purple btn--sm mt-28">Talk to Craig about bookkeeper training &amp; support</a>
         </div>
       </div>
     </div>
@@ -236,13 +237,13 @@ const breadcrumb = {
             <div class="cost-row"><dt>16 hours × £12.71</dt><dd>£203.36 per week</dd></div>
             <div class="cost-total"><dt>Annual wage cost</dt><dd>Over £10,500</dd></div>
           </dl>
-          <p class="cost-note">Employer's National Insurance and workplace pension costs may also apply. Employment Allowance may reduce or remove the National Insurance cost, although not all employers are eligible.</p>
           <p class="cost-note">And that is before considering paid holidays, sickness, recruitment, training and the time involved in managing an employee.</p>
+          <p class="cost-note">Employer's National Insurance and workplace pension costs may also apply. Employment Allowance may reduce or remove the National Insurance cost.</p>
         </div>
         <div class="benefit-card">
           <p class="benefit-intro">For a similar outgoing, Smart Accounting Solutions provides:</p>
           <ul class="benefit-list">
-            {['Software subscription included','Bookkeeping','Management accounts','Monthly meetings','Hands-on business support','Year-end accounts','Tax returns','Unlimited phone calls, emails and meetings','No HR headaches'].map((b) => (
+            {['Software subscription','Bookkeeping','Management accounts','Monthly meetings','Hands-on business support','Year-end accounts','Tax returns','Unlimited phone calls, emails and meetings','No HR headaches'].map((b) => (
               <li><svg width="18" height="18" viewBox="0 0 22 22" aria-hidden="true"><circle cx="11" cy="11" r="11" fill="var(--sas-gold)"></circle><path d="M6.5 11.5L9.5 14.5L15.5 8" stroke="#36184f" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"></path></svg><span>{b}</span></li>
             ))}
           </ul>
@@ -266,7 +267,7 @@ const breadcrumb = {
 
   <CtaBand
     heading="Not sure what you need?"
-    lead="Start with a conversation. Craig will ask the right questions, understand your situation, and tell you exactly what would make a difference."
+    lead="Start with a conversation. Tell Craig where you are and what you're looking for. If you're not quite sure, that's fine. Craig will ask the right questions, understand your situation, and you'll work it out together."
     seamFill="#ffffff"
     areaLine="Based in South Yorkshire. Serving businesses across Yorkshire."
   />
