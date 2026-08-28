@@ -89,7 +89,8 @@ All 4 marketing pages + shared components + self-hosted assets + scroll-reveal/r
 **Leads:**
 - [x] Contact form was posting NOWHERE with no CRM chosen (launch-day enquiries would vanish). Added Netlify Forms fallback (static-detected, honeypot, hidden source/page fields) — submissions land in the Netlify dashboard; CRM webhook remains the primary path when configured, with Netlify as the backup log (playbook §8). Dual delivery verified via fetch-intercept.
 
-**Post-merge actions for this work (Joel, in Netlify UI):** enable form detection (Forms → Enable form detection) BEFORE merging so the deploy registers the "contact" form, then add an email notification (Forms → Notifications → hello@). One real end-to-end test post-deploy, then delete the test submission.
+**Post-merge actions for this work (Joel, in Netlify UI):** form detection enabled 2026-08-28 ✓. After merge: Forms → Notifications → email notification for form "contact" to **joel@codebreak.co.uk** (test phase). One real end-to-end test, confirm all fields + reply-to arrive, delete the test submission.
+- [ ] **AT CUTOVER (hard gate): switch the form notification recipient from joel@codebreak.co.uk to hello@smartaccountingsolutions.co.uk** — client must not miss live leads because the notification still points at Codebreak.
 
 ## Open — client inputs (flagged)
 - [ ] **Perf pass**: hero backdrop is a CSS background-image (no fetchpriority). Consider preloading it for LCP (playbook §5) during the Lighthouse pass.
