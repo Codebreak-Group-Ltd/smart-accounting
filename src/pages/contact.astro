@@ -214,6 +214,10 @@ const breadcrumb = {
     margin: 0;
   }
   #contact-form { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
+  /* The display rule above beats the [hidden] attribute, so the form never
+     disappeared after submission — the disabled "Sending..." button sat above
+     the thank-you box. Restore hidden explicitly. */
+  #contact-form[hidden] { display: none; }
   .field-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field label { font-size: 14px; font-weight: 600; color: var(--sas-purple-deep); }
