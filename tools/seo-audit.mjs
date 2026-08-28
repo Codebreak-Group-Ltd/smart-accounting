@@ -34,7 +34,9 @@ const walk = (dir) =>
     return statSync(p).isDirectory() ? walk(p) : [p];
   });
 
-const htmlFiles = walk(DIST).filter((p) => p.endsWith('.html'));
+const htmlFiles = walk(DIST).filter(
+  (p) => p.endsWith('.html') && !/google[0-9a-f]+\.html$/.test(p) // GSC verification file — not a page
+);
 const routeOf = (p) => '/' + relative(DIST, p).replace(/index\.html$/, '');
 
 // Collect known routes for dead-link checking.
