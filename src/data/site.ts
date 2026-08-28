@@ -53,8 +53,8 @@ export const site = {
   leadTags: 'website,contact-form',
 } as const;
 
-// Canonical host is the APEX (no www) — matches the old site's canonicalisation,
-// preserving indexed URLs and link equity (verified 2026-08-28).
+// Canonical host is WWW (Joel's decision, 2026-08-28) — www is primary in Netlify,
+// apex 301s to it at the edge. SITE_URL in Netlify must match; this is the fallback.
 export const siteUrl = (
-  import.meta.env.SITE_URL || 'https://smartaccountingsolutions.co.uk'
+  import.meta.env.SITE_URL || 'https://www.smartaccountingsolutions.co.uk'
 ).replace(/\/$/, '');

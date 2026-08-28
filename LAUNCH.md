@@ -103,14 +103,14 @@ All 4 marketing pages + shared components + self-hosted assets + scroll-reveal/r
 - [ ] Real testimonials (section behind `showTestimonials` flag).
 
 ## CUTOVER RUNBOOK (2026-08-28 — branch launch/domain-cutover)
-Recon findings: live WordPress site IS on smartaccountingsolutions.co.uk (LiteSpeed host, IP 5.134.11.60) → same-domain replatform. Old site canonicalises www→APEX, so the apex is our canonical host (fallbacks updated in code). Legacy inventory = 9 URLs from /wp-sitemap.xml; homepage crawl found no extras. Redirect map in public/_redirects; /, /services/, /contact/, /legal/ carry over 1:1.
+Recon findings: live WordPress site IS on smartaccountingsolutions.co.uk (LiteSpeed host, IP 5.134.11.60) → same-domain replatform. Old site canonicalised www→apex, but **Joel chose WWW as the canonical host (2026-08-28)**: www is primary in Netlify, apex 301s to www at the edge. Consequence: legacy apex URLs chain apex → www → target (2 hops max — accepted trade-off; equity follows). Fallbacks + SITE_URL + check tool all www. Legacy inventory = 9 URLs from /wp-sitemap.xml; homepage crawl found no extras. Redirect map in public/_redirects; /, /services/, /contact/, /legal/ carry over 1:1.
 
 **Order of operations:**
 1. [ ] Merge the launch/domain-cutover PR (redirects + apex fallbacks + check tool).
 2. [ ] BACKUP THE OLD SITE first (playbook §11.7): full WP export/backup incl. any contact-form submission data. Do not decommission hosting until post-cutover checks pass.
 3. [ ] GA4: create the property (client's Google account ideally), grab the G- ID.
-4. [ ] Netlify → Domain management → add custom domain `smartaccountingsolutions.co.uk` as PRIMARY + `www.smartaccountingsolutions.co.uk` as alias (Netlify auto-301s alias→primary, preserving the old www→apex behaviour).
-5. [ ] Netlify env vars: `SITE_URL=https://smartaccountingsolutions.co.uk`, `PUBLIC_INDEXABLE=true`, `PUBLIC_GA4_ID=G-…`; DELETE `PREVIEW_PASSWORD`. Trigger "Clear cache and deploy site". (Site is briefly open on the netlify.app URL — canonicals already point at the real domain, negligible.)
+4. [x] Netlify → Domain management → `www.smartaccountingsolutions.co.uk` is PRIMARY (Joel's choice) + apex as alias (Netlify auto-301s apex→www).
+5. [x] Netlify env vars: `SITE_URL=https://www.smartaccountingsolutions.co.uk`, `PUBLIC_INDEXABLE=true`, `PUBLIC_GA4_ID=G-JY271XPH38`; `PREVIEW_PASSWORD` deleted 2026-08-28.
 6. [ ] DNS at the registrar: apex A record → 75.2.60.5 (Netlify LB), www CNAME → brilliant-croissant-8cd6e9.netlify.app. Netlify provisions TLS automatically once DNS lands.
 7. [ ] Post-cutover verification: `node tools/check-launch.mjs` (redirects 0-dead/0-double-hop, www/http canonicalisation, index,follow, robots/sitemap/llms, headers, no pre-consent gtag). Then PSI mobile+desktop TWICE (score the second run), consent paths on the live domain (accept/reject/granular + GA4 Realtime shows the accept visit), form test on live domain (email to hello@ — recipient already flipped ✓).
 8. [ ] OG scrape: FB Sharing Debugger + LinkedIn Post Inspector (re-scrape on 502 — cold CDN edge).

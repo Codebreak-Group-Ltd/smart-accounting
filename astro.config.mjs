@@ -1,11 +1,12 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-// Canonical host is the APEX (no www) — the pre-existing WordPress site
-// canonicalised www -> apex, so all indexed URLs and link equity live there
-// (verified 2026-08-28). SITE_URL in Netlify should match; this is the fallback.
+// Canonical host is WWW (Joel's decision, 2026-08-28) — www is the primary domain
+// in Netlify, apex 301s to it at the edge. The old WordPress site canonicalised the
+// other way (apex), so legacy apex URLs take one extra hop (apex -> www -> target);
+// equity still follows. SITE_URL in Netlify must match; this is the fallback.
 // Trailing-slash canon (playbook §1): canonical == sitemap URL == the URL that returns 200.
-const SITE = process.env.SITE_URL || 'https://smartaccountingsolutions.co.uk';
+const SITE = process.env.SITE_URL || 'https://www.smartaccountingsolutions.co.uk';
 
 export default defineConfig({
   site: SITE,

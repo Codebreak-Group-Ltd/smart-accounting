@@ -14,7 +14,7 @@
    Exit 1 on any failure.
    ========================================================================== */
 
-const BASE = process.env.CHECK_BASE || 'https://smartaccountingsolutions.co.uk';
+const BASE = process.env.CHECK_BASE || 'https://www.smartaccountingsolutions.co.uk';
 let failures = 0;
 const ok = (msg) => console.log(`  ✓ ${msg}`);
 const bad = (msg) => { failures++; console.log(`  ✗ ${msg}`); };
@@ -46,14 +46,25 @@ for (const [from, to] of legacy) {
   } catch (e) { bad(`${from} fetch failed: ${e.message}`); }
 }
 
-// 2. Host canonicalisation
+// 2. Host canonicalisation — www is primary (Joel, 2026-08-28); apex 301s to it.
+//    Legacy apex URLs therefore take apex -> www -> target (2 hops max, accepted).
 console.log('\n2. Host canonicalisation:');
+const APEX = BASE.replace('https://www.', 'https://');
 try {
-  const www = await head(BASE.replace('https://', 'https://www.') + '/');
-  if (www.status >= 300 && www.status < 400 && new URL(www.location).hostname === new URL(BASE).hostname)
-    ok(`www -> apex (${www.status})`);
-  else bad(`www returned ${www.status} -> ${www.location}`);
-} catch (e) { bad(`www check failed: ${e.message}`); }
+  const apex = await head(APEX + '/');
+  if (apex.status >= 300 && apex.status < 400 && new URL(apex.location).hostname === new URL(BASE).hostname)
+    ok(`apex -> www (${apex.status})`);
+  else bad(`apex returned ${apex.status} -> ${apex.location}`);
+} catch (e) { bad(`apex check failed: ${e.message}`); }
+try {
+  // A legacy path on the apex must chain apex -> www (path preserved) -> final target.
+  const hop1 = await head(APEX + '/about-us/');
+  if (hop1.status >= 300 && hop1.status < 400 && new URL(hop1.location).pathname === '/about-us/') {
+    const hop2 = await head(new URL(hop1.location).href);
+    if (hop2.status === 301 && new URL(hop2.location, BASE).pathname === '/about/') ok('apex legacy chain: apex -> www -> /about/ (2 hops)');
+    else bad(`apex legacy chain broke at hop 2: ${hop2.status} -> ${hop2.location}`);
+  } else bad(`apex legacy hop 1: ${hop1.status} -> ${hop1.location}`);
+} catch (e) { bad(`apex legacy chain check failed: ${e.message}`); }
 try {
   const http = await head(BASE.replace('https://', 'http://') + '/');
   if (http.status >= 300 && http.status < 400 && String(http.location).startsWith('https://')) ok(`http -> https (${http.status})`);
