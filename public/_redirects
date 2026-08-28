@@ -1,0 +1,17 @@
+# Legacy URL redirects — same-domain replatform from the old WordPress site
+# (playbook §11 step 1). Inventory source: the old site's /wp-sitemap.xml,
+# 2026-08-28 (9 URLs; homepage crawl found no extra internal links).
+# Rule: every target is the slashed 200 URL — no double hops.
+# /, /services/, /contact/ and /legal/ carry over unchanged (no rule needed).
+
+/home/            /            301
+/about-us/        /about/      301
+/privacy-policy/  /privacy/    301
+/testing/         /            301
+/author/admin/    /about/      301
+/author/*         /about/      301
+
+# Old WordPress plumbing that accumulates inbound hits — send home rather than 404.
+/wp-sitemap.xml            /sitemap-index.xml  301
+/wp-sitemap-posts-page-1.xml  /sitemap-index.xml  301
+/feed/            /            301
