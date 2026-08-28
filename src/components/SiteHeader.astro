@@ -130,7 +130,8 @@ const isActive = (key: string) => (active === key ? 'is-active' : '');
     background: none;
     border: none;
     cursor: pointer;
-    padding: 8px 4px;
+    /* 6px side padding -> 24px-wide hit area (WCAG 2.2 target-size minimum). */
+    padding: 8px 6px;
     display: flex;
     align-items: center;
     color: var(--sas-purple-deep);

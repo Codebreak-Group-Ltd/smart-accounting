@@ -187,11 +187,18 @@ const allSchema = [orgSchema, webSiteSchema, ...schema];
         });
         // Failsafe: if anything is still hidden 2.5s after load (e.g. observer never
         // fired in an odd environment), force it visible so nothing ships blank.
+        // INSTANTLY (transition cleared first): a failsafe fade left text at partial
+        // opacity while auditors sampled it — Lighthouse/axe read blended colours and
+        // flagged contrast failures that do not exist at steady state.
         setTimeout(() => {
           document.querySelectorAll<HTMLElement>('main > section > div, main > section > .container')
             .forEach((w) => Array.from(w.children).forEach((k) => {
               const el = k as HTMLElement;
-              if (el.style.opacity === '0') { el.style.opacity = '1'; el.style.transform = 'none'; }
+              if (el.style.opacity === '0') {
+                el.style.transition = 'none';
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+              }
             }));
         }, 2500);
       };
