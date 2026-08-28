@@ -53,6 +53,8 @@ export const site = {
   leadTags: 'website,contact-form',
 } as const;
 
+// Canonical host is the APEX (no www) — matches the old site's canonicalisation,
+// preserving indexed URLs and link equity (verified 2026-08-28).
 export const siteUrl = (
-  import.meta.env.SITE_URL || 'https://www.smartaccountingsolutions.co.uk'
+  import.meta.env.SITE_URL || 'https://smartaccountingsolutions.co.uk'
 ).replace(/\/$/, '');
