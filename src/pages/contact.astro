@@ -100,6 +100,10 @@ const breadcrumb = {
           <input type="hidden" name="form-name" value="contact" />
           <input type="hidden" name="source" value={site.leadSource} />
           <input type="hidden" name="page" value="/contact/" />
+          {/* Filled by JS at submit time. Declared here because Netlify only
+              includes DECLARED fields in stored submissions + email notifications. */}
+          <input type="hidden" name="timestamp" value="" />
+          <input type="hidden" name="attribution" value="" />
           <p class="bot-field" aria-hidden="true">
             <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
           </p>
@@ -311,18 +315,26 @@ const breadcrumb = {
       };
 
       if (!isBot) {
+        // Fill the declared hidden fields so Netlify's stored submission and the
+        // email notification carry the full context, not just the typed fields.
+        (form.elements.namedItem('timestamp') as HTMLInputElement).value = payload.timestamp as string;
+        const attrSummary = Object.entries(attribution)
+          .map(([k, v]) => `${k}=${v}`)
+          .join('; ') || 'none (direct visit)';
+        (form.elements.namedItem('attribution') as HTMLInputElement).value = attrSummary;
+
         // 1) Netlify Forms — always, as the delivery path until a CRM webhook is
         //    configured and as the backup submission log afterwards (playbook §8).
+        //    Body built from the form itself, so it exactly matches the declared
+        //    fields Netlify registered at deploy time.
         try {
-          const netlifyBody = new URLSearchParams();
-          netlifyBody.set('form-name', 'contact');
-          for (const [k, v] of Object.entries(payload)) {
-            if (v != null && k !== 'tags') netlifyBody.set(k, String(v));
-          }
+          const netlifyBody = new URLSearchParams(
+            new FormData(form) as unknown as Record<string, string>
+          ).toString();
           await fetch('/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: netlifyBody.toString(),
+            body: netlifyBody,
             keepalive: true,
           });
         } catch { /* swallow — the user always reaches the thank-you state */ }
