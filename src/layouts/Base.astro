@@ -15,6 +15,8 @@ import '../styles/global.css';
 import { siteUrl, site } from '../data/site';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import gothamWoff from '../fonts/Gotham-Bold.woff?url';
 
 interface Props {
   title: string;
@@ -33,7 +35,9 @@ const {
   title,
   description,
   active,
-  ogImage,
+  // Branded default OG image (1200×630) so every share/scrape has a card;
+  // pages can pass a bespoke one when those exist.
+  ogImage = '/og-default.jpg',
   noindex = false,
   schema = [],
 } = Astro.props;
@@ -52,8 +56,8 @@ const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'AccountingService',
   '@id': `${siteUrl}/#organization`,
-  name: site.legalName,
-  alternateName: site.name,
+  name: site.name,
+  legalName: site.legalName, // registered entity — must match the footer/privacy legals
   url: `${siteUrl}/`,
   telephone: site.phoneOffice,
   email: site.emailPrimary,
@@ -93,6 +97,11 @@ const allSchema = [orgSchema, webSiteSchema, ...schema];
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Gotham carries every heading incl. the LCP H1 — preload beats CSS discovery. -->
+    <link rel="preload" href={gothamWoff} as="font" type="font/woff" crossorigin />
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -128,28 +137,9 @@ const allSchema = [orgSchema, webSiteSchema, ...schema];
     </main>
     <SiteFooter />
 
-    <script>
-      // Attribution capture (playbook §6): store ad-click + campaign params on first
-      // landing so every lead payload can be attributed. No cookies, no third parties —
-      // localStorage only. Persists the first-touch values across the visit.
-      (() => {
-        try {
-          const KEY = 'sas_attribution';
-          const params = new URLSearchParams(window.location.search);
-          const keys = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
-          const existing = JSON.parse(localStorage.getItem(KEY) || '{}');
-          let changed = false;
-          for (const k of keys) {
-            const v = params.get(k);
-            if (v && !existing[k]) { existing[k] = v; changed = true; }
-          }
-          if (changed || !localStorage.getItem(KEY)) {
-            if (!existing.landing_page) existing.landing_page = window.location.pathname;
-            localStorage.setItem(KEY, JSON.stringify(existing));
-          }
-        } catch { /* localStorage unavailable — attribution simply absent */ }
-      })();
-    </script>
+    <!-- Consent banner + preference centre. Attribution capture and GA4 loading
+         live INSIDE it, gated on analytics consent (playbook §6/§7 + PECR). -->
+    <CookieConsent />
 
     <script>
       // Scroll reveals (handoff spec): reveal direct children of each section's inner

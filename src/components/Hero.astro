@@ -1,6 +1,11 @@
 ---
 /* Shared hero shell — deep-purple gradient over the backdrop photo. The backdrop is
-   the LCP element: rendered as a sized WebP and set as the section background.
+   the LCP element, so it gets the full treatment (playbook §5):
+   - two renditions: ~840w for phones, 1800w for larger screens, quality tuned low
+     because the photo sits behind a heavy purple gradient (loss is invisible);
+   - <link rel="preload" as="image" media=...> for each, because CSS background
+     images are invisible to the browser's preload scanner and would otherwise
+     wait for full CSS parse + layout before fetching.
    Optional `band` slot renders a full-width strip below the hero content (home). */
 import { getImage } from 'astro:assets';
 import backdrop from '../assets/images/hero-backdrop.png';
@@ -11,10 +16,21 @@ interface Props {
 const { size = 'inner' } = Astro.props;
 const hasBand = Astro.slots.has('band');
 
-const bg = await getImage({ src: backdrop, format: 'webp', width: 1920, quality: 70 });
+const MOBILE_MQ = '(max-width: 700px)';
+const DESKTOP_MQ = '(min-width: 700.1px)';
+
+const bgSm = await getImage({ src: backdrop, format: 'webp', width: 840, quality: 55 });
+const bgLg = await getImage({ src: backdrop, format: 'webp', width: 1800, quality: 60 });
 ---
 
-<section class={`hero hero--${size}`} aria-label="Introduction" style={`--hero-bg: url('${bg.src}')`}>
+<link rel="preload" as="image" href={bgSm.src} media={MOBILE_MQ} fetchpriority="high" />
+<link rel="preload" as="image" href={bgLg.src} media={DESKTOP_MQ} fetchpriority="high" />
+
+<section
+  class={`hero hero--${size}`}
+  aria-label="Introduction"
+  style={`--hero-bg-sm: url('${bgSm.src}'); --hero-bg-lg: url('${bgLg.src}')`}
+>
   <div class="hero-inner">
     <slot />
   </div>
@@ -30,9 +46,16 @@ const bg = await getImage({ src: backdrop, format: 'webp', width: 1920, quality:
     background-color: var(--sas-purple-deep);
     background-image:
       linear-gradient(100deg, #36184f 0%, rgba(54, 24, 79, .95) 48%, rgba(54, 24, 79, .55) 100%),
-      var(--hero-bg);
+      var(--hero-bg-lg);
     background-size: cover;
     background-position: center 65%;
+  }
+  @media (max-width: 700px) {
+    .hero {
+      background-image:
+        linear-gradient(100deg, #36184f 0%, rgba(54, 24, 79, .95) 48%, rgba(54, 24, 79, .55) 100%),
+        var(--hero-bg-sm);
+    }
   }
   .hero-inner {
     max-width: var(--container-max);

@@ -1,0 +1,275 @@
+---
+/* ============================================================================
+   Cookie consent banner + preference centre (playbook §6/§7, UK GDPR + PECR).
+   Behaviour the approved Cookie Policy (/cookies/) promises, implemented:
+   - Banner on first visit; Accept all and Reject non-essential with EQUAL
+     prominence (no dark patterns), plus a granular Manage preferences panel.
+   - Choice stored in the `cookie_consent` first-party cookie for 12 months.
+   - Revocable at any time via the "Cookie settings" footer link (re-opens this).
+   - ZERO non-essential storage or third-party requests before consent:
+     * GA4 loads only after analytics consent AND only when PUBLIC_GA4_ID is set
+       (Consent Mode v2 defaults denied are set before gtag, then updated).
+     * Attribution capture (gclid/utm -> localStorage) runs only after analytics
+       consent; existing attribution data is deleted on reject.
+   - Compact single-column layout on small screens (playbook §10) while keeping
+     both buttons visible. Reduced-motion safe. No layout shift (overlay).
+   ========================================================================== */
+import { categories, CONSENT_COOKIE, CONSENT_MAX_AGE, GA4_ID } from '../data/cookies';
+---
+
+<div
+  id="cc-root"
+  data-cookie-name={CONSENT_COOKIE}
+  data-max-age={CONSENT_MAX_AGE}
+  data-ga4={GA4_ID}
+  hidden
+>
+  <section class="cc-banner" role="region" aria-label="Cookie consent" aria-describedby="cc-text">
+    <div class="cc-inner">
+      <p id="cc-text" class="cc-copy">
+        We use cookies to understand how our website is used and to improve your
+        experience. See our <a href="/cookies/">Cookie Policy</a> for details.
+      </p>
+
+      <div class="cc-prefs" id="cc-prefs" hidden>
+        <div class="cc-cat">
+          <div class="cc-cat-head">
+            <span class="cc-cat-label">Strictly necessary</span>
+            <span class="cc-always">Always on</span>
+          </div>
+          <p class="cc-cat-desc">Essential for the website to work, including remembering your cookie choices. These do not require consent.</p>
+        </div>
+        {categories.map((cat) => (
+          <div class="cc-cat">
+            <div class="cc-cat-head">
+              <label class="cc-cat-label" for={`cc-${cat.key}`}>{cat.label}</label>
+              <input type="checkbox" id={`cc-${cat.key}`} class="cc-toggle" data-category={cat.key} />
+            </div>
+            <p class="cc-cat-desc">{cat.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="cc-actions">
+        <button type="button" class="cc-btn cc-btn--solid" id="cc-accept">Accept all</button>
+        <button type="button" class="cc-btn cc-btn--solid" id="cc-reject">Reject non-essential</button>
+        <button type="button" class="cc-btn cc-btn--ghost" id="cc-manage" aria-expanded="false" aria-controls="cc-prefs">Manage preferences</button>
+        <button type="button" class="cc-btn cc-btn--solid" id="cc-save" hidden>Save preferences</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<style>
+  #cc-root {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: var(--z-consent);
+  }
+  .cc-banner {
+    background: var(--sas-white);
+    border-top: 1px solid var(--sas-gray-15);
+    box-shadow: 0 -8px 30px rgba(54, 24, 79, .18);
+  }
+  .cc-inner {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 18px var(--section-x) 16px;
+  }
+  .cc-copy {
+    font-family: var(--font-body);
+    font-size: 14.5px;
+    line-height: 1.55;
+    color: var(--sas-ink);
+    margin: 0;
+    max-width: 78ch;
+  }
+  .cc-copy a { color: var(--sas-purple); }
+
+  .cc-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 14px;
+  }
+  .cc-btn {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-button);
+    font-size: 12px;
+    border-radius: var(--radius-pill);
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+  }
+  /* Accept and Reject share IDENTICAL styling — equal prominence (ICO). */
+  .cc-btn--solid {
+    background: var(--sas-purple-deep);
+    color: var(--sas-white);
+    border: 1.5px solid var(--sas-purple-deep);
+  }
+  .cc-btn--solid:hover { background: var(--sas-purple); border-color: var(--sas-purple); }
+  .cc-btn--ghost {
+    background: transparent;
+    color: var(--sas-purple-deep);
+    border: 1.5px solid var(--sas-gray-15);
+  }
+  .cc-btn--ghost:hover { border-color: var(--sas-purple-30); color: var(--sas-purple); }
+  .cc-btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+  .cc-prefs {
+    margin-top: 14px;
+    border-top: 1px solid var(--sas-gray-15);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 6px 32px;
+    padding-top: 12px;
+  }
+  /* A display rule beats the hidden attribute — restore it explicitly. */
+  .cc-prefs[hidden] { display: none; }
+  .cc-cat-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .cc-cat-label { font-family: var(--font-body); font-weight: 600; font-size: 14px; color: var(--sas-purple-deep); }
+  .cc-always { font-family: var(--font-body); font-size: 12px; color: var(--sas-gray-70); }
+  .cc-cat-desc { font-family: var(--font-body); font-size: 12.5px; line-height: 1.5; color: var(--sas-gray-70); margin: 4px 0 8px; }
+  .cc-toggle { width: 18px; height: 18px; accent-color: var(--sas-purple); cursor: pointer; }
+  .cc-toggle:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+
+  /* Compact mobile variant (playbook §10): tighter copy, full-width buttons,
+     both Accept AND Reject still visible without scrolling. */
+  @media (max-width: 640px) {
+    .cc-inner { padding: 14px var(--section-x) 12px; }
+    .cc-copy { font-size: 13px; line-height: 1.45; }
+    .cc-actions { margin-top: 10px; gap: 8px; }
+    .cc-btn { padding: 11px 16px; font-size: 11.5px; flex: 1 1 auto; text-align: center; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById('cc-root');
+    if (!root) return;
+    const COOKIE = root.dataset.cookieName || 'cookie_consent';
+    const MAX_AGE = Number(root.dataset.maxAge) || 31536000;
+    const GA4 = root.dataset.ga4 || '';
+
+    type Consent = { necessary: true; analytics: boolean; functional: boolean; ts: string };
+
+    const readConsent = (): Consent | null => {
+      const m = document.cookie.match(new RegExp('(?:^|; )' + COOKIE + '=([^;]*)'));
+      if (!m) return null;
+      try { return JSON.parse(decodeURIComponent(m[1])); } catch { return null; }
+    };
+    const writeConsent = (c: Consent) => {
+      document.cookie =
+        COOKIE + '=' + encodeURIComponent(JSON.stringify(c)) +
+        '; Max-Age=' + MAX_AGE + '; Path=/; SameSite=Lax' +
+        (location.protocol === 'https:' ? '; Secure' : '');
+    };
+
+    // --- gated services -----------------------------------------------------
+    let ga4Loaded = false;
+    const loadGA4 = () => {
+      if (!GA4 || ga4Loaded) return;
+      ga4Loaded = true;
+      // Consent Mode v2: defaults denied BEFORE gtag, then analytics granted.
+      const w = window as any;
+      w.dataLayer = w.dataLayer || [];
+      w.gtag = function gtag() { w.dataLayer.push(arguments); };
+      w.gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+      });
+      w.gtag('consent', 'update', { analytics_storage: 'granted' });
+      w.gtag('js', new Date());
+      w.gtag('config', GA4, { anonymize_ip: true });
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(GA4);
+      document.head.appendChild(s);
+    };
+
+    // Attribution capture (playbook §6) — analytics-consent-gated (PECR: local
+    // storage of ad-click ids is not strictly necessary).
+    const captureAttribution = () => {
+      try {
+        const KEY = 'sas_attribution';
+        const params = new URLSearchParams(window.location.search);
+        const keys = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
+        const existing = JSON.parse(localStorage.getItem(KEY) || '{}');
+        let changed = false;
+        for (const k of keys) {
+          const v = params.get(k);
+          if (v && !existing[k]) { existing[k] = v; changed = true; }
+        }
+        if (changed || !localStorage.getItem(KEY)) {
+          if (!existing.landing_page) existing.landing_page = window.location.pathname;
+          localStorage.setItem(KEY, JSON.stringify(existing));
+        }
+      } catch { /* unavailable — attribution simply absent */ }
+    };
+    const clearAttribution = () => {
+      try { localStorage.removeItem('sas_attribution'); } catch { /* ignore */ }
+    };
+
+    const applyConsent = (c: Consent) => {
+      if (c.analytics) { captureAttribution(); loadGA4(); }
+      else clearAttribution();
+    };
+
+    // --- UI -----------------------------------------------------------------
+    const prefs = document.getElementById('cc-prefs')!;
+    const manageBtn = document.getElementById('cc-manage')!;
+    const saveBtn = document.getElementById('cc-save')!;
+    const toggles = Array.from(root.querySelectorAll<HTMLInputElement>('.cc-toggle'));
+
+    const show = () => {
+      const current = readConsent();
+      toggles.forEach((t) => {
+        const key = t.dataset.category as 'analytics' | 'functional';
+        t.checked = current ? !!current[key] : false;
+      });
+      root.hidden = false;
+    };
+    const hide = () => {
+      root.hidden = true;
+      prefs.hidden = true;
+      saveBtn.hidden = true;
+      manageBtn.setAttribute('aria-expanded', 'false');
+    };
+
+    const decide = (analytics: boolean, functional: boolean) => {
+      const c: Consent = { necessary: true, analytics, functional, ts: new Date().toISOString() };
+      writeConsent(c);
+      applyConsent(c);
+      hide();
+    };
+
+    document.getElementById('cc-accept')!.addEventListener('click', () => decide(true, true));
+    document.getElementById('cc-reject')!.addEventListener('click', () => decide(false, false));
+    manageBtn.addEventListener('click', () => {
+      const open = prefs.hidden;
+      prefs.hidden = !open;
+      saveBtn.hidden = !open;
+      manageBtn.setAttribute('aria-expanded', String(open));
+    });
+    saveBtn.addEventListener('click', () => {
+      const get = (k: string) => toggles.find((t) => t.dataset.category === k)?.checked ?? false;
+      decide(get('analytics'), get('functional'));
+    });
+
+    // Revocation: any element with data-cc-open (footer "Cookie settings" link)
+    // re-opens the banner with current choices pre-filled.
+    document.querySelectorAll('[data-cc-open]').forEach((el) =>
+      el.addEventListener('click', (e) => { e.preventDefault(); show(); })
+    );
+
+    // --- boot ---------------------------------------------------------------
+    const existing = readConsent();
+    if (existing) applyConsent(existing);
+    else show();
+  })();
+</script>

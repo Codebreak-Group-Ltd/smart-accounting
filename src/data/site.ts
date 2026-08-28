@@ -11,8 +11,10 @@
 
 export const site = {
   name: 'Smart Accounting Solutions',
-  legalName: 'Smart Accounting Solutions Limited',
-  companyNumber: '11203679', // The Intelligent Assembly Limited (SAS trading entity) — client-confirmed 2026-08-27
+  // Registered entity (client-confirmed 2026-08-27): SAS is a trading style of
+  // The Intelligent Assembly Limited — this is what schema legalName must carry.
+  legalName: 'The Intelligent Assembly Limited',
+  companyNumber: '11203679',
   registeredIn: 'England & Wales',
   founder: 'Craig Normington',
 

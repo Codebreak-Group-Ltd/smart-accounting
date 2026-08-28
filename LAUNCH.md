@@ -65,6 +65,33 @@ All 4 marketing pages + shared components + self-hosted assets + scroll-reveal/r
 - [x] **Contact map rebuilt** (2026-07-21): clean static map generated from OSM tiles (tools/build-map.mjs) centred on S36 6FQ (53.522053,-1.621787), on-brand purple wash + purple/gold pin, rounded-rect, links to Google Maps, "© OpenStreetMap contributors" attribution shown. No third-party runtime request (baked static image) so no consent concern.
 - [x] Header: mobile white gap fixed (--header-h tracks logo per breakpoint); whole header shrinks on scroll (77→57px), not just the logo.
 
+## Pre-launch hardening (2026-08-28, launch audit — branch launch/pre-launch-hardening)
+**GDPR/PECR — the approved Cookie Policy promised a consent mechanism that did not exist. Now built:**
+- [x] Consent registry `src/data/cookies.ts` (single source of truth, playbook §6) + `CookieConsent.astro` banner: Accept all / Reject non-essential with IDENTICAL styling (equal prominence), granular Manage preferences panel (Analytics, Functional; Necessary always-on), compact mobile variant (158px, hero CTA unobscured), `cookie_consent` cookie 12 months SameSite=Lax Secure — all exactly as the policy describes.
+- [x] Revocation: footer "Cookie settings" link reopens the banner with saved choices pre-filled (policy requirement).
+- [x] GA4 loads ONLY after analytics consent AND only when PUBLIC_GA4_ID is set (Consent Mode v2 defaults denied before gtag, then updated). Zero third-party requests pre-consent — verified via performance entries on a fresh profile.
+- [x] Attribution capture moved INSIDE the consent gate (PECR covers localStorage; not strictly necessary) — runs only after analytics consent; reject DELETES any stored attribution. Verified all paths in-browser: first-visit banner, reject, granular save, reopen, returning-visitor persistence.
+- [x] Bug caught in verification: `.cc-prefs` display:grid overrode [hidden] — banner shipped 60% of a phone viewport. Fixed (`[hidden]{display:none}`), now 14–19%.
+
+**SEO/AEO:**
+- [x] Schema legalName fixed: was "Smart Accounting Solutions Limited" (nonexistent entity) → name "Smart Accounting Solutions" + legalName "The Intelligent Assembly Limited", matching footer/privacy/terms.
+- [x] Removed stale noindex from /cookies/, /legal/, /privacy/, /complaints-procedure/ (real client-approved pages; were noindex-but-in-sitemap — contradictory signals).
+- [x] Knowledge Base meta description 178 → 144 chars.
+- [x] Branded default og:image (1200×630 JPEG from real brand SVGs) on every page + twitter summary_large_image; apple-touch-icon + favicon-32 PNG.
+- [x] /llms.txt (AEO/GEO index; facts drawn from site.ts). robots.txt already allows AI crawlers when indexable.
+- [x] tools/seo-audit.mjs pre-deploy script (playbook §4 tooling): titles/descriptions/H1/canonicals/OG/robots/JSON-LD/alt/dimensions/dead+unslashed links/sitemap-noindex consistency/page weights. 18 findings (8 high) → 0 high in both preview and live modes.
+
+**Performance (GTmetrix/PSI):**
+- [x] Cache-Control: /_astro/* 1y immutable; logos/software/icons/OG 1w + SWR (fixes "efficient cache policy").
+- [x] Hero LCP: two renditions (840w/55q = 34KB mobile, 1800w/60q = 125KB desktop, both < 150KB budget — was a single 201KB 1920w) + `<link rel="preload" as="image" media=…>` for each (CSS backgrounds are invisible to the preload scanner).
+- [x] Gotham-Bold.woff preloaded (carries the LCP H1); verified preload href matches the single hashed asset.
+
+**Leads:**
+- [x] Contact form was posting NOWHERE with no CRM chosen (launch-day enquiries would vanish). Added Netlify Forms fallback (static-detected, honeypot, hidden source/page fields) — submissions land in the Netlify dashboard; CRM webhook remains the primary path when configured, with Netlify as the backup log (playbook §8). Dual delivery verified via fetch-intercept.
+
+**Post-merge actions for this work (Joel, in Netlify UI):** form detection enabled 2026-08-28 ✓. After merge: Forms → Notifications → email notification for form "contact" to **joel@codebreak.co.uk** (test phase). One real end-to-end test, confirm all fields + reply-to arrive, delete the test submission.
+- [ ] **AT CUTOVER (hard gate): switch the form notification recipient from joel@codebreak.co.uk to hello@smartaccountingsolutions.co.uk** — client must not miss live leads because the notification still points at Codebreak.
+
 ## Open — client inputs (flagged)
 - [ ] **Perf pass**: hero backdrop is a CSS background-image (no fetchpriority). Consider preloading it for LCP (playbook §5) during the Lighthouse pass.
 - [ ] **Geography (multiple variants)**: Penistone is South Yorkshire, but approved copy variously says "West and North Yorkshire" (footer/most pages), "Penistone and surrounding areas" (Services CTA), and the About FAQ says SAS is "based in **Sheffield**". Also About FAQ names an association with "Buckle Barton Bookkeeping and Accountancy Services Ltd". All verbatim; client to confirm the canonical service-area wording + whether Sheffield/Buckle Barton are correct before launch (feeds LocalBusiness schema areaServed).
