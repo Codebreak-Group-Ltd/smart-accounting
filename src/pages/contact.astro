@@ -84,11 +84,25 @@ const breadcrumb = {
 
         <form
           id="contact-form"
+          name="contact"
+          method="POST"
           novalidate
+          data-netlify="true"
+          netlify-honeypot="bot-field"
           data-endpoint={site.leadWebhook}
           data-source={site.leadSource}
           data-tags={site.leadTags}
         >
+          {/* Netlify Forms fallback: with no CRM webhook configured yet, submissions
+              POST to Netlify (dashboard + email notification) so no lead is ever
+              lost. When leadWebhook is set, the CRM receives the JSON payload AND
+              Netlify keeps a backup log (playbook §8). */}
+          <input type="hidden" name="form-name" value="contact" />
+          <input type="hidden" name="source" value={site.leadSource} />
+          <input type="hidden" name="page" value="/contact/" />
+          <p class="bot-field" aria-hidden="true">
+            <label>Leave this field empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+          </p>
           <div class="field-grid">
             <div class="field">
               <label for="firstName">First name</label>
@@ -185,6 +199,16 @@ const breadcrumb = {
   .detail-text { font-size: 15.5px; line-height: 1.55; color: var(--sas-ink); margin: 6px 0 0; }
 
   .form-sub { font-size: 14.5px; color: var(--sas-gray-70); margin: 10px 0 0; }
+
+  /* Honeypot — visually removed for humans, present for bots. */
+  .bot-field {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    margin: 0;
+  }
   #contact-form { display: flex; flex-direction: column; gap: 20px; margin-top: 28px; }
   .field-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
   .field { display: flex; flex-direction: column; gap: 6px; }
@@ -264,10 +288,15 @@ const breadcrumb = {
       btn.disabled = true;
       btn.textContent = 'Sending...';
 
+      const data = new FormData(form);
+
+      // Honeypot: bots that fill the hidden field get the thank-you state with
+      // no network activity at all.
+      const isBot = Boolean((data.get('bot-field') as string | null)?.trim());
+
       let attribution: Record<string, string> = {};
       try { attribution = JSON.parse(localStorage.getItem('sas_attribution') || '{}'); } catch { /* ignore */ }
 
-      const data = new FormData(form);
       const payload = {
         firstName: data.get('firstName'),
         lastName: data.get('lastName'),
@@ -281,16 +310,36 @@ const breadcrumb = {
         ...attribution,
       };
 
-      const endpoint = form.dataset.endpoint;
-      if (endpoint) {
+      if (!isBot) {
+        // 1) Netlify Forms — always, as the delivery path until a CRM webhook is
+        //    configured and as the backup submission log afterwards (playbook §8).
         try {
-          await fetch(endpoint, {
+          const netlifyBody = new URLSearchParams();
+          netlifyBody.set('form-name', 'contact');
+          for (const [k, v] of Object.entries(payload)) {
+            if (v != null && k !== 'tags') netlifyBody.set(k, String(v));
+          }
+          await fetch('/', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: netlifyBody.toString(),
             keepalive: true,
           });
-        } catch { /* swallow — user still reaches thank-you; Netlify Forms can back this up */ }
+        } catch { /* swallow — the user always reaches the thank-you state */ }
+
+        // 2) CRM webhook — when configured (site.ts leadWebhook), the full JSON
+        //    payload including attribution goes to the CRM as the primary path.
+        const endpoint = form.dataset.endpoint;
+        if (endpoint) {
+          try {
+            await fetch(endpoint, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              keepalive: true,
+            });
+          } catch { /* swallow — Netlify Forms already has the lead */ }
+        }
       }
 
       form.hidden = true;
